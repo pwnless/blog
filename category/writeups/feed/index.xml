@@ -9,8 +9,8 @@
 
 <channel>
 	<title>writeups &#8211; Hopeless blog</title>
-	<atom:link href="/category/writeups/feed/" rel="self" type="application/rss+xml" />
-	<link></link>
+	<atom:link href="https://pwnblog.github.io/category/writeups/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pwnblog.github.io</link>
 	<description>Pwn the life</description>
 	<lastBuildDate>Wed, 09 Feb 2022 16:36:51 +0000</lastBuildDate>
 	<language>en-US</language>
@@ -21,15 +21,15 @@
 	<generator>https://wordpress.org/?v=5.9</generator>
 	<item>
 		<title>Realworld CTF &#8220;The rise of sky&#8221; writeup</title>
-		<link>/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/</link>
-					<comments>/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#respond</comments>
+		<link>https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/</link>
+					<comments>https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#respond</comments>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Wed, 09 Feb 2022 15:27:15 +0000</pubDate>
 				<category><![CDATA[writeups]]></category>
-		<guid isPermaLink="false">/?p=30</guid>
+		<guid isPermaLink="false">https://pwnblog.github.io/?p=30</guid>
 
-					<description><![CDATA[0x1 Challenge accepted We&#8217;re given a small compressed file, the first thing to do is throw it in binwalk :). Looks like a iot system image packed with CramFS, we gotta install some cramfs tools in order to unpack this file. spoiler: binwalk -e sucks, although it can unpack this image, you won&#8217;t get all ... <a title="Realworld CTF &#8220;The rise of sky&#8221; writeup" class="read-more" href="/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/" aria-label="More on Realworld CTF &#8220;The rise of sky&#8221; writeup">Read more</a>]]></description>
+					<description><![CDATA[0x1 Challenge accepted We&#8217;re given a small compressed file, the first thing to do is throw it in binwalk :). Looks like a iot system image packed with CramFS, we gotta install some cramfs tools in order to unpack this file. spoiler: binwalk -e sucks, although it can unpack this image, you won&#8217;t get all ... <a title="Realworld CTF &#8220;The rise of sky&#8221; writeup" class="read-more" href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/" aria-label="More on Realworld CTF &#8220;The rise of sky&#8221; writeup">Read more</a>]]></description>
 										<content:encoded><![CDATA[
 <h2 id="0x1-challenge-accepted">0x1 Challenge accepted</h2>
 
@@ -79,7 +79,7 @@
 
 
 
-<figure class="wp-block-image size-full"><img width="670" height="156" src="/wp-content/uploads/2022/02/image.png" alt="" class="wp-image-51" srcset="/wp-content/uploads/2022/02/image.png 670w, /wp-content/uploads/2022/02/image-300x70.png 300w" sizes="(max-width: 670px) 100vw, 670px" /></figure>
+<figure class="wp-block-image size-full"><img width="670" height="156" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png" alt="" class="wp-image-51" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png 670w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-300x70.png 300w" sizes="(max-width: 670px) 100vw, 670px" /></figure>
 
 
 
@@ -234,7 +234,7 @@ netstat: /proc/net/unix: bogus data on line 3</code></pre></div>
 
 
 
-<figure class="wp-block-image size-full"><img loading="lazy" width="802" height="565" src="/wp-content/uploads/2022/02/image-1.png" alt="" class="wp-image-61" srcset="/wp-content/uploads/2022/02/image-1.png 802w, /wp-content/uploads/2022/02/image-1-300x211.png 300w, /wp-content/uploads/2022/02/image-1-768x541.png 768w" sizes="(max-width: 802px) 100vw, 802px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" width="802" height="565" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image-1.png" alt="" class="wp-image-61" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image-1.png 802w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-1-300x211.png 300w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-1-768x541.png 768w" sizes="(max-width: 802px) 100vw, 802px" /></figure>
 
 
 
@@ -715,7 +715,7 @@ p.interactive()</code></pre></div>
 <p></p>
 ]]></content:encoded>
 					
-					<wfw:commentRss>/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/feed/</wfw:commentRss>
+					<wfw:commentRss>https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/feed/</wfw:commentRss>
 			<slash:comments>0</slash:comments>
 		
 		
