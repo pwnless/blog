@@ -11,8 +11,8 @@
 	<title>writeups &#8211; Hopeless blog</title>
 	<atom:link href="/category/writeups/feed/" rel="self" type="application/rss+xml" />
 	<link></link>
-	<description>Just another WordPress site</description>
-	<lastBuildDate>Wed, 09 Feb 2022 15:27:18 +0000</lastBuildDate>
+	<description>Pwn the life</description>
+	<lastBuildDate>Wed, 09 Feb 2022 16:36:51 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -22,6 +22,7 @@
 	<item>
 		<title>Realworld CTF &#8220;The rise of sky&#8221; writeup</title>
 		<link>/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/</link>
+					<comments>/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#respond</comments>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Wed, 09 Feb 2022 15:27:15 +0000</pubDate>
@@ -38,7 +39,7 @@
 
 
 
-<script id="asciicast-XUTc1rW9IWiaNgaHusECGU96z" src="https://asciinema.org/a/XUTc1rW9IWiaNgaHusECGU96z.js" async data-rows="20" data-cols="100"></script>
+<script id="asciicast-XUTc1rW9IWiaNgaHusECGU96z" src="https://asciinema.org/a/XUTc1rW9IWiaNgaHusECGU96z.js" async="" data-rows="20" data-cols="100"></script>
 
 
 
@@ -54,7 +55,7 @@
 
 
 
-<script id="asciicast-2y43V2hCdi2PoX6qAKfWWalFt" src="https://asciinema.org/a/2y43V2hCdi2PoX6qAKfWWalFt.js" async></script>
+<script id="asciicast-2y43V2hCdi2PoX6qAKfWWalFt" src="https://asciinema.org/a/2y43V2hCdi2PoX6qAKfWWalFt.js" async=""></script>
 
 
 
@@ -130,7 +131,7 @@
 
 
 
-<script id="asciicast-asFrrLX03XDwpnQqHnrpX8Qhb" src="https://asciinema.org/a/asFrrLX03XDwpnQqHnrpX8Qhb.js" async data-speed="2"></script>
+<script id="asciicast-asFrrLX03XDwpnQqHnrpX8Qhb" src="https://asciinema.org/a/asFrrLX03XDwpnQqHnrpX8Qhb.js" async="" data-speed="2"></script>
 
 
 
@@ -166,7 +167,7 @@
 
 
 
-<script id="asciicast-wWQ7GoYGHDrW5QWwEB8zBozJY" src="https://asciinema.org/a/wWQ7GoYGHDrW5QWwEB8zBozJY.js" async></script>
+<script id="asciicast-wWQ7GoYGHDrW5QWwEB8zBozJY" src="https://asciinema.org/a/wWQ7GoYGHDrW5QWwEB8zBozJY.js" async=""></script>
 
 
 
@@ -586,7 +587,7 @@ Cannot access memory at address 0x12345678
 
 
 
-<p>So here the solution is very obvious, control pc&#8211;>ret to fixed packet address &#8211;> shellcode!</p>
+<p>So here the solution is very obvious, control pc&#8211;&gt;ret to fixed packet address &#8211;&gt; shellcode!</p>
 
 
 
@@ -672,7 +673,6 @@ if debug:
     p = remote(&#39;192.168.101.23&#39;, 8554)
 else:
     p = remote(&#39;47.242.246.203&#39;, 32042)
-#    p.sendlineafter(&#39;:&#39;, &#39;jFtAt3QdTzm8W1qjMz+Oaw==&#39;)
 
 sc = [
     0x23, 0x14, 0x0E, 0xDD, 0x00, 0x20, 0xEE, 0xDD, 0x01, 0x20, 0x82, 0xB8, 0x3B, 0x6E, 0x25, 0x16,
@@ -715,6 +715,8 @@ p.interactive()</code></pre></div>
 <p></p>
 ]]></content:encoded>
 					
+					<wfw:commentRss>/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
 		
 		
 			</item>
