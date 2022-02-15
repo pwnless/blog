@@ -3,9 +3,30 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-	<title>Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup &#8211; Hopeless blog</title>
-<meta name="robots" content="max-image-preview:large">
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- This site is optimized with the Yoast SEO plugin v18.1 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Realworld CTF 2022 &quot;The rise of sky&quot; writeup - Hopeless blog</title>
+	<meta name="description" content="Interesting challenge with CSKY cpu and weird arch mcore in RWCTF 2022">
+	<link rel="canonical" href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">
+	<meta property="og:locale" content="en_US">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Realworld CTF 2022 &quot;The rise of sky&quot; writeup - Hopeless blog">
+	<meta property="og:description" content="Interesting challenge with CSKY cpu and weird arch mcore in RWCTF 2022">
+	<meta property="og:url" content="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">
+	<meta property="og:site_name" content="Hopeless blog">
+	<meta property="article:published_time" content="2022-02-09T15:27:15+00:00">
+	<meta property="article:modified_time" content="2022-02-15T14:49:09+00:00">
+	<meta property="og:image" content="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:label1" content="Written by">
+	<meta name="twitter:data1" content="rookie">
+	<meta name="twitter:label2" content="Est. reading time">
+	<meta name="twitter:data2" content="12 minutes">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pwnblog.github.io/#website","url":"https://pwnblog.github.io/","name":"Hopeless blog","description":"Pwn the life","publisher":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://pwnblog.github.io/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#primaryimage","inLanguage":"en-US","url":"https://pwnblog.github.io/wp-content/uploads/2022/02/image.png","contentUrl":"https://pwnblog.github.io/wp-content/uploads/2022/02/image.png","width":670,"height":156},{"@type":"WebPage","@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#webpage","url":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/","name":"Realworld CTF 2022 \"The rise of sky\" writeup - Hopeless blog","isPartOf":{"@id":"https://pwnblog.github.io/#website"},"primaryImageOfPage":{"@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#primaryimage"},"datePublished":"2022-02-09T15:27:15+00:00","dateModified":"2022-02-15T14:49:09+00:00","description":"Interesting challenge with CSKY cpu and weird arch mcore in RWCTF 2022","breadcrumb":{"@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/"]}]},{"@type":"BreadcrumbList","@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://pwnblog.github.io/"},{"@type":"ListItem","position":2,"name":"Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup"}]},{"@type":"Article","@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#article","isPartOf":{"@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#webpage"},"author":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"headline":"Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup","datePublished":"2022-02-09T15:27:15+00:00","dateModified":"2022-02-15T14:49:09+00:00","mainEntityOfPage":{"@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#webpage"},"wordCount":1078,"commentCount":0,"publisher":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"image":{"@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#primaryimage"},"thumbnailUrl":"https://pwnblog.github.io/wp-content/uploads/2022/02/image.png","articleSection":["writeups"],"inLanguage":"en-US","potentialAction":[{"@type":"CommentAction","name":"Comment","target":["https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#respond"]}]},{"@type":["Person","Organization"],"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6","name":"rookie","logo":{"@id":"https://pwnblog.github.io/#personlogo"},"sameAs":["https://pwnblog.github.io"],"url":"https://pwnblog.github.io/author/hopeless/"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
 <link rel="dns-prefetch" href="//s.w.org">
 <link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; Feed" href="https://pwnblog.github.io/feed/">
 <link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; Comments Feed" href="https://pwnblog.github.io/comments/feed/">
@@ -40,7 +61,6 @@ img.emoji {
 <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://pwnblog.github.io/xmlrpc.php?rsd">
 <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://pwnblog.github.io/wp-includes/wlwmanifest.xml"> 
 <meta name="generator" content="WordPress 5.9">
-<link rel="canonical" href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">
 <link rel="shortlink" href="https://pwnblog.github.io/?p=30">
 <link rel="alternate" type="application/json+oembed" href="https://pwnblog.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpwnblog.github.io%2F2022%2F02%2F09%2Frealworld-ctf-the-rise-of-sky-writeup%2F">
 <link rel="alternate" type="text/xml+oembed" href="https://pwnblog.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpwnblog.github.io%2F2022%2F02%2F09%2Frealworld-ctf-the-rise-of-sky-writeup%2F&#038;format=xml">
@@ -83,7 +103,7 @@ img.emoji {
 	<div class="inside-article">
 					<header class="entry-header" aria-label="Content">
 				<h1 class="entry-title" itemprop="headline">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</h1>		<div class="entry-meta">
-			<span class="posted-on"><time class="updated" datetime="2022-02-14T13:43:59+00:00" itemprop="dateModified">February 14, 2022</time><time class="entry-date published" datetime="2022-02-09T15:27:15+00:00" itemprop="datePublished">February 9, 2022</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://pwnblog.github.io/author/hopeless/" title="View all posts by rookie" rel="author" itemprop="url"><span class="author-name" itemprop="name">rookie</span></a></span></span> 		</div>
+			<span class="posted-on"><time class="updated" datetime="2022-02-15T14:49:09+00:00" itemprop="dateModified">February 15, 2022</time><time class="entry-date published" datetime="2022-02-09T15:27:15+00:00" itemprop="datePublished">February 9, 2022</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://pwnblog.github.io/author/hopeless/" title="View all posts by rookie" rel="author" itemprop="url"><span class="author-name" itemprop="name">rookie</span></a></span></span> 		</div>
 					</header>
 			
 		<div class="entry-content" itemprop="text">
@@ -797,7 +817,7 @@ p.interactive()</code></pre></div>
 	<div class="widget-area sidebar is-right-sidebar" id="right-sidebar">
 	<div class="inside-right-sidebar">
 		<aside id="block-3" class="widget inner-padding widget_block">
-<div class="wp-container-620bb7b52f837 wp-block-group"><div class="wp-block-group__inner-container">
+<div class="wp-container-620bbd90926f0 wp-block-group"><div class="wp-block-group__inner-container">
 <h2 id="recent-posts">Recent Posts</h2>
 
 
@@ -807,7 +827,7 @@ p.interactive()</code></pre></div>
 </ul>
 </div></div>
 </aside><aside id="block-4" class="widget inner-padding widget_block">
-<div class="wp-container-620bb7b530be9 wp-block-group"><div class="wp-block-group__inner-container">
+<div class="wp-container-620bbd9093632 wp-block-group"><div class="wp-block-group__inner-container">
 <h2 id="post-categories">Post Categories</h2>
 
 
@@ -832,8 +852,8 @@ p.interactive()</code></pre></div>
 		</footer>
 		</div>
 
-<script id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script><style>.wp-container-620bb7b52f837 .alignleft { float: left; margin-right: 2em; }.wp-container-620bb7b52f837 .alignright { float: right; margin-left: 2em; }</style>
-<style>.wp-container-620bb7b530be9 .alignleft { float: left; margin-right: 2em; }.wp-container-620bb7b530be9 .alignright { float: right; margin-left: 2em; }</style>
+<script id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script><style>.wp-container-620bbd90926f0 .alignleft { float: left; margin-right: 2em; }.wp-container-620bbd90926f0 .alignright { float: right; margin-left: 2em; }</style>
+<style>.wp-container-620bbd9093632 .alignleft { float: left; margin-right: 2em; }.wp-container-620bbd9093632 .alignright { float: right; margin-left: 2em; }</style>
 <script id="disqus_count-js-extra">
 var countVars = {"disqusShortname":"pwnblog"};
 </script>

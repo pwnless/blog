@@ -12,7 +12,7 @@
 	<atom:link href="https://pwnblog.github.io/feed/" rel="self" type="application/rss+xml" />
 	<link>https://pwnblog.github.io</link>
 	<description>Pwn the life</description>
-	<lastBuildDate>Tue, 15 Feb 2022 14:24:15 +0000</lastBuildDate>
+	<lastBuildDate>Tue, 15 Feb 2022 14:49:09 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -28,7 +28,9 @@
 				<category><![CDATA[writeups]]></category>
 		<guid isPermaLink="false">https://pwnblog.github.io/?p=80</guid>
 
-					<description><![CDATA[sslvpn ioa writeup for 0ctf 2021 quals.]]></description>
+					<description><![CDATA[<p>sslvpn ioa writeup for 0ctf 2021 quals.</p>
+<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+]]></description>
 										<content:encoded><![CDATA[
 <h2 id="0x1-directory-traversal">0x1 Directory traversal</h2>
 
@@ -469,6 +471,7 @@ m.interactive()</code></pre></div>
 
 
 <p></p>
+<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
 		
@@ -484,7 +487,9 @@ m.interactive()</code></pre></div>
 				<category><![CDATA[writeups]]></category>
 		<guid isPermaLink="false">https://pwnblog.github.io/?p=30</guid>
 
-					<description><![CDATA[Interesting challenge with CSKY cpu and weird arch mcore in RWCTF 2022]]></description>
+					<description><![CDATA[<p>Interesting challenge with CSKY cpu and weird arch mcore in RWCTF 2022</p>
+<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+]]></description>
 										<content:encoded><![CDATA[
 <h2 id="0x1-challenge-accepted">0x1 Challenge accepted</h2>
 
@@ -1168,6 +1173,7 @@ p.interactive()</code></pre></div>
 
 
 <p></p>
+<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
 					<wfw:commentRss>https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/feed/</wfw:commentRss>
