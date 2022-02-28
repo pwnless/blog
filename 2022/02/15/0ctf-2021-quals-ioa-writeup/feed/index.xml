@@ -7,11 +7,11 @@
 	>
 <channel>
 	<title>
-	Comments for Hopeless blog	</title>
-	<atom:link href="https://pwnblog.github.io/comments/feed/" rel="self" type="application/rss+xml" />
-	<link>https://pwnblog.github.io</link>
+	Comments on: 0CTF 2021 Quals &#8220;ioa&#8221; writeup	</title>
+	<atom:link href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/</link>
 	<description>Pwn the life</description>
-	<lastBuildDate>Mon, 28 Feb 2022 03:10:26 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 28 Feb 2022 01:59:21 +0000</lastBuildDate>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
