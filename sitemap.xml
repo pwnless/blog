@@ -9,27 +9,32 @@
 
 <url>
   <loc>https://pwnblog.github.io/</loc>
-  <lastmod>2022-02-15T14:28:41+00:00</lastmod>
+  <lastmod>2022-02-28T09:34:55+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/</loc>
-  <lastmod>2022-02-15T14:28:41+00:00</lastmod>
+  <loc>https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/</loc>
+  <lastmod>2022-02-28T09:34:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://pwnblog.github.io/author/hopeless/</loc>
-  <lastmod>2022-02-15T14:28:41+00:00</lastmod>
+  <lastmod>2022-02-28T09:34:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://pwnblog.github.io/category/writeups/</loc>
-  <lastmod>2022-02-15T14:28:41+00:00</lastmod>
+  <lastmod>2022-02-28T09:34:55+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/</loc>
+  <lastmod>2022-02-28T09:34:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/</loc>
-  <lastmod>2022-02-15T14:28:41+00:00</lastmod>
+  <lastmod>2022-02-28T09:34:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 
