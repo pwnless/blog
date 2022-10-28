@@ -7,9 +7,9 @@
 	>
 <channel>
 	<title>
-	Comments for Hopeless blog	</title>
-	<atom:link href="https://pwnblog.github.io/comments/feed/" rel="self" type="application/rss+xml" />
-	<link>https://pwnblog.github.io/</link>
+	Comments on: Genshin Impact Server Reverse-Engineering Part 1: Artifacts	</title>
+	<atom:link href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/</link>
 	<description>Pwn the life</description>
 	<lastBuildDate>Fri, 28 Oct 2022 07:08:57 +0000</lastBuildDate>
 	<sy:updatePeriod>

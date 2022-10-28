@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- This site is optimized with the Yoast SEO plugin v19.9 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Genshin Impact Server Reverse-Engineering Part 1: Artifacts - Hopeless blog</title>
+	<meta name="description" content="Genshin Impact Server Reverse-Engineering Part 1: Artifacts - Did you know why you just cannot get perfect artifacts?">
+	<link rel="canonical" href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">
+	<meta property="og:locale" content="en_US">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Genshin Impact Server Reverse-Engineering Part 1: Artifacts - Hopeless blog">
+	<meta property="og:description" content="Genshin Impact Server Reverse-Engineering Part 1: Artifacts - Did you know why you just cannot get perfect artifacts?">
+	<meta property="og:url" content="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">
+	<meta property="og:site_name" content="Hopeless blog">
+	<meta property="article:published_time" content="2022-10-28T07:08:53+00:00">
+	<meta property="article:modified_time" content="2022-10-28T07:08:57+00:00">
+	<meta name="author" content="rookie">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:label1" content="Written by">
+	<meta name="twitter:data1" content="rookie">
+	<meta name="twitter:label2" content="Est. reading time">
+	<meta name="twitter:data2" content="12 minutes">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/#article","isPartOf":{"@id":"https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/"},"author":{"name":"rookie","@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"headline":"Genshin Impact Server Reverse-Engineering Part 1: Artifacts","datePublished":"2022-10-28T07:08:53+00:00","dateModified":"2022-10-28T07:08:57+00:00","mainEntityOfPage":{"@id":"https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/"},"wordCount":1313,"commentCount":0,"publisher":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"articleSection":["reverse-engineering"],"inLanguage":"en-US","potentialAction":[{"@type":"CommentAction","name":"Comment","target":["https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/#respond"]}]},{"@type":"WebPage","@id":"https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/","url":"https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/","name":"Genshin Impact Server Reverse-Engineering Part 1: Artifacts - Hopeless blog","isPartOf":{"@id":"https://pwnblog.github.io/#website"},"datePublished":"2022-10-28T07:08:53+00:00","dateModified":"2022-10-28T07:08:57+00:00","description":"Genshin Impact Server Reverse-Engineering Part 1: Artifacts - Did you know why you just cannot get perfect artifacts?","breadcrumb":{"@id":"https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/"]}]},{"@type":"BreadcrumbList","@id":"https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://pwnblog.github.io/"},{"@type":"ListItem","position":2,"name":"Genshin Impact Server Reverse-Engineering Part 1: Artifacts"}]},{"@type":"WebSite","@id":"https://pwnblog.github.io/#website","url":"https://pwnblog.github.io/","name":"Hopeless blog","description":"Pwn the life","publisher":{"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://pwnblog.github.io/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":["Person","Organization"],"@id":"https://pwnblog.github.io/#/schema/person/ec54b174962c98c5789c4f712e28bba6","name":"rookie","logo":{"@id":"https://pwnblog.github.io/#/schema/person/image/"},"sameAs":["https://pwnblog.github.io"],"url":"https://pwnblog.github.io/author/hopeless/"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="dns-prefetch" href="//s.w.org">
+<link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; Feed" href="https://pwnblog.github.io/feed/">
+<link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; Comments Feed" href="https://pwnblog.github.io/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Hopeless blog &raquo; Genshin Impact Server Reverse-Engineering Part 1: Artifacts Comments Feed" href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/feed/">
+<script>
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/pwnblog.github.io\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.0.3"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode,e=(p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0),i.toDataURL());return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([129777,127995,8205,129778,127999],[129777,127995,8203,129778,127999])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style>img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}</style>
+	<link rel="stylesheet" id="wp-block-library-css" href="https://pwnblog.github.io/wp-includes/css/dist/block-library/style.min.css?ver=6.0.3" media="all">
+<style id="global-styles-inline-css">body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--contrast: var(--contrast);--wp--preset--color--contrast-2: var(--contrast-2);--wp--preset--color--contrast-3: var(--contrast-3);--wp--preset--color--base: var(--base);--wp--preset--color--base-2: var(--base-2);--wp--preset--color--base-3: var(--base-3);--wp--preset--color--accent: var(--accent);--wp--preset--color--global-color-8: var(--global-color-8);--wp--preset--color--global-color-9: var(--global-color-9);--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}</style>
+<link rel="stylesheet" id="generate-comments-css" href="https://pwnblog.github.io/wp-content/themes/generatepress/assets/css/components/comments.min.css?ver=3.2.1" media="all">
+<link rel="stylesheet" id="generate-style-css" href="https://pwnblog.github.io/wp-content/themes/generatepress/assets/css/main.min.css?ver=3.2.1" media="all">
+<style id="generate-style-inline-css">body{background-color:var(--global-color-8);color:var(--contrast);}a{color:var(--accent);}a{text-decoration:underline;}.entry-title a, .site-branding a, a.button, .wp-block-button__link, .main-navigation a{text-decoration:none;}a:hover, a:focus, a:active{color:var(--contrast);}.wp-block-group__inner-container{max-width:1200px;margin-left:auto;margin-right:auto;}:root{--contrast:#222222;--contrast-2:#575760;--contrast-3:#b2b2be;--base:#f0f0f0;--base-2:#f7f8f9;--base-3:#ffffff;--accent:#1e73be;--global-color-8:#e6e5fc;--global-color-9:#8da690;}.has-contrast-color{color:var(--contrast);}.has-contrast-background-color{background-color:var(--contrast);}.has-contrast-2-color{color:var(--contrast-2);}.has-contrast-2-background-color{background-color:var(--contrast-2);}.has-contrast-3-color{color:var(--contrast-3);}.has-contrast-3-background-color{background-color:var(--contrast-3);}.has-base-color{color:var(--base);}.has-base-background-color{background-color:var(--base);}.has-base-2-color{color:var(--base-2);}.has-base-2-background-color{background-color:var(--base-2);}.has-base-3-color{color:var(--base-3);}.has-base-3-background-color{background-color:var(--base-3);}.has-accent-color{color:var(--accent);}.has-accent-background-color{background-color:var(--accent);}.has-global-color-8-color{color:var(--global-color-8);}.has-global-color-8-background-color{background-color:var(--global-color-8);}.has-global-color-9-color{color:var(--global-color-9);}.has-global-color-9-background-color{background-color:var(--global-color-9);}.top-bar{background-color:#636363;color:#ffffff;}.top-bar a{color:#ffffff;}.top-bar a:hover{color:#303030;}.site-header{background-color:var(--global-color-8);}.main-title a,.main-title a:hover{color:var(--contrast);}.site-description{color:var(--contrast-2);}.main-navigation,.main-navigation ul ul{background-color:var(--global-color-9);}.main-navigation .main-nav ul li a, .main-navigation .menu-toggle, .main-navigation .menu-bar-items{color:var(--contrast);}.main-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .main-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .main-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a, .main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{color:var(--accent);}button.menu-toggle:hover,button.menu-toggle:focus{color:var(--contrast);}.main-navigation .main-nav ul li[class*="current-menu-"] > a{color:var(--accent);}.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a, .main-navigation .menu-bar-items .search-item.active > a{color:var(--accent);}.main-navigation ul ul{background-color:var(--base);}.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .one-container .container, .separate-containers .paging-navigation, .inside-page-header{background-color:var(--global-color-9);}.entry-title a{color:var(--contrast);}.entry-title a:hover{color:var(--contrast-2);}.entry-meta{color:var(--contrast-2);}.sidebar .widget{background-color:var(--global-color-9);}.footer-widgets{background-color:var(--base-3);}.site-info{background-color:var(--base-3);}input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="tel"],input[type="number"],textarea,select{color:var(--contrast);background-color:var(--global-color-9);border-color:var(--base);}input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="number"]:focus,textarea:focus,select:focus{color:var(--contrast);background-color:var(--base-2);border-color:var(--contrast-3);}button,html input[type="button"],input[type="reset"],input[type="submit"],a.button,a.wp-block-button__link:not(.has-background){color:#ffffff;background-color:#55555e;}button:hover,html input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,a.button:hover,button:focus,html input[type="button"]:focus,input[type="reset"]:focus,input[type="submit"]:focus,a.button:focus,a.wp-block-button__link:not(.has-background):active,a.wp-block-button__link:not(.has-background):focus,a.wp-block-button__link:not(.has-background):hover{color:#ffffff;background-color:#3f4047;}a.generate-back-to-top{background-color:rgba( 0,0,0,0.4 );color:#ffffff;}a.generate-back-to-top:hover,a.generate-back-to-top:focus{background-color:rgba( 0,0,0,0.6 );color:#ffffff;}@media (max-width:768px){.main-navigation .menu-bar-item:hover > a, .main-navigation .menu-bar-item.sfHover > a{background:none;color:var(--contrast);}}.nav-below-header .main-navigation .inside-navigation.grid-container, .nav-above-header .main-navigation .inside-navigation.grid-container{padding:0px 20px 0px 20px;}.site-main .wp-block-group__inner-container{padding:40px;}.separate-containers .paging-navigation{padding-top:20px;padding-bottom:20px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-40px;width:calc(100% + 80px);max-width:calc(100% + 80px);}.rtl .menu-item-has-children .dropdown-menu-toggle{padding-left:20px;}.rtl .main-navigation .main-nav ul li.menu-item-has-children > a{padding-right:20px;}@media (max-width:768px){.separate-containers .inside-article, .separate-containers .comments-area, .separate-containers .page-header, .separate-containers .paging-navigation, .one-container .site-content, .inside-page-header{padding:30px;}.site-main .wp-block-group__inner-container{padding:30px;}.inside-top-bar{padding-right:30px;padding-left:30px;}.inside-header{padding-right:30px;padding-left:30px;}.widget-area .widget{padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px;}.footer-widgets-container{padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px;}.inside-site-info{padding-right:30px;padding-left:30px;}.entry-content .alignwide, body:not(.no-sidebar) .entry-content .alignfull{margin-left:-30px;width:calc(100% + 60px);max-width:calc(100% + 60px);}.one-container .site-main .paging-navigation{margin-bottom:20px;}}/* End cached CSS */.is-right-sidebar{width:30%;}.is-left-sidebar{width:30%;}.site-content .content-area{width:70%;}@media (max-width:768px){.main-navigation .menu-toggle,.sidebar-nav-mobile:not(#sticky-placeholder){display:block;}.main-navigation ul,.gen-sidebar-nav,.main-navigation:not(.slideout-navigation):not(.toggled) .main-nav > ul,.has-inline-mobile-toggle #site-navigation .inside-navigation > *:not(.navigation-search):not(.main-nav){display:none;}.nav-align-right .inside-navigation,.nav-align-center .inside-navigation{justify-content:space-between;}.has-inline-mobile-toggle .mobile-menu-control-wrapper{display:flex;flex-wrap:wrap;}.has-inline-mobile-toggle .inside-header{flex-direction:row;text-align:left;flex-wrap:wrap;}.has-inline-mobile-toggle .header-widget,.has-inline-mobile-toggle #site-navigation{flex-basis:100%;}.nav-float-left .has-inline-mobile-toggle #site-navigation{order:10;}}</style>
+<link rel="stylesheet" id="hcb-style-css" href="https://pwnblog.github.io/wp-content/plugins/highlighting-code-block/build/css/hcb_style.css?ver=1.6.0" media="all">
+<style id="hcb-style-inline-css">:root{--hcb-font-size: 14px}:root{--hcb-font-size--mobile: 13px}:root{--hcb-font-family:Menlo, Consolas, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;}</style>
+<link rel="stylesheet" id="hcb-coloring-css" href="https://pwnblog.github.io/wp-content/plugins/highlighting-code-block/build/css/coloring_light.css?ver=1.6.0" media="all">
+<link rel="https://api.w.org/" href="https://pwnblog.github.io/wp-json/">
+<link rel="alternate" type="application/json" href="https://pwnblog.github.io/wp-json/wp/v2/posts/117">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://pwnblog.github.io/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://pwnblog.github.io/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 6.0.3">
+<link rel="shortlink" href="https://pwnblog.github.io/?p=117">
+<link rel="alternate" type="application/json+oembed" href="https://pwnblog.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpwnblog.github.io%2F2022%2F10%2F28%2Fgenshin-impact-server-reverse-engineering-part-1-artifacts%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://pwnblog.github.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpwnblog.github.io%2F2022%2F10%2F28%2Fgenshin-impact-server-reverse-engineering-part-1-artifacts%2F&#038;format=xml">
+</head>
+
+<body class="post-template-default single single-post postid-117 single-format-standard wp-embed-responsive right-sidebar nav-float-right separate-containers header-aligned-left dropdown-hover" itemtype="https://schema.org/Blog" itemscope>
+	<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-dark-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 0.49803921568627"></fefuncr><fefuncg type="table" tablevalues="0 0.49803921568627"></fefuncg><fefuncb type="table" tablevalues="0 0.49803921568627"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 1"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0 1"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.54901960784314 0.98823529411765"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0.71764705882353 0.25490196078431"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-red"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 1"></fefuncr><fefuncg type="table" tablevalues="0 0.27843137254902"></fefuncg><fefuncb type="table" tablevalues="0.5921568627451 0.27843137254902"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-midnight"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0 0"></fefuncr><fefuncg type="table" tablevalues="0 0.64705882352941"></fefuncg><fefuncb type="table" tablevalues="0 1"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-magenta-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.78039215686275 1"></fefuncr><fefuncg type="table" tablevalues="0 0.94901960784314"></fefuncg><fefuncb type="table" tablevalues="0.35294117647059 0.47058823529412"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-green"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.65098039215686 0.40392156862745"></fefuncr><fefuncg type="table" tablevalues="0 1"></fefuncg><fefuncb type="table" tablevalues="0.44705882352941 0.4"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-orange"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tablevalues="0.098039215686275 1"></fefuncr><fefuncg type="table" tablevalues="0 0.66274509803922"></fefuncg><fefuncb type="table" tablevalues="0.84705882352941 0.41960784313725"></fefuncb><fefunca type="table" tablevalues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>		<header class="site-header has-inline-mobile-toggle" id="masthead" aria-label="Site" itemtype="https://schema.org/WPHeader" itemscope>
+			<div class="inside-header grid-container">
+				<div class="site-branding">
+						<p class="main-title" itemprop="headline">
+					<a href="https://pwnblog.github.io/" rel="home">
+						Hopeless blog
+					</a>
+				</p>
+						
+					</div>	<nav class="main-navigation mobile-menu-control-wrapper" id="mobile-menu-control-wrapper" aria-label="Mobile Toggle">
+				<button data-nav="site-navigation" class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+			<span class="gp-icon icon-menu-bars"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 96c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24zm0 160c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24zm0 160c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24z"></path></svg><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M71.029 71.029c9.373-9.372 24.569-9.372 33.942 0L256 222.059l151.029-151.03c9.373-9.372 24.569-9.372 33.942 0 9.372 9.373 9.372 24.569 0 33.942L289.941 256l151.03 151.029c9.372 9.373 9.372 24.569 0 33.942-9.373 9.372-24.569 9.372-33.942 0L256 289.941l-151.029 151.03c-9.373 9.372-24.569 9.372-33.942 0-9.372-9.373-9.372-24.569 0-33.942L222.059 256 71.029 104.971c-9.372-9.373-9.372-24.569 0-33.942z"></path></svg></span><span class="screen-reader-text">Menu</span>		</button>
+	</nav>
+			<nav class="main-navigation sub-menu-right" id="site-navigation" aria-label="Primary" itemtype="https://schema.org/SiteNavigationElement" itemscope>
+			<div class="inside-navigation grid-container">
+								<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+					<span class="gp-icon icon-menu-bars"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 96c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24zm0 160c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24zm0 160c0-13.255 10.745-24 24-24h464c13.255 0 24 10.745 24 24s-10.745 24-24 24H24c-13.255 0-24-10.745-24-24z"></path></svg><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M71.029 71.029c9.373-9.372 24.569-9.372 33.942 0L256 222.059l151.029-151.03c9.373-9.372 24.569-9.372 33.942 0 9.372 9.373 9.372 24.569 0 33.942L289.941 256l151.03 151.029c9.372 9.373 9.372 24.569 0 33.942-9.373 9.372-24.569 9.372-33.942 0L256 289.941l-151.029 151.03c-9.373 9.372-24.569 9.372-33.942 0-9.372-9.373-9.372-24.569 0-33.942L222.059 256 71.029 104.971c-9.372-9.373-9.372-24.569 0-33.942z"></path></svg></span><span class="mobile-menu">Menu</span>				</button>
+						<div id="primary-menu" class="main-nav">
+			<ul class="menu sf-menu">
+							</ul>
+		</div>
+					</div>
+		</nav>
+					</div>
+		</header>
+		
+	<div class="site grid-container container hfeed" id="page">
+				<div class="site-content" id="content">
+			
+	<div class="content-area" id="primary">
+		<main class="site-main" id="main">
+			
+<article id="post-117" class="post-117 post type-post status-publish format-standard hentry category-rev" itemtype="https://schema.org/CreativeWork" itemscope>
+	<div class="inside-article">
+					<header class="entry-header" aria-label="Content">
+				<h1 class="entry-title" itemprop="headline">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</h1>		<div class="entry-meta">
+			<span class="posted-on"><time class="entry-date published" datetime="2022-10-28T07:08:53+00:00" itemprop="datePublished">October 28, 2022</time></span> <span class="byline">by <span class="author vcard" itemprop="author" itemtype="https://schema.org/Person" itemscope><a class="url fn n" href="https://pwnblog.github.io/author/hopeless/" title="View all posts by rookie" rel="author" itemprop="url"><span class="author-name" itemprop="name">rookie</span></a></span></span> 		</div>
+					</header>
+			
+		<div class="entry-content" itemprop="text">
+			
+<h2>0x1 Genshin Impact Leaks Story</h2>
+
+
+
+<p>So someone in mihoyo leaks significantly amount of data from official production server, rumors said this is his revenge for being fired, but I heard he got caught already. RIP.</p>
+
+
+
+<p>Leaked data consists of all server side configuration data( some shell scripts ), compiled game server binary(3.2 dev ~ 3.4 dev) and game related data( all game characters skill/talent till 4.0 dev etc&#8230;).</p>
+
+
+
+<p>This leak is pretty huge, we can see all the characters skills till 4.0 dev, even some of them aren&#8217;t really useful because it is unfinished. Many people already publish what they found like Alhatham skillset. This part is easy because they are all just plain text json files.</p>
+
+
+
+<p>As a junior reverse engineer, I&#8217;d like to challenge myself with the real big guy, like the real game server binary(2.4 Gb).</p>
+
+
+
+<p>I&#8217;m reversing the 3.4 dev game server binary, which is newest in leaked data.</p>
+
+
+
+<p>Loading such a large binary in IDA is pain in the ass, I spent almost 2 days just waiting IDA finish it, and the final idb was 11.3 Gb, largest idb I have seen in my life.</p>
+
+
+
+<p>IDA recognizes 1598472 functions, thank god this file has dwarf debug information with full symbols and structure definitions, or I&#8217;ve given up already lol.</p>
+
+
+
+<h2>0x2 Artifact Generation Logic</h2>
+
+
+
+<p>The first thing I want to inspect was how the game server generate artifacts, or does it has bias for some properties.</p>
+
+
+
+<p>BTW, artifacts and weapons has almost same logic, seems they all called reliquary in code.</p>
+
+
+
+<p>Let&#8217;s see how reliquary initializes, this function seems like handle the reliquary initializations:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C" data-line="8,44"><code>int32_t __cdecl Reliquary::init(Reliquary *const this, Player *player, bool is_first_create)
+{
+....
+  if ( is_first_create )
+  {
+    ItemComp = Player::getItemComp(player);
+    ItemId = Item::getItemId(this);
+    main_prop_id = PlayerItemComp::generateReliquaryMainPropId(ItemComp, ItemId);
+    if ( !main_prop_id )
+    {
+      common::milog::MiLogStream::create(
+        &v25,
+        &common::milog::MiLogDefault::default_log_obj_,
+        4u,
+        &quot;./src/player/item/reliquary.cpp&quot;,
+        &quot;init&quot;,
+        165);
+      v12 = common::milog::MiLogStream::operator&lt;&lt;&lt;char [45],(char *[45])0&gt;(
+              &v25,
+              (const char (*)[45])&quot;generateReliquaryMainPropId failed, item_id:&quot;);
+      val = Item::getItemId(this);
+      common::milog::MiLogStream::operator&lt;&lt;&lt;unsigned int,(unsigned int *)0&gt;(v12, &val);
+      common::milog::MiLogStream::~MiLogStream(&v25);
+      result = -1;
+      goto LABEL_29;
+    }
+    Reliquary::setMainPropId(this, main_prop_id);
+    std::vector&lt;unsigned int&gt;::clear(&this-&gt;append_prop_id_vec_);
+    for ( idx = 0; ; ++idx )
+    {
+      if ( *(_BYTE *)(((unsigned __int64)&reliquary_config_ptr-&gt;append_prop_num &gt;&gt; 3) + 0x7FFF8000) != 0
+        && (char)((((_BYTE)reliquary_config_ptr + 92) & 7) + 3) &gt;= *(_BYTE *)(((unsigned __int64)&reliquary_config_ptr-&gt;append_prop_num &gt;&gt; 3)
+                                                                            + 0x7FFF8000) )
+      {
+        __asan_report_load4(&reliquary_config_ptr-&gt;append_prop_num);
+      }
+      if ( idx &gt;= reliquary_config_ptr-&gt;append_prop_num )
+        break;
+      ServiceBox::findService&lt;GameserverService&gt;();
+      GameserverService::getConfig((GameserverService *const)&v24);
+      p_reliquary_config_mgr = &std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt;::operator-&gt;((const std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt; *const)&v24)-&gt;design_config.txt_config_mgr.reliquary_config_mgr;
+      MainPropId = Reliquary::getMainPropId(this);
+      v14 = Item::getItemId(this);
+      *(_DWORD *)(v3 + 32) = ReliquaryExcelConfigMgr::generateAppendPropId(
+                               p_reliquary_config_mgr,
+                               v14,
+                               MainPropId,
+                               &this-&gt;append_prop_id_vec_);
+....
+}</code></pre></div>
+
+
+
+<p>As you can see, it generates main property first, and then generates all sub properties(append props).</p>
+
+
+
+<p>Seems legit, let&#8217;s see how it generate main property.</p>
+
+
+
+<h2>0x3 Artifact Main Property Generation</h2>
+
+
+
+<p>Looks like main property generation is handled by <em>PlayerItemComp::generateReliquaryMainPropId</em>, let&#8217;s inspect it.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C" data-line="5"><code> ....
+    v99 = std::__detail::_Node_const_iterator&lt;std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;,false,false&gt;::operator*(&__for_begin);
+    main_prop_id = std::get&lt;0ul,unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;(v99);
+    guarantee_config = (std::tuple_element&lt;1,const std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt; &gt;::type *)std::get&lt;1ul,unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;(v99);
+    guarantee_data = std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;::operator[](
+                       (std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt; *const)(v2 + 176),
+                       main_prop_id);
+    old_guarantee_data_ptr = common::tools::MiscUtils::findMapValuePointer&lt;std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;&gt;(
+                               &guarantee_depot-&gt;main_prop_guarantee_data_map,
+                               main_prop_id);
+    if ( old_guarantee_data_ptr )</code></pre></div>
+
+
+
+<p>I smelled something unusual by just scrolling the code, what the heck is <strong>guarantee_config</strong> ?</p>
+
+
+
+<p>Looks like our artifact isn&#8217;t really fully random, they implemented some sort of pity function.</p>
+
+
+
+<p>At very first of the function, it calls another function to generate a main property:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C" data-line="5"><code>  ServiceBox::findService&lt;GameserverService&gt;();
+  GameserverService::getConfig((GameserverService *const)(v2 + 144));
+  reliquary_config_mgr = &std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt;::operator-&gt;((const std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt; *const)(v2 + 144))-&gt;design_config.txt_config_mgr.reliquary_config_mgr;
+  std::shared_ptr&lt;Config&gt;::~shared_ptr((std::shared_ptr&lt;Config&gt; *const)(v2 + 144));
+  *(_DWORD *)(v2 + 32) = ReliquaryExcelConfigMgr::generateMainPropId(reliquary_config_mgr, *(_DWORD *)(v2 + 96));
+  reliquary_config_ptr = data::ReliquaryExcelConfigMgrBase::findReliquaryExcelConfig(
+                           reliquary_config_mgr,
+                           *(unsigned int *)(v2 + 96));</code></pre></div>
+
+
+
+<p>Let&#8217;s jump into <em>ReliquaryExcelConfigMgr::generateMainPropId</em> .</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C" data-line="3,5,12,17,23"><code>....
+  *(_DWORD *)(v2 + 80) = item_id;
+  reliquary_config_ptr = data::ReliquaryExcelConfigMgrBase::findReliquaryExcelConfig(this, *(unsigned int *)(v2 + 80));
+....
+      if ( common::tools::RandomUtils::weightSelectOne&lt;data::ReliquaryMainPropExcelConfig,unsigned int data::ReliquaryMainPropExcelConfig::*&gt;(
+             main_prop_vec,
+             (uint32_t *)(v2 + 64),
+             (unsigned int *)0x14,
+             0) )
+      {
+....
+        v15 = *(unsigned int *)(v2 + 64);
+        if ( v15 &lt; std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::size(main_prop_vec) )
+        {
+          if ( *(_BYTE *)(((v2 + 64) &gt;&gt; 3) + 0x7FFF8000) != 0 && *(_BYTE *)(((v2 + 64) &gt;&gt; 3) + 0x7FFF8000) &lt;= 3 )
+            __asan_report_load4(v2 + 64);
+          v20 = std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::operator[](main_prop_vec, *(unsigned int *)(v2 + 64));
+          if ( *(_BYTE *)(((unsigned __int64)&v20-&gt;id &gt;&gt; 3) + 0x7FFF8000) != 0
+            && *(_BYTE *)(((unsigned __int64)&v20-&gt;id &gt;&gt; 3) + 0x7FFF8000) &lt;= 3 )
+          {
+            __asan_report_load4(&v20-&gt;id);
+          }
+          result = v20-&gt;id;
+....</code></pre></div>
+
+
+
+<p>I remove some asan stuff to simplify the procedure, as you can see, the server called <em>common::tools::RandomUtils::weightSelectOne</em> to select the main property, this function name implies the main property is selected via some weights, not really pure random.</p>
+
+
+
+<p>In weightSelectOne:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code>  for ( idx = 0LL; idx &lt; std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::size(input_vec); ++idx )
+  {
+    v7 = (unsigned __int64)member + (_QWORD)std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::operator[](input_vec, idx);
+    new_sum_weight = *(_DWORD *)v7 + sum_weight;
+    if ( new_sum_weight &lt; sum_weight )
+      goto LABEL_12;
+    v8 = (unsigned int *)((char *)member
+                        + (_QWORD)std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::operator[](input_vec, idx));
+    if ( new_sum_weight &gt;= *v8 )
+      v9 = 0;
+    else
+LABEL_12:
+      v9 = 1;
+    if ( v9 )
+    {
+      result = -1;
+      goto LABEL_40;
+    }
+    sum_weight = new_sum_weight;
+  }
+.....
+    *select_idx = 0;
+    if ( random_seed )
+      rand_weight = common::tools::RandomUtils::rand&lt;unsigned int&gt;(random_seed) % sum_weight;
+    else
+      rand_weight = common::tools::RandomUtils::rand&lt;unsigned int&gt;() % sum_weight;
+    for ( idx_0 = 0LL; idx_0 &lt; std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::size(input_vec); ++idx_0 )
+    {
+      v12 = (unsigned int *)((char *)member
+                           + (_QWORD)std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::operator[](input_vec, idx_0));
+      if ( rand_weight &lt; *v12 )
+      {
+        v13 = idx_0;
+        *select_idx = v13;
+        break;
+      }
+      v14 = (unsigned __int64)member
+          + (_QWORD)std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::operator[](input_vec, idx_0);
+      rand_weight -= *(_DWORD *)v14;
+    }
+    result = 0;</code></pre></div>
+
+
+
+<p>Looks like a standard random bias selection algorithm, the member parameter(0x14 here) indicates which column contains weight data, the seed is 0 means no seed.</p>
+
+
+
+<p>Since this data in configured in server side, we cannot know server config without access to the prod server, but the leaker actually dumped the server config so here&#8217;s the table!</p>
+
+
+
+<figure class="wp-block-table"><table><tbody>
+<tr>
+<td>Main property ID(Parsed by me)</td>
+<td>Main depot ID(Parsed)</td>
+<td>Type</td>
+<td>Weights</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP</td>
+<td>Sand-1000</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP_PERCENT</td>
+<td>Sand-1000</td>
+<td>3</td>
+<td>1334</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK</td>
+<td>Sand-1000</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK_PERCENT</td>
+<td>Sand-1000</td>
+<td>6</td>
+<td>1333</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE</td>
+<td>Sand-1000</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE_PERCENT</td>
+<td>Sand-1000</td>
+<td>9</td>
+<td>1333</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CHARGE_EFFICIENCY</td>
+<td>Sand-1000</td>
+<td>23</td>
+<td>500</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEMENT_MASTERY</td>
+<td>Sand-1000</td>
+<td>28</td>
+<td>500</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_FIRE_SUB_HURT</td>
+<td>Sand-1000</td>
+<td>50</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEC_SUB_HURT</td>
+<td>Sand-1000</td>
+<td>51</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ICE_SUB_HURT</td>
+<td>Sand-1000</td>
+<td>56</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_WATER_SUB_HURT</td>
+<td>Sand-1000</td>
+<td>52</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_WIND_SUB_HURT</td>
+<td>Sand-1000</td>
+<td>54</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ROCK_SUB_HURT</td>
+<td>Sand-1000</td>
+<td>55</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_GRASS_SUB_HURT</td>
+<td>Sand-1000</td>
+<td>53</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK</td>
+<td>Feather-2000</td>
+<td>5</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP</td>
+<td>Circlet-3000</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP_PERCENT</td>
+<td>Circlet-3000</td>
+<td>3</td>
+<td>1100</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK</td>
+<td>Circlet-3000</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK_PERCENT</td>
+<td>Circlet-3000</td>
+<td>6</td>
+<td>1100</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE</td>
+<td>Circlet-3000</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE_PERCENT</td>
+<td>Circlet-3000</td>
+<td>9</td>
+<td>1100</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL</td>
+<td>Circlet-3000</td>
+<td>20</td>
+<td>500</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL_HURT</td>
+<td>Circlet-3000</td>
+<td>22</td>
+<td>500</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HEAL_ADD</td>
+<td>Circlet-3000</td>
+<td>26</td>
+<td>500</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEMENT_MASTERY</td>
+<td>Circlet-3000</td>
+<td>28</td>
+<td>200</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP</td>
+<td>Flower-4000</td>
+<td>2</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP</td>
+<td>Goblet-5000</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP_PERCENT</td>
+<td>Goblet-5000</td>
+<td>3</td>
+<td>770</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK</td>
+<td>Goblet-5000</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK_PERCENT</td>
+<td>Goblet-5000</td>
+<td>6</td>
+<td>770</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE</td>
+<td>Goblet-5000</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE_PERCENT</td>
+<td>Goblet-5000</td>
+<td>9</td>
+<td>760</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEMENT_MASTERY</td>
+<td>Goblet-5000</td>
+<td>28</td>
+<td>100</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_FIRE_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>40</td>
+<td>200</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEC_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>41</td>
+<td>200</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ICE_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>46</td>
+<td>200</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_WATER_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>42</td>
+<td>200</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_WIND_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>44</td>
+<td>200</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ROCK_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>45</td>
+<td>200</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_GRASS_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>43</td>
+<td>200</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_PHYSICAL_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>30</td>
+<td>200</td>
+</tr>
+</tbody></table></figure>
+
+
+
+<p>Wait, what about the <em>guarantee</em> thing?</p>
+
+
+
+<p>Let&#8217;s go back to <em>PlayerItemComp::generateReliquaryMainPropId</em>. I removed all the asan stuff and log stuff.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-cpp" data-lang="C++" data-line="19,46,100,129"><code>// Generate main property 
+ *(_DWORD *)(v2 + 96) = reliquary_id;
+  ServiceBox::findService&lt;GameserverService&gt;();
+  GameserverService::getConfig((GameserverService *const)(v2 + 144));
+  reliquary_config_mgr = &std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt;::operator-&gt;((const std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt; *const)(v2 + 144))-&gt;design_config.txt_config_mgr.reliquary_config_mgr;
+  std::shared_ptr&lt;Config&gt;::~shared_ptr((std::shared_ptr&lt;Config&gt; *const)(v2 + 144));
+  *(_DWORD *)(v2 + 32) = ReliquaryExcelConfigMgr::generateMainPropId(reliquary_config_mgr, *(_DWORD *)(v2 + 96));
+  reliquary_config_ptr = data::ReliquaryExcelConfigMgrBase::findReliquaryExcelConfig(
+                           reliquary_config_mgr,
+                           *(unsigned int *)(v2 + 96));
+......
+  if ( !common::tools::MiscUtils::isContains&lt;std::unordered_set&lt;unsigned int&gt; const,unsigned int&gt;(
+          &reliquary_config_mgr-&gt;guaranteed_main_prop_depot_id_set,
+          &reliquary_config_ptr-&gt;main_prop_depot_id) )
+  {
+    v10 = *(_DWORD *)(v2 + 32);
+    goto LABEL_112;
+  }
+  if ( reliquary_config_ptr-&gt;rank_level &lt;= 4 )
+  {
+    v10 = *(_DWORD *)(v2 + 32);
+    goto LABEL_112;
+  }
+  *(_DWORD *)(v2 + 48) = reliquary_config_ptr-&gt;set_id;
+  if ( !*(_DWORD *)(v2 + 48) )
+  {
+    v10 = *(_DWORD *)(v2 + 32);
+    goto LABEL_112;
+  }
+  reliquary_set_config_ptr = data::ReliquaryExcelConfigMgrBase::findReliquarySetExcelConfig(
+                               reliquary_config_mgr,
+                               *(_DWORD *)(v2 + 48));
+....
+  *(_DWORD *)(v2 + 64) = reliquary_set_config_ptr-&gt;guarantee_depot_id;
+  if ( !*(_DWORD *)(v2 + 64) )
+  {
+    v10 = *(_DWORD *)(v2 + 32);
+    goto LABEL_112;
+  }
+...
+  ServiceBox::findService&lt;GameserverService&gt;();
+  GameserverService::getConfig((GameserverService *const)(v2 + 144));
+  v23 = std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt;::operator-&gt;((const std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt; *const)(v2 + 144));
+  isReliquaryGuaranteeClosed = FeatureSwitchMgr::isReliquaryGuaranteeClosed(&v23-&gt;feature_switch_mgr);
+  std::shared_ptr&lt;Config&gt;::~shared_ptr((std::shared_ptr&lt;Config&gt; *const)(v2 + 144));
+  if ( isReliquaryGuaranteeClosed )
+  {
+...
+    v10 = *(_DWORD *)(v2 + 32);
+    goto LABEL_112;
+  }
+...
+  v28 = (char *)(v2 + 64);
+  guarantee_depot = std::map&lt;unsigned int,ReliquaryGuaranteeDepot&gt;::operator[](
+                      &this-&gt;reliquary_guarantee_depot_map_,
+                      (const std::map&lt;unsigned int,ReliquaryGuaranteeDepot&gt;::key_type *)(v2 + 64));
+  v29 = *(_DWORD *)(v2 + 64);
+  guarantee_depot-&gt;guarantee_depot_id = v29;
+  std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;::map((std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt; *const)(v2 + 176));
+  *(_QWORD *)(v2 + 144) = 0LL;
+  *(_QWORD *)(v2 + 152) = 0LL;
+  __for_range = &reliquary_config_mgr-&gt;reliquary_main_prop_guarantee_excel_config_map;
+  __for_begin._M_cur = std::unordered_map&lt;unsigned int,data::ReliquaryMainPropGuaranteeExcelConfig&gt;::begin(&reliquary_config_mgr-&gt;reliquary_main_prop_guarantee_excel_config_map)._M_cur;
+  __for_end._M_cur = std::unordered_map&lt;unsigned int,data::ReliquaryMainPropGuaranteeExcelConfig&gt;::end(&reliquary_config_mgr-&gt;reliquary_main_prop_guarantee_excel_config_map)._M_cur;
+  while ( std::__detail::operator!=&lt;std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;,false&gt;(
+            &__for_begin,
+            &__for_end) )
+  {
+    v99 = std::__detail::_Node_const_iterator&lt;std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;,false,false&gt;::operator*(&__for_begin);
+    main_prop_id = std::get&lt;0ul,unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;(v99);
+    guarantee_config = (std::tuple_element&lt;1,const std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt; &gt;::type *)std::get&lt;1ul,unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;(v99);
+    guarantee_data = std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;::operator[](
+                       (std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt; *const)(v2 + 176),
+                       main_prop_id);
+    old_guarantee_data_ptr = common::tools::MiscUtils::findMapValuePointer&lt;std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;&gt;(
+                               &guarantee_depot-&gt;main_prop_guarantee_data_map,
+                               main_prop_id);
+    if ( old_guarantee_data_ptr )
+    {
+      guarantee_count = old_guarantee_data_ptr-&gt;guarantee_count;
+      if ( guarantee_count &lt; guarantee_config-&gt;min_guarantee_count )
+        goto LABEL_54;
+      if ( v36 &lt;= guarantee_config-&gt;max_guarantee_count )
+      {
+        v56 = old_guarantee_data_ptr-&gt;miss_count + 1;
+        guarantee_data-&gt;miss_count = v56;
+        main_prop_depot_id = guarantee_config-&gt;main_prop_depot_id;
+        if ( main_prop_depot_id == reliquary_config_ptr-&gt;main_prop_depot_id
+          && old_guarantee_data_ptr-&gt;miss_count &gt;= old_guarantee_data_ptr-&gt;guarantee_count )
+        {
+          *(_DWORD *)(v2 + 112) = *main_prop_id;
+          *(_DWORD *)(v2 + 116) = old_guarantee_data_ptr-&gt;guarantee_count;
+          *(_DWORD *)(v2 + 120) = old_guarantee_data_ptr-&gt;miss_count - old_guarantee_data_ptr-&gt;guarantee_count;
+if ( !std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData&gt;::has_value((const std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144))
+            || (v62 = std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData&gt;::value((std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144)),
+                PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData::isBetterThan(
+                  (const PlayerItemComp::generateReliquaryMainPropId::TriggeredMainPropData *const)(v2 + 112),
+                  v62)) )
+          {
+            std::optional_PlayerItemComp::generateReliquaryMainPropId_uint32_t_::TriggeredMainPropData_::operator__PlayerItemComp::generateReliquaryMainPropId_uint32_t_::TriggeredMainPropData__(
+              (std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144),
+              (PlayerItemComp::generateReliquaryMainPropId::TriggeredMainPropData *)(v2 + 112));
+          }
+        }
+      }
+      else
+      {
+        guarantee_data-&gt;miss_count = 1;
+        max_guarantee_count = guarantee_config-&gt;max_guarantee_count;
+        v39 = common::tools::RandomUtils::rand&lt;unsigned int&gt;(guarantee_config-&gt;min_guarantee_count, max_guarantee_count);
+        guarantee_data-&gt;guarantee_count = v39;
+      }
+    }
+    else
+    {
+      guarantee_data-&gt;miss_count = 1;
+      v31 = guarantee_config-&gt;max_guarantee_count;
+      v32 = v31;
+      v33 = common::tools::RandomUtils::rand&lt;unsigned int&gt;(guarantee_config-&gt;min_guarantee_count, v31);
+      guarantee_data-&gt;guarantee_count = v33;
+    }
+    std::__detail::_Node_const_iterator&lt;std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;,false,false&gt;::operator++(&__for_begin);
+  }
+ *(_DWORD *)(v2 + 80) = *(_DWORD *)(v2 + 32);
+  if ( std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData&gt;::has_value((const std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144)) )
+  {
+    v64 = std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData&gt;::value((std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144));
+    v65 = v64;
+    *(_DWORD *)(v2 + 80) = v65-&gt;main_prop_id;
+  }
+  guarantee_data_ptr = common::tools::MiscUtils::findMapValuePointer&lt;std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;&gt;(
+                         (std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt; *)(v2 + 176),
+                         (const std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;::key_type *)(v2 + 80));
+  if ( guarantee_data_ptr )
+  {
+    guarantee_data_ptr-&gt;miss_count = 0;
+    if ( std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData&gt;::has_value((const std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144)) )
+    {
+      guarantee_config_ptr = data::ReliquaryExcelConfigMgrBase::findReliquaryMainPropGuaranteeExcelConfig(
+                               reliquary_config_mgr,
+                               *(_DWORD *)(v2 + 80));
+      v79 = guarantee_config_ptr-&gt;max_guarantee_count;
+      v80 = v79;
+      v81 = common::tools::RandomUtils::rand&lt;unsigned int&gt;(guarantee_config_ptr-&gt;min_guarantee_count, v79);
+      guarantee_data_ptr-&gt;guarantee_count = v81;
+    }
+    v10 = *(_DWORD *)(v2 + 80);
+    goto LABEL_111;
+  }
+  v10 = *(_DWORD *)(v2 + 32);
+LABEL_111:
+  std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;::~map((std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt; *const)(v2 + 176));
+LABEL_112:
+  result = v10;
+  return result;</code></pre></div>
+
+
+
+<p>In line 19, we can see that pity isn&#8217;t activated if artifact rank &lt;=4.</p>
+
+
+
+<p>In line 46, server can switch pity on/off at anytime. But it seems this is on for public official server.</p>
+
+
+
+<p>In line 100, server checks all property pity count, add all property that matches pity count into a list.</p>
+
+
+
+<p>In line 129, server selects first pity property that matches the selected depot.</p>
+
+
+
+<p>So in short, the main property generation is weight biased and have a pity system for unlucky people like me.</p>
+
+
+
+<p>Another question, what&#8217;s the probability for pity?</p>
+
+
+
+<p>Fortunately, the leaker dumped that too, here&#8217;s the table.</p>
+
+
+
+<figure class="wp-block-table"><table><tbody>
+<tr>
+<td>Main property ID(Parsed)</td>
+<td>Depot(Parsed)</td>
+<td>Type</td>
+<td>Pity count</td>
+<td>Min/Max</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP_PERCENT</td>
+<td>Sand-1000</td>
+<td>3</td>
+<td>19</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK_PERCENT</td>
+<td>Sand-1000</td>
+<td>6</td>
+<td>19</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE_PERCENT</td>
+<td>Sand-1000</td>
+<td>9</td>
+<td>19</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CHARGE_EFFICIENCY</td>
+<td>Sand-1000</td>
+<td>23</td>
+<td>50</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEMENT_MASTERY</td>
+<td>Sand-1000</td>
+<td>28</td>
+<td>50</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK</td>
+<td>Feather-2000</td>
+<td>5</td>
+<td>5</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP_PERCENT</td>
+<td>Circlet-3000</td>
+<td>3</td>
+<td>23</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK_PERCENT</td>
+<td>Circlet-3000</td>
+<td>6</td>
+<td>23</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE_PERCENT</td>
+<td>Circlet-3000</td>
+<td>9</td>
+<td>23</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL</td>
+<td>Circlet-3000</td>
+<td>20</td>
+<td>50</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL_HURT</td>
+<td>Circlet-3000</td>
+<td>22</td>
+<td>50</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HEAL_ADD</td>
+<td>Circlet-3000</td>
+<td>26</td>
+<td>50</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEMENT_MASTERY</td>
+<td>Circlet-3000</td>
+<td>28</td>
+<td>125</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP</td>
+<td>Flower-4000</td>
+<td>2</td>
+<td>5</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP_PERCENT</td>
+<td>Goblet-5000</td>
+<td>3</td>
+<td>26</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK_PERCENT</td>
+<td>Goblet-5000</td>
+<td>6</td>
+<td>26</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE_PERCENT</td>
+<td>Goblet-5000</td>
+<td>9</td>
+<td>27</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEMENT_MASTERY</td>
+<td>Goblet-5000</td>
+<td>28</td>
+<td>200</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_FIRE_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>40</td>
+<td>100</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEC_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>41</td>
+<td>100</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ICE_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>46</td>
+<td>100</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_WATER_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>42</td>
+<td>100</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_WIND_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>44</td>
+<td>100</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ROCK_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>45</td>
+<td>100</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_GRASS_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>43</td>
+<td>100</td>
+<td>1;2</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_PHYSICAL_ADD_HURT</td>
+<td>Goblet-5000</td>
+<td>30</td>
+<td>100</td>
+<td>1;2</td>
+</tr>
+</tbody></table></figure>
+
+
+
+<p>So you are guaranteed to get a element mastery goblet in 200 artifacts generation? Bruh&#8230;</p>
+
+
+
+<h2>0x4 Artifact Sub Properties Generation</h2>
+
+
+
+<p>OK, how about sub properties?</p>
+
+
+
+<p>After main property was generated, server will generate some sub properties for this new artifact, via<em> ReliquaryExcelConfigMgr::generateAppendPropId</em>:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C" data-line="91"><code>....
+          is_upgrade = 0;
+          if ( std::vector&lt;unsigned int&gt;::size(append_prop_id_vec) &gt; 3 )
+          {
+            *(std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::const_iterator *)(v5 + 368) = std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::begin(group_prop_config_map);
+            *(std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::const_iterator *)(v5 + 400) = std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::end(group_prop_config_map);
+            while ( 1 )
+            {
+              v28 = (char *)(v5 + 400);
+              if ( !std::operator!=(
+                      (const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::_Self *)(v5 + 368),
+                      (const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::_Self *)(v5 + 400)) )
+                break;
+              v51 = std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;&gt;::operator*((const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt; *const)(v5 + 368));
+              group_id_0 = std::get&lt;0ul,unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;(v51);
+              append_prop_config_vec_0 = (std::tuple_element&lt;1,const std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::type *)std::get&lt;1ul,unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;(v51);
+              if ( std::set&lt;unsigned int&gt;::count((const std::set&lt;unsigned int&gt; *const)(v5 + 1104), group_id_0) )
+              {
+                __lasta = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::end(append_prop_config_vec_0)._M_current;
+                M_current = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::begin(append_prop_config_vec_0)._M_current;
+                *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::iterator *)(v5 + 432) = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::end((std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 656));
+                __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig const*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*&gt;(
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *const)(v5 + 464),
+                  (const __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *)(v5 + 432));
+                std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::insert&lt;__gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig const*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;,void&gt;(
+                  (std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 656),
+                  *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::const_iterator *)(v5 + 464),
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt;)M_current,
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt;)__lasta);
+              }
+              std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;&gt;::operator++((std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt; *const)(v5 + 368));
+            }
+            is_upgrade = 1;
+          }
+          else
+          {
+            *(std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::const_iterator *)(v5 + 240) = std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::begin(group_prop_config_map);
+            *(std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::const_iterator *)(v5 + 272) = std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::end(group_prop_config_map);
+            while ( 1 )
+            {
+              v28 = (char *)(v5 + 272);
+              if ( !std::operator!=(
+                      (const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::_Self *)(v5 + 240),
+                      (const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::_Self *)(v5 + 272)) )
+                break;
+              v54 = std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;&gt;::operator*((const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt; *const)(v5 + 240));
+              group_id = std::get&lt;0ul,unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;(v54);
+              append_prop_config_vec = (std::tuple_element&lt;1,const std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::type *)std::get&lt;1ul,unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;(v54);
+              if ( !std::set&lt;unsigned int&gt;::count((const std::set&lt;unsigned int&gt; *const)(v5 + 1104), group_id) )
+              {
+                __last = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::end(append_prop_config_vec)._M_current;
+                v29 = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::begin(append_prop_config_vec)._M_current;
+                *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::iterator *)(v5 + 304) = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::end((std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 656));
+                __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig const*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*&gt;(
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *const)(v5 + 336),
+                  (const __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *)(v5 + 304));
+                std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::insert&lt;__gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig const*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;,void&gt;(
+                  (std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 656),
+                  *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::const_iterator *)(v5 + 336),
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt;)v29,
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt;)__last);
+              }
+              std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;&gt;::operator++((std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt; *const)(v5 + 240));
+            }
+          }
+          __for_range_2 = (std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *)(v5 + 656);
+
+          *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::iterator *)(v5 + 496) = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::begin(__for_range_2);
+          *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::iterator *)(v5 + 528) = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::end(__for_range_2);
+          while ( __gnu_cxx::operator!=&lt;data::ReliquaryAffixExcelConfig *,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;(
+                    (const __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *)(v5 + 496),
+                    (const __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *)(v5 + 528)) )
+          {
+            append_prop_config = __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig *,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::operator*((const __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *const)(v5 + 496));
+            p_prop_type = &append_prop_config-&gt;prop_type;
+
+            prop_type = append_prop_config-&gt;prop_type;
+ 
+            if ( prop_type != main_prop_config_ptr-&gt;prop_type )
+              std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::emplace_back&lt;data::ReliquaryAffixExcelConfig const&&gt;(
+                (std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 592),
+                append_prop_config,
+                append_prop_config);
+            __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig *,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::operator++((__gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *const)(v5 + 496));
+          }
+          *(_DWORD *)(v5 + 64) = 0;
+          if ( is_upgrade )
+            v33 = 32LL;
+          else
+            v33 = 28LL;
+          if ( common::tools::RandomUtils::weightSelectOne&lt;data::ReliquaryAffixExcelConfig,unsigned int data::ReliquaryAffixExcelConfig::*&gt;(
+                 (const std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *)(v5 + 592),
+                 (uint32_t *)(v5 + 64),
+                 (unsigned int *)v33,
+                 0) )
+....
+
+            v35 = *(unsigned int *)(v5 + 64);
+            if ( v35 &lt; std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::size((const std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 592)) )
+            {
+              v40 = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::operator[](
+                      (std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 592),
+                      *(unsigned int *)(v5 + 64));
+              id = v40-&gt;id;
+            }
+....</code></pre></div>
+
+
+
+<p>Interesting parameter, <em>is_upgrade</em>, hmm.</p>
+
+
+
+<p>Does this function also implements artifact upgrade? Yes. xref shows this function also being called from <em>Reliquary::upgradeLevel</em> !</p>
+
+
+
+<p>Also, do you guys see the familiar <em>weightSelectOne</em>, LOL.</p>
+
+
+
+<p>Apparently, the sub properties generation and upgrade also has some sort of weights.</p>
+
+
+
+<p>And, guess what, the leaker also leaks this configuration, so here&#8217;s the table:</p>
+
+
+
+<p><em>For the sake of simplicity, I&#8217;ll only show the 5 star artifact related data.</em></p>
+
+
+
+<figure class="wp-block-table"><table><tbody>
+<tr>
+<td>Append Property</td>
+<td>Affix</td>
+<td>Group</td>
+<td>Type</td>
+<td>Property Value</td>
+<td>Random weights</td>
+<td>Upgrade weights</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP</td>
+<td>501</td>
+<td>2</td>
+<td>2</td>
+<td>209.13</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP</td>
+<td>501</td>
+<td>2</td>
+<td>2</td>
+<td>239</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP</td>
+<td>501</td>
+<td>2</td>
+<td>2</td>
+<td>268.88</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP</td>
+<td>501</td>
+<td>2</td>
+<td>2</td>
+<td>298.75</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP_PERCENT</td>
+<td>501</td>
+<td>3</td>
+<td>3</td>
+<td>0.0408</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP_PERCENT</td>
+<td>501</td>
+<td>3</td>
+<td>3</td>
+<td>0.0466</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP_PERCENT</td>
+<td>501</td>
+<td>3</td>
+<td>3</td>
+<td>0.0525</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_HP_PERCENT</td>
+<td>501</td>
+<td>3</td>
+<td>3</td>
+<td>0.0583</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK</td>
+<td>501</td>
+<td>5</td>
+<td>5</td>
+<td>13.62</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK</td>
+<td>501</td>
+<td>5</td>
+<td>5</td>
+<td>15.56</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK</td>
+<td>501</td>
+<td>5</td>
+<td>5</td>
+<td>17.51</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK</td>
+<td>501</td>
+<td>5</td>
+<td>5</td>
+<td>19.45</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK_PERCENT</td>
+<td>501</td>
+<td>6</td>
+<td>6</td>
+<td>0.0408</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK_PERCENT</td>
+<td>501</td>
+<td>6</td>
+<td>6</td>
+<td>0.0466</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK_PERCENT</td>
+<td>501</td>
+<td>6</td>
+<td>6</td>
+<td>0.0525</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ATTACK_PERCENT</td>
+<td>501</td>
+<td>6</td>
+<td>6</td>
+<td>0.0583</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE</td>
+<td>501</td>
+<td>8</td>
+<td>8</td>
+<td>16.2</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE</td>
+<td>501</td>
+<td>8</td>
+<td>8</td>
+<td>18.52</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE</td>
+<td>501</td>
+<td>8</td>
+<td>8</td>
+<td>20.83</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE</td>
+<td>501</td>
+<td>8</td>
+<td>8</td>
+<td>23.15</td>
+<td>150</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE_PERCENT</td>
+<td>501</td>
+<td>9</td>
+<td>9</td>
+<td>0.051</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE_PERCENT</td>
+<td>501</td>
+<td>9</td>
+<td>9</td>
+<td>0.0583</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE_PERCENT</td>
+<td>501</td>
+<td>9</td>
+<td>9</td>
+<td>0.0656</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_DEFENSE_PERCENT</td>
+<td>501</td>
+<td>9</td>
+<td>9</td>
+<td>0.0729</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CHARGE_EFFICIENCY</td>
+<td>501</td>
+<td>23</td>
+<td>23</td>
+<td>0.0453</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CHARGE_EFFICIENCY</td>
+<td>501</td>
+<td>23</td>
+<td>23</td>
+<td>0.0518</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CHARGE_EFFICIENCY</td>
+<td>501</td>
+<td>23</td>
+<td>23</td>
+<td>0.0583</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CHARGE_EFFICIENCY</td>
+<td>501</td>
+<td>23</td>
+<td>23</td>
+<td>0.0648</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEMENT_MASTERY</td>
+<td>501</td>
+<td>24</td>
+<td>28</td>
+<td>16.32</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEMENT_MASTERY</td>
+<td>501</td>
+<td>24</td>
+<td>28</td>
+<td>18.65</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEMENT_MASTERY</td>
+<td>501</td>
+<td>24</td>
+<td>28</td>
+<td>20.98</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_ELEMENT_MASTERY</td>
+<td>501</td>
+<td>24</td>
+<td>28</td>
+<td>23.31</td>
+<td>100</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL</td>
+<td>501</td>
+<td>20</td>
+<td>20</td>
+<td>0.0272</td>
+<td>75</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL</td>
+<td>501</td>
+<td>20</td>
+<td>20</td>
+<td>0.0311</td>
+<td>75</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL</td>
+<td>501</td>
+<td>20</td>
+<td>20</td>
+<td>0.035</td>
+<td>75</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL</td>
+<td>501</td>
+<td>20</td>
+<td>20</td>
+<td>0.0389</td>
+<td>75</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL_HURT</td>
+<td>501</td>
+<td>22</td>
+<td>22</td>
+<td>0.0544</td>
+<td>75</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL_HURT</td>
+<td>501</td>
+<td>22</td>
+<td>22</td>
+<td>0.0622</td>
+<td>75</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL_HURT</td>
+<td>501</td>
+<td>22</td>
+<td>22</td>
+<td>0.0699</td>
+<td>75</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>FIGHT_PROP_CRITICAL_HURT</td>
+<td>501</td>
+<td>22</td>
+<td>22</td>
+<td>0.0777</td>
+<td>75</td>
+<td>1000</td>
+</tr>
+</tbody></table></figure>
+
+
+
+<p>Yes, as you can see, the critical rate/damage properties has lowest weights as expected, and trash properties(Flat ATK/HP/DEF) has highest weights, twice more than critical rate/damage, bruh&#8230;.</p>
+
+
+
+<p>To my surprise, the upgrade weights are all the same, means once the artifact has 4 sub properties, you have even chance to upgrade any of them!</p>
+
+
+
+<h2>0x5 Final words</h2>
+
+
+
+<p>No wonder you cannot get a perfect artifact, the weights are just unfair.</p>
+
+
+
+<p>I&#8217;ll publish more server side reverse engineering interesting findings, stay tuned!</p>
+
+
+
+<p>Also, feel free to comment if you have any questions!</p>
+
+
+
+<p></p>
+		</div>
+
+				<footer class="entry-meta" aria-label="Entry meta">
+			<span class="cat-links"><span class="gp-icon icon-categories"><svg viewbox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M0 112c0-26.51 21.49-48 48-48h110.014a48 48 0 0143.592 27.907l12.349 26.791A16 16 0 00228.486 128H464c26.51 0 48 21.49 48 48v224c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112z"></path></svg></span><span class="screen-reader-text">Categories </span><a href="https://pwnblog.github.io/category/rev/" rel="category tag">reverse-engineering</a></span> 		<nav id="nav-below" class="post-navigation" aria-label="Posts">
+			<div class="nav-previous">
+<span class="gp-icon icon-arrow-left"><svg viewbox="0 0 192 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M178.425 138.212c0 2.265-1.133 4.813-2.832 6.512L64.276 256.001l111.317 111.277c1.7 1.7 2.832 4.247 2.832 6.513 0 2.265-1.133 4.813-2.832 6.512L161.43 394.46c-1.7 1.7-4.249 2.832-6.514 2.832-2.266 0-4.816-1.133-6.515-2.832L16.407 262.514c-1.699-1.7-2.832-4.248-2.832-6.513 0-2.265 1.133-4.813 2.832-6.512l131.994-131.947c1.7-1.699 4.249-2.831 6.515-2.831 2.265 0 4.815 1.132 6.514 2.831l14.163 14.157c1.7 1.7 2.832 3.965 2.832 6.513z" fill-rule="nonzero"></path></svg></span><span class="prev"><a href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/" rel="prev">Codegate CTF 2022 file-v writeup</a></span>
+</div>		</nav>
+				</footer>
+			</div>
+</article>
+
+			<div class="comments-area">
+				
+<div id="disqus_thread"></div>
+			</div>
+
+					</main>
+	</div>
+
+	<div class="widget-area sidebar is-right-sidebar" id="right-sidebar">
+	<div class="inside-right-sidebar">
+		<aside id="block-3" class="widget inner-padding widget_block">
+<div class="wp-container-1 wp-block-group"><div class="wp-block-group__inner-container">
+<h2 id="recent-posts">Recent Posts</h2>
+
+
+<ul class="wp-block-latest-posts__list wp-block-latest-posts">
+<li><a class="wp-block-latest-posts__post-title" href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a></li>
+</ul>
+</div></div>
+</aside><aside id="block-4" class="widget inner-padding widget_block">
+<div class="wp-container-2 wp-block-group"><div class="wp-block-group__inner-container">
+<h2 id="post-categories">Post Categories</h2>
+
+
+<ul class="wp-block-categories-list wp-block-categories">	<li class="cat-item cat-item-4">
+<a href="https://pwnblog.github.io/category/rev/" title="Life is boring without reverse-engineering">reverse-engineering</a>
+</li>
+	<li class="cat-item cat-item-3">
+<a href="https://pwnblog.github.io/category/writeups/" title="Some writeups for ctf I played">writeups</a>
+</li>
+</ul>
+</div></div>
+</aside>	</div>
+</div>
+
+	</div>
+</div>
+
+
+<div class="site-footer">
+			<footer class="site-info" aria-label="Site" itemtype="https://schema.org/WPFooter" itemscope>
+			<div class="inside-site-info grid-container">
+								<div class="copyright-bar">
+					<span class="copyright">&copy; 2022 Hopeless blog</span> &bull; Built with <a href="https://generatepress.com/" itemprop="url">GeneratePress</a>				</div>
+			</div>
+		</footer>
+		</div>
+
+<script id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script><style>.wp-container-1 > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.wp-container-1 > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.wp-container-1 > .aligncenter { margin-left: auto !important; margin-right: auto !important; }</style>
+<style>.wp-container-2 > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.wp-container-2 > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.wp-container-2 > .aligncenter { margin-left: auto !important; margin-right: auto !important; }</style>
+<script id="disqus_count-js-extra">var countVars = {"disqusShortname":"pwnblog"};</script>
+<script src="https://pwnblog.github.io/wp-content/plugins/disqus-comment-system/public/js/comment_count.js?ver=3.0.22" id="disqus_count-js"></script>
+<script id="disqus_embed-js-extra">var embedVars = {"disqusConfig":{"integration":"wordpress 3.0.22"},"disqusIdentifier":"117 https:\/\/pwnblog.github.io\/?p=117","disqusShortname":"pwnblog","disqusTitle":"Genshin Impact Server Reverse-Engineering Part 1: Artifacts","disqusUrl":"https:\/\/pwnblog.github.io\/2022\/10\/28\/genshin-impact-server-reverse-engineering-part-1-artifacts\/","postId":"117"};</script>
+<script src="https://pwnblog.github.io/wp-content/plugins/disqus-comment-system/public/js/comment_embed.js?ver=3.0.22" id="disqus_embed-js"></script>
+<!--[if lte IE 11]>
+<script src='http://127.0.0.1/fuck/wp-content/themes/generatepress/assets/js/classList.min.js?ver=3.2.1' id='generate-classlist-js'></script>
+<![endif]-->
+<script id="generate-menu-js-extra">var generatepressMenu = {"toggleOpenedSubMenus":"1","openSubMenuLabel":"Open Sub-Menu","closeSubMenuLabel":"Close Sub-Menu"};</script>
+<script src="https://pwnblog.github.io/wp-content/themes/generatepress/assets/js/menu.min.js?ver=3.2.1" id="generate-menu-js"></script>
+<script src="https://pwnblog.github.io/wp-includes/js/comment-reply.min.js?ver=6.0.3" id="comment-reply-js"></script>
+<script src="https://pwnblog.github.io/wp-includes/js/clipboard.min.js?ver=2.0.10" id="clipboard-js"></script>
+<script src="https://pwnblog.github.io/wp-content/plugins/highlighting-code-block/assets/js/prism.js?ver=1.6.0" id="hcb-prism-js"></script>
+<script src="https://pwnblog.github.io/wp-content/plugins/highlighting-code-block/build/js/hcb_script.js?ver=1.6.0" id="hcb-script-js"></script>
+
+</body>
+</html>

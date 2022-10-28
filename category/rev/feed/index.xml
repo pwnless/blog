@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>reverse-engineering Archives - Hopeless blog</title>
+	<atom:link href="https://pwnblog.github.io/category/rev/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pwnblog.github.io/category/rev/</link>
+	<description>Pwn the life</description>
+	<lastBuildDate>Fri, 28 Oct 2022 07:08:57 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.0.3</generator>
+	<item>
+		<title>Genshin Impact Server Reverse-Engineering Part 1: Artifacts</title>
+		<link>https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/</link>
+					<comments>https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/#respond</comments>
+		
+		<dc:creator><![CDATA[rookie]]></dc:creator>
+		<pubDate>Fri, 28 Oct 2022 07:08:53 +0000</pubDate>
+				<category><![CDATA[reverse-engineering]]></category>
+		<guid isPermaLink="false">https://pwnblog.github.io/?p=117</guid>
+
+					<description><![CDATA[<p>Did you know why you just cannot get perfect artifacts?</p>
+<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h2>0x1 Genshin Impact Leaks Story</h2>
+
+
+
+<p>So someone in mihoyo leaks significantly amount of data from official production server, rumors said this is his revenge for being fired, but I heard he got caught already. RIP.</p>
+
+
+
+<p>Leaked data consists of all server side configuration data( some shell scripts ), compiled game server binary(3.2 dev ~ 3.4 dev) and game related data( all game characters skill/talent till 4.0 dev etc&#8230;).</p>
+
+
+
+<p>This leak is pretty huge, we can see all the characters skills till 4.0 dev, even some of them aren&#8217;t really useful because it is unfinished. Many people already publish what they found like Alhatham skillset. This part is easy because they are all just plain text json files.</p>
+
+
+
+<p>As a junior reverse engineer, I&#8217;d like to challenge myself with the real big guy, like the real game server binary(2.4 Gb).</p>
+
+
+
+<p>I&#8217;m reversing the 3.4 dev game server binary, which is newest in leaked data.</p>
+
+
+
+<p>Loading such a large binary in IDA is pain in the ass, I spent almost 2 days just waiting IDA finish it, and the final idb was 11.3 Gb, largest idb I have seen in my life.</p>
+
+
+
+<p>IDA recognizes 1598472 functions, thank god this file has dwarf debug information with full symbols and structure definitions, or I&#8217;ve given up already lol.</p>
+
+
+
+<h2>0x2 Artifact Generation Logic</h2>
+
+
+
+<p>The first thing I want to inspect was how the game server generate artifacts, or does it has bias for some properties.</p>
+
+
+
+<p>BTW, artifacts and weapons has almost same logic, seems they all called reliquary in code.</p>
+
+
+
+<p>Let&#8217;s see how reliquary initializes, this function seems like handle the reliquary initializations:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C" data-line="8,44"><code>int32_t __cdecl Reliquary::init(Reliquary *const this, Player *player, bool is_first_create)
+{
+....
+  if ( is_first_create )
+  {
+    ItemComp = Player::getItemComp(player);
+    ItemId = Item::getItemId(this);
+    main_prop_id = PlayerItemComp::generateReliquaryMainPropId(ItemComp, ItemId);
+    if ( !main_prop_id )
+    {
+      common::milog::MiLogStream::create(
+        &v25,
+        &common::milog::MiLogDefault::default_log_obj_,
+        4u,
+        &quot;./src/player/item/reliquary.cpp&quot;,
+        &quot;init&quot;,
+        165);
+      v12 = common::milog::MiLogStream::operator&lt;&lt;&lt;char [45],(char *[45])0&gt;(
+              &v25,
+              (const char (*)[45])&quot;generateReliquaryMainPropId failed, item_id:&quot;);
+      val = Item::getItemId(this);
+      common::milog::MiLogStream::operator&lt;&lt;&lt;unsigned int,(unsigned int *)0&gt;(v12, &val);
+      common::milog::MiLogStream::~MiLogStream(&v25);
+      result = -1;
+      goto LABEL_29;
+    }
+    Reliquary::setMainPropId(this, main_prop_id);
+    std::vector&lt;unsigned int&gt;::clear(&this-&gt;append_prop_id_vec_);
+    for ( idx = 0; ; ++idx )
+    {
+      if ( *(_BYTE *)(((unsigned __int64)&reliquary_config_ptr-&gt;append_prop_num &gt;&gt; 3) + 0x7FFF8000) != 0
+        && (char)((((_BYTE)reliquary_config_ptr + 92) & 7) + 3) &gt;= *(_BYTE *)(((unsigned __int64)&reliquary_config_ptr-&gt;append_prop_num &gt;&gt; 3)
+                                                                            + 0x7FFF8000) )
+      {
+        __asan_report_load4(&reliquary_config_ptr-&gt;append_prop_num);
+      }
+      if ( idx &gt;= reliquary_config_ptr-&gt;append_prop_num )
+        break;
+      ServiceBox::findService&lt;GameserverService&gt;();
+      GameserverService::getConfig((GameserverService *const)&v24);
+      p_reliquary_config_mgr = &std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt;::operator-&gt;((const std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt; *const)&v24)-&gt;design_config.txt_config_mgr.reliquary_config_mgr;
+      MainPropId = Reliquary::getMainPropId(this);
+      v14 = Item::getItemId(this);
+      *(_DWORD *)(v3 + 32) = ReliquaryExcelConfigMgr::generateAppendPropId(
+                               p_reliquary_config_mgr,
+                               v14,
+                               MainPropId,
+                               &this-&gt;append_prop_id_vec_);
+....
+}</code></pre></div>
+
+
+
+<p>As you can see, it generates main property first, and then generates all sub properties(append props).</p>
+
+
+
+<p>Seems legit, let&#8217;s see how it generate main property.</p>
+
+
+
+<h2>0x3 Artifact Main Property Generation</h2>
+
+
+
+<p>Looks like main property generation is handled by <em>PlayerItemComp::generateReliquaryMainPropId</em>, let&#8217;s inspect it.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C" data-line="5"><code> ....
+    v99 = std::__detail::_Node_const_iterator&lt;std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;,false,false&gt;::operator*(&__for_begin);
+    main_prop_id = std::get&lt;0ul,unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;(v99);
+    guarantee_config = (std::tuple_element&lt;1,const std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt; &gt;::type *)std::get&lt;1ul,unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;(v99);
+    guarantee_data = std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;::operator[](
+                       (std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt; *const)(v2 + 176),
+                       main_prop_id);
+    old_guarantee_data_ptr = common::tools::MiscUtils::findMapValuePointer&lt;std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;&gt;(
+                               &guarantee_depot-&gt;main_prop_guarantee_data_map,
+                               main_prop_id);
+    if ( old_guarantee_data_ptr )</code></pre></div>
+
+
+
+<p>I smelled something unusual by just scrolling the code, what the heck is <strong>guarantee_config</strong> ?</p>
+
+
+
+<p>Looks like our artifact isn&#8217;t really fully random, they implemented some sort of pity function.</p>
+
+
+
+<p>At very first of the function, it calls another function to generate a main property:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C" data-line="5"><code>  ServiceBox::findService&lt;GameserverService&gt;();
+  GameserverService::getConfig((GameserverService *const)(v2 + 144));
+  reliquary_config_mgr = &std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt;::operator-&gt;((const std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt; *const)(v2 + 144))-&gt;design_config.txt_config_mgr.reliquary_config_mgr;
+  std::shared_ptr&lt;Config&gt;::~shared_ptr((std::shared_ptr&lt;Config&gt; *const)(v2 + 144));
+  *(_DWORD *)(v2 + 32) = ReliquaryExcelConfigMgr::generateMainPropId(reliquary_config_mgr, *(_DWORD *)(v2 + 96));
+  reliquary_config_ptr = data::ReliquaryExcelConfigMgrBase::findReliquaryExcelConfig(
+                           reliquary_config_mgr,
+                           *(unsigned int *)(v2 + 96));</code></pre></div>
+
+
+
+<p>Let&#8217;s jump into <em>ReliquaryExcelConfigMgr::generateMainPropId</em> .</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C" data-line="3,5,12,17,23"><code>....
+  *(_DWORD *)(v2 + 80) = item_id;
+  reliquary_config_ptr = data::ReliquaryExcelConfigMgrBase::findReliquaryExcelConfig(this, *(unsigned int *)(v2 + 80));
+....
+      if ( common::tools::RandomUtils::weightSelectOne&lt;data::ReliquaryMainPropExcelConfig,unsigned int data::ReliquaryMainPropExcelConfig::*&gt;(
+             main_prop_vec,
+             (uint32_t *)(v2 + 64),
+             (unsigned int *)0x14,
+             0) )
+      {
+....
+        v15 = *(unsigned int *)(v2 + 64);
+        if ( v15 &lt; std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::size(main_prop_vec) )
+        {
+          if ( *(_BYTE *)(((v2 + 64) &gt;&gt; 3) + 0x7FFF8000) != 0 && *(_BYTE *)(((v2 + 64) &gt;&gt; 3) + 0x7FFF8000) &lt;= 3 )
+            __asan_report_load4(v2 + 64);
+          v20 = std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::operator[](main_prop_vec, *(unsigned int *)(v2 + 64));
+          if ( *(_BYTE *)(((unsigned __int64)&v20-&gt;id &gt;&gt; 3) + 0x7FFF8000) != 0
+            && *(_BYTE *)(((unsigned __int64)&v20-&gt;id &gt;&gt; 3) + 0x7FFF8000) &lt;= 3 )
+          {
+            __asan_report_load4(&v20-&gt;id);
+          }
+          result = v20-&gt;id;
+....</code></pre></div>
+
+
+
+<p>I remove some asan stuff to simplify the procedure, as you can see, the server called <em>common::tools::RandomUtils::weightSelectOne</em> to select the main property, this function name implies the main property is selected via some weights, not really pure random.</p>
+
+
+
+<p>In weightSelectOne:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C"><code>  for ( idx = 0LL; idx &lt; std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::size(input_vec); ++idx )
+  {
+    v7 = (unsigned __int64)member + (_QWORD)std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::operator[](input_vec, idx);
+    new_sum_weight = *(_DWORD *)v7 + sum_weight;
+    if ( new_sum_weight &lt; sum_weight )
+      goto LABEL_12;
+    v8 = (unsigned int *)((char *)member
+                        + (_QWORD)std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::operator[](input_vec, idx));
+    if ( new_sum_weight &gt;= *v8 )
+      v9 = 0;
+    else
+LABEL_12:
+      v9 = 1;
+    if ( v9 )
+    {
+      result = -1;
+      goto LABEL_40;
+    }
+    sum_weight = new_sum_weight;
+  }
+.....
+    *select_idx = 0;
+    if ( random_seed )
+      rand_weight = common::tools::RandomUtils::rand&lt;unsigned int&gt;(random_seed) % sum_weight;
+    else
+      rand_weight = common::tools::RandomUtils::rand&lt;unsigned int&gt;() % sum_weight;
+    for ( idx_0 = 0LL; idx_0 &lt; std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::size(input_vec); ++idx_0 )
+    {
+      v12 = (unsigned int *)((char *)member
+                           + (_QWORD)std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::operator[](input_vec, idx_0));
+      if ( rand_weight &lt; *v12 )
+      {
+        v13 = idx_0;
+        *select_idx = v13;
+        break;
+      }
+      v14 = (unsigned __int64)member
+          + (_QWORD)std::vector&lt;data::ReliquaryMainPropExcelConfig&gt;::operator[](input_vec, idx_0);
+      rand_weight -= *(_DWORD *)v14;
+    }
+    result = 0;</code></pre></div>
+
+
+
+<p>Looks like a standard random bias selection algorithm, the member parameter(0x14 here) indicates which column contains weight data, the seed is 0 means no seed.</p>
+
+
+
+<p>Since this data in configured in server side, we cannot know server config without access to the prod server, but the leaker actually dumped the server config so here&#8217;s the table!</p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td>Main property ID(Parsed by me)</td><td>Main depot ID(Parsed)</td><td>Type</td><td>Weights</td></tr><tr><td>FIGHT_PROP_HP</td><td>Sand-1000</td><td>2</td><td>0</td></tr><tr><td>FIGHT_PROP_HP_PERCENT</td><td>Sand-1000</td><td>3</td><td>1334</td></tr><tr><td>FIGHT_PROP_ATTACK</td><td>Sand-1000</td><td>5</td><td>0</td></tr><tr><td>FIGHT_PROP_ATTACK_PERCENT</td><td>Sand-1000</td><td>6</td><td>1333</td></tr><tr><td>FIGHT_PROP_DEFENSE</td><td>Sand-1000</td><td>8</td><td>0</td></tr><tr><td>FIGHT_PROP_DEFENSE_PERCENT</td><td>Sand-1000</td><td>9</td><td>1333</td></tr><tr><td>FIGHT_PROP_CHARGE_EFFICIENCY</td><td>Sand-1000</td><td>23</td><td>500</td></tr><tr><td>FIGHT_PROP_ELEMENT_MASTERY</td><td>Sand-1000</td><td>28</td><td>500</td></tr><tr><td>FIGHT_PROP_FIRE_SUB_HURT</td><td>Sand-1000</td><td>50</td><td>0</td></tr><tr><td>FIGHT_PROP_ELEC_SUB_HURT</td><td>Sand-1000</td><td>51</td><td>0</td></tr><tr><td>FIGHT_PROP_ICE_SUB_HURT</td><td>Sand-1000</td><td>56</td><td>0</td></tr><tr><td>FIGHT_PROP_WATER_SUB_HURT</td><td>Sand-1000</td><td>52</td><td>0</td></tr><tr><td>FIGHT_PROP_WIND_SUB_HURT</td><td>Sand-1000</td><td>54</td><td>0</td></tr><tr><td>FIGHT_PROP_ROCK_SUB_HURT</td><td>Sand-1000</td><td>55</td><td>0</td></tr><tr><td>FIGHT_PROP_GRASS_SUB_HURT</td><td>Sand-1000</td><td>53</td><td>0</td></tr><tr><td>FIGHT_PROP_ATTACK</td><td>Feather-2000</td><td>5</td><td>1000</td></tr><tr><td>FIGHT_PROP_HP</td><td>Circlet-3000</td><td>2</td><td>0</td></tr><tr><td>FIGHT_PROP_HP_PERCENT</td><td>Circlet-3000</td><td>3</td><td>1100</td></tr><tr><td>FIGHT_PROP_ATTACK</td><td>Circlet-3000</td><td>5</td><td>0</td></tr><tr><td>FIGHT_PROP_ATTACK_PERCENT</td><td>Circlet-3000</td><td>6</td><td>1100</td></tr><tr><td>FIGHT_PROP_DEFENSE</td><td>Circlet-3000</td><td>8</td><td>0</td></tr><tr><td>FIGHT_PROP_DEFENSE_PERCENT</td><td>Circlet-3000</td><td>9</td><td>1100</td></tr><tr><td>FIGHT_PROP_CRITICAL</td><td>Circlet-3000</td><td>20</td><td>500</td></tr><tr><td>FIGHT_PROP_CRITICAL_HURT</td><td>Circlet-3000</td><td>22</td><td>500</td></tr><tr><td>FIGHT_PROP_HEAL_ADD</td><td>Circlet-3000</td><td>26</td><td>500</td></tr><tr><td>FIGHT_PROP_ELEMENT_MASTERY</td><td>Circlet-3000</td><td>28</td><td>200</td></tr><tr><td>FIGHT_PROP_HP</td><td>Flower-4000</td><td>2</td><td>1000</td></tr><tr><td>FIGHT_PROP_HP</td><td>Goblet-5000</td><td>2</td><td>0</td></tr><tr><td>FIGHT_PROP_HP_PERCENT</td><td>Goblet-5000</td><td>3</td><td>770</td></tr><tr><td>FIGHT_PROP_ATTACK</td><td>Goblet-5000</td><td>5</td><td>0</td></tr><tr><td>FIGHT_PROP_ATTACK_PERCENT</td><td>Goblet-5000</td><td>6</td><td>770</td></tr><tr><td>FIGHT_PROP_DEFENSE</td><td>Goblet-5000</td><td>8</td><td>0</td></tr><tr><td>FIGHT_PROP_DEFENSE_PERCENT</td><td>Goblet-5000</td><td>9</td><td>760</td></tr><tr><td>FIGHT_PROP_ELEMENT_MASTERY</td><td>Goblet-5000</td><td>28</td><td>100</td></tr><tr><td>FIGHT_PROP_FIRE_ADD_HURT</td><td>Goblet-5000</td><td>40</td><td>200</td></tr><tr><td>FIGHT_PROP_ELEC_ADD_HURT</td><td>Goblet-5000</td><td>41</td><td>200</td></tr><tr><td>FIGHT_PROP_ICE_ADD_HURT</td><td>Goblet-5000</td><td>46</td><td>200</td></tr><tr><td>FIGHT_PROP_WATER_ADD_HURT</td><td>Goblet-5000</td><td>42</td><td>200</td></tr><tr><td>FIGHT_PROP_WIND_ADD_HURT</td><td>Goblet-5000</td><td>44</td><td>200</td></tr><tr><td>FIGHT_PROP_ROCK_ADD_HURT</td><td>Goblet-5000</td><td>45</td><td>200</td></tr><tr><td>FIGHT_PROP_GRASS_ADD_HURT</td><td>Goblet-5000</td><td>43</td><td>200</td></tr><tr><td>FIGHT_PROP_PHYSICAL_ADD_HURT</td><td>Goblet-5000</td><td>30</td><td>200</td></tr></tbody></table></figure>
+
+
+
+<p>Wait, what about the <em>guarantee</em> thing?</p>
+
+
+
+<p>Let&#8217;s go back to <em>PlayerItemComp::generateReliquaryMainPropId</em>. I removed all the asan stuff and log stuff.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-cpp" data-lang="C++" data-line="19,46,100,129"><code>// Generate main property 
+ *(_DWORD *)(v2 + 96) = reliquary_id;
+  ServiceBox::findService&lt;GameserverService&gt;();
+  GameserverService::getConfig((GameserverService *const)(v2 + 144));
+  reliquary_config_mgr = &std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt;::operator-&gt;((const std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt; *const)(v2 + 144))-&gt;design_config.txt_config_mgr.reliquary_config_mgr;
+  std::shared_ptr&lt;Config&gt;::~shared_ptr((std::shared_ptr&lt;Config&gt; *const)(v2 + 144));
+  *(_DWORD *)(v2 + 32) = ReliquaryExcelConfigMgr::generateMainPropId(reliquary_config_mgr, *(_DWORD *)(v2 + 96));
+  reliquary_config_ptr = data::ReliquaryExcelConfigMgrBase::findReliquaryExcelConfig(
+                           reliquary_config_mgr,
+                           *(unsigned int *)(v2 + 96));
+......
+  if ( !common::tools::MiscUtils::isContains&lt;std::unordered_set&lt;unsigned int&gt; const,unsigned int&gt;(
+          &reliquary_config_mgr-&gt;guaranteed_main_prop_depot_id_set,
+          &reliquary_config_ptr-&gt;main_prop_depot_id) )
+  {
+    v10 = *(_DWORD *)(v2 + 32);
+    goto LABEL_112;
+  }
+  if ( reliquary_config_ptr-&gt;rank_level &lt;= 4 )
+  {
+    v10 = *(_DWORD *)(v2 + 32);
+    goto LABEL_112;
+  }
+  *(_DWORD *)(v2 + 48) = reliquary_config_ptr-&gt;set_id;
+  if ( !*(_DWORD *)(v2 + 48) )
+  {
+    v10 = *(_DWORD *)(v2 + 32);
+    goto LABEL_112;
+  }
+  reliquary_set_config_ptr = data::ReliquaryExcelConfigMgrBase::findReliquarySetExcelConfig(
+                               reliquary_config_mgr,
+                               *(_DWORD *)(v2 + 48));
+....
+  *(_DWORD *)(v2 + 64) = reliquary_set_config_ptr-&gt;guarantee_depot_id;
+  if ( !*(_DWORD *)(v2 + 64) )
+  {
+    v10 = *(_DWORD *)(v2 + 32);
+    goto LABEL_112;
+  }
+...
+  ServiceBox::findService&lt;GameserverService&gt;();
+  GameserverService::getConfig((GameserverService *const)(v2 + 144));
+  v23 = std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt;::operator-&gt;((const std::__shared_ptr_access&lt;Config,(__gnu_cxx::_Lock_policy)2,false,false&gt; *const)(v2 + 144));
+  isReliquaryGuaranteeClosed = FeatureSwitchMgr::isReliquaryGuaranteeClosed(&v23-&gt;feature_switch_mgr);
+  std::shared_ptr&lt;Config&gt;::~shared_ptr((std::shared_ptr&lt;Config&gt; *const)(v2 + 144));
+  if ( isReliquaryGuaranteeClosed )
+  {
+...
+    v10 = *(_DWORD *)(v2 + 32);
+    goto LABEL_112;
+  }
+...
+  v28 = (char *)(v2 + 64);
+  guarantee_depot = std::map&lt;unsigned int,ReliquaryGuaranteeDepot&gt;::operator[](
+                      &this-&gt;reliquary_guarantee_depot_map_,
+                      (const std::map&lt;unsigned int,ReliquaryGuaranteeDepot&gt;::key_type *)(v2 + 64));
+  v29 = *(_DWORD *)(v2 + 64);
+  guarantee_depot-&gt;guarantee_depot_id = v29;
+  std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;::map((std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt; *const)(v2 + 176));
+  *(_QWORD *)(v2 + 144) = 0LL;
+  *(_QWORD *)(v2 + 152) = 0LL;
+  __for_range = &reliquary_config_mgr-&gt;reliquary_main_prop_guarantee_excel_config_map;
+  __for_begin._M_cur = std::unordered_map&lt;unsigned int,data::ReliquaryMainPropGuaranteeExcelConfig&gt;::begin(&reliquary_config_mgr-&gt;reliquary_main_prop_guarantee_excel_config_map)._M_cur;
+  __for_end._M_cur = std::unordered_map&lt;unsigned int,data::ReliquaryMainPropGuaranteeExcelConfig&gt;::end(&reliquary_config_mgr-&gt;reliquary_main_prop_guarantee_excel_config_map)._M_cur;
+  while ( std::__detail::operator!=&lt;std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;,false&gt;(
+            &__for_begin,
+            &__for_end) )
+  {
+    v99 = std::__detail::_Node_const_iterator&lt;std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;,false,false&gt;::operator*(&__for_begin);
+    main_prop_id = std::get&lt;0ul,unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;(v99);
+    guarantee_config = (std::tuple_element&lt;1,const std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt; &gt;::type *)std::get&lt;1ul,unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;(v99);
+    guarantee_data = std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;::operator[](
+                       (std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt; *const)(v2 + 176),
+                       main_prop_id);
+    old_guarantee_data_ptr = common::tools::MiscUtils::findMapValuePointer&lt;std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;&gt;(
+                               &guarantee_depot-&gt;main_prop_guarantee_data_map,
+                               main_prop_id);
+    if ( old_guarantee_data_ptr )
+    {
+      guarantee_count = old_guarantee_data_ptr-&gt;guarantee_count;
+      if ( guarantee_count &lt; guarantee_config-&gt;min_guarantee_count )
+        goto LABEL_54;
+      if ( v36 &lt;= guarantee_config-&gt;max_guarantee_count )
+      {
+        v56 = old_guarantee_data_ptr-&gt;miss_count + 1;
+        guarantee_data-&gt;miss_count = v56;
+        main_prop_depot_id = guarantee_config-&gt;main_prop_depot_id;
+        if ( main_prop_depot_id == reliquary_config_ptr-&gt;main_prop_depot_id
+          && old_guarantee_data_ptr-&gt;miss_count &gt;= old_guarantee_data_ptr-&gt;guarantee_count )
+        {
+          *(_DWORD *)(v2 + 112) = *main_prop_id;
+          *(_DWORD *)(v2 + 116) = old_guarantee_data_ptr-&gt;guarantee_count;
+          *(_DWORD *)(v2 + 120) = old_guarantee_data_ptr-&gt;miss_count - old_guarantee_data_ptr-&gt;guarantee_count;
+if ( !std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData&gt;::has_value((const std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144))
+            || (v62 = std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData&gt;::value((std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144)),
+                PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData::isBetterThan(
+                  (const PlayerItemComp::generateReliquaryMainPropId::TriggeredMainPropData *const)(v2 + 112),
+                  v62)) )
+          {
+            std::optional_PlayerItemComp::generateReliquaryMainPropId_uint32_t_::TriggeredMainPropData_::operator__PlayerItemComp::generateReliquaryMainPropId_uint32_t_::TriggeredMainPropData__(
+              (std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144),
+              (PlayerItemComp::generateReliquaryMainPropId::TriggeredMainPropData *)(v2 + 112));
+          }
+        }
+      }
+      else
+      {
+        guarantee_data-&gt;miss_count = 1;
+        max_guarantee_count = guarantee_config-&gt;max_guarantee_count;
+        v39 = common::tools::RandomUtils::rand&lt;unsigned int&gt;(guarantee_config-&gt;min_guarantee_count, max_guarantee_count);
+        guarantee_data-&gt;guarantee_count = v39;
+      }
+    }
+    else
+    {
+      guarantee_data-&gt;miss_count = 1;
+      v31 = guarantee_config-&gt;max_guarantee_count;
+      v32 = v31;
+      v33 = common::tools::RandomUtils::rand&lt;unsigned int&gt;(guarantee_config-&gt;min_guarantee_count, v31);
+      guarantee_data-&gt;guarantee_count = v33;
+    }
+    std::__detail::_Node_const_iterator&lt;std::pair&lt;unsigned int const,data::ReliquaryMainPropGuaranteeExcelConfig&gt;,false,false&gt;::operator++(&__for_begin);
+  }
+ *(_DWORD *)(v2 + 80) = *(_DWORD *)(v2 + 32);
+  if ( std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData&gt;::has_value((const std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144)) )
+  {
+    v64 = std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData&gt;::value((std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144));
+    v65 = v64;
+    *(_DWORD *)(v2 + 80) = v65-&gt;main_prop_id;
+  }
+  guarantee_data_ptr = common::tools::MiscUtils::findMapValuePointer&lt;std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;&gt;(
+                         (std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt; *)(v2 + 176),
+                         (const std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;::key_type *)(v2 + 80));
+  if ( guarantee_data_ptr )
+  {
+    guarantee_data_ptr-&gt;miss_count = 0;
+    if ( std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(unsigned int)::TriggeredMainPropData&gt;::has_value((const std::optional&lt;PlayerItemComp::generateReliquaryMainPropId(uint32_t)::TriggeredMainPropData&gt; *const)(v2 + 144)) )
+    {
+      guarantee_config_ptr = data::ReliquaryExcelConfigMgrBase::findReliquaryMainPropGuaranteeExcelConfig(
+                               reliquary_config_mgr,
+                               *(_DWORD *)(v2 + 80));
+      v79 = guarantee_config_ptr-&gt;max_guarantee_count;
+      v80 = v79;
+      v81 = common::tools::RandomUtils::rand&lt;unsigned int&gt;(guarantee_config_ptr-&gt;min_guarantee_count, v79);
+      guarantee_data_ptr-&gt;guarantee_count = v81;
+    }
+    v10 = *(_DWORD *)(v2 + 80);
+    goto LABEL_111;
+  }
+  v10 = *(_DWORD *)(v2 + 32);
+LABEL_111:
+  std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt;::~map((std::map&lt;unsigned int,ReliquaryMainPropGuaranteeData&gt; *const)(v2 + 176));
+LABEL_112:
+  result = v10;
+  return result;</code></pre></div>
+
+
+
+<p>In line 19, we can see that pity isn&#8217;t activated if artifact rank &lt;=4.</p>
+
+
+
+<p>In line 46, server can switch pity on/off at anytime. But it seems this is on for public official server.</p>
+
+
+
+<p>In line 100, server checks all property pity count, add all property that matches pity count into a list.</p>
+
+
+
+<p>In line 129, server selects first pity property that matches the selected depot.</p>
+
+
+
+<p>So in short, the main property generation is weight biased and have a pity system for unlucky people like me.</p>
+
+
+
+<p>Another question, what&#8217;s the probability for pity?</p>
+
+
+
+<p>Fortunately, the leaker dumped that too, here&#8217;s the table.</p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td>Main property ID(Parsed)</td><td>Depot(Parsed)</td><td>Type</td><td>Pity count</td><td>Min/Max</td></tr><tr><td>FIGHT_PROP_HP_PERCENT</td><td>Sand-1000</td><td>3</td><td>19</td><td>1;2</td></tr><tr><td>FIGHT_PROP_ATTACK_PERCENT</td><td>Sand-1000</td><td>6</td><td>19</td><td>1;2</td></tr><tr><td>FIGHT_PROP_DEFENSE_PERCENT</td><td>Sand-1000</td><td>9</td><td>19</td><td>1;2</td></tr><tr><td>FIGHT_PROP_CHARGE_EFFICIENCY</td><td>Sand-1000</td><td>23</td><td>50</td><td>1;2</td></tr><tr><td>FIGHT_PROP_ELEMENT_MASTERY</td><td>Sand-1000</td><td>28</td><td>50</td><td>1;2</td></tr><tr><td>FIGHT_PROP_ATTACK</td><td>Feather-2000</td><td>5</td><td>5</td><td>1;2</td></tr><tr><td>FIGHT_PROP_HP_PERCENT</td><td>Circlet-3000</td><td>3</td><td>23</td><td>1;2</td></tr><tr><td>FIGHT_PROP_ATTACK_PERCENT</td><td>Circlet-3000</td><td>6</td><td>23</td><td>1;2</td></tr><tr><td>FIGHT_PROP_DEFENSE_PERCENT</td><td>Circlet-3000</td><td>9</td><td>23</td><td>1;2</td></tr><tr><td>FIGHT_PROP_CRITICAL</td><td>Circlet-3000</td><td>20</td><td>50</td><td>1;2</td></tr><tr><td>FIGHT_PROP_CRITICAL_HURT</td><td>Circlet-3000</td><td>22</td><td>50</td><td>1;2</td></tr><tr><td>FIGHT_PROP_HEAL_ADD</td><td>Circlet-3000</td><td>26</td><td>50</td><td>1;2</td></tr><tr><td>FIGHT_PROP_ELEMENT_MASTERY</td><td>Circlet-3000</td><td>28</td><td>125</td><td>1;2</td></tr><tr><td>FIGHT_PROP_HP</td><td>Flower-4000</td><td>2</td><td>5</td><td>1;2</td></tr><tr><td>FIGHT_PROP_HP_PERCENT</td><td>Goblet-5000</td><td>3</td><td>26</td><td>1;2</td></tr><tr><td>FIGHT_PROP_ATTACK_PERCENT</td><td>Goblet-5000</td><td>6</td><td>26</td><td>1;2</td></tr><tr><td>FIGHT_PROP_DEFENSE_PERCENT</td><td>Goblet-5000</td><td>9</td><td>27</td><td>1;2</td></tr><tr><td>FIGHT_PROP_ELEMENT_MASTERY</td><td>Goblet-5000</td><td>28</td><td>200</td><td>1;2</td></tr><tr><td>FIGHT_PROP_FIRE_ADD_HURT</td><td>Goblet-5000</td><td>40</td><td>100</td><td>1;2</td></tr><tr><td>FIGHT_PROP_ELEC_ADD_HURT</td><td>Goblet-5000</td><td>41</td><td>100</td><td>1;2</td></tr><tr><td>FIGHT_PROP_ICE_ADD_HURT</td><td>Goblet-5000</td><td>46</td><td>100</td><td>1;2</td></tr><tr><td>FIGHT_PROP_WATER_ADD_HURT</td><td>Goblet-5000</td><td>42</td><td>100</td><td>1;2</td></tr><tr><td>FIGHT_PROP_WIND_ADD_HURT</td><td>Goblet-5000</td><td>44</td><td>100</td><td>1;2</td></tr><tr><td>FIGHT_PROP_ROCK_ADD_HURT</td><td>Goblet-5000</td><td>45</td><td>100</td><td>1;2</td></tr><tr><td>FIGHT_PROP_GRASS_ADD_HURT</td><td>Goblet-5000</td><td>43</td><td>100</td><td>1;2</td></tr><tr><td>FIGHT_PROP_PHYSICAL_ADD_HURT</td><td>Goblet-5000</td><td>30</td><td>100</td><td>1;2</td></tr></tbody></table></figure>
+
+
+
+<p>So you are guaranteed to get a element mastery goblet in 200 artifacts generation? Bruh&#8230;</p>
+
+
+
+<h2>0x4 Artifact Sub Properties Generation</h2>
+
+
+
+<p>OK, how about sub properties?</p>
+
+
+
+<p>After main property was generated, server will generate some sub properties for this new artifact, via<em> ReliquaryExcelConfigMgr::generateAppendPropId</em>:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-c" data-lang="C" data-line="91"><code>....
+          is_upgrade = 0;
+          if ( std::vector&lt;unsigned int&gt;::size(append_prop_id_vec) &gt; 3 )
+          {
+            *(std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::const_iterator *)(v5 + 368) = std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::begin(group_prop_config_map);
+            *(std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::const_iterator *)(v5 + 400) = std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::end(group_prop_config_map);
+            while ( 1 )
+            {
+              v28 = (char *)(v5 + 400);
+              if ( !std::operator!=(
+                      (const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::_Self *)(v5 + 368),
+                      (const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::_Self *)(v5 + 400)) )
+                break;
+              v51 = std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;&gt;::operator*((const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt; *const)(v5 + 368));
+              group_id_0 = std::get&lt;0ul,unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;(v51);
+              append_prop_config_vec_0 = (std::tuple_element&lt;1,const std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::type *)std::get&lt;1ul,unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;(v51);
+              if ( std::set&lt;unsigned int&gt;::count((const std::set&lt;unsigned int&gt; *const)(v5 + 1104), group_id_0) )
+              {
+                __lasta = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::end(append_prop_config_vec_0)._M_current;
+                M_current = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::begin(append_prop_config_vec_0)._M_current;
+                *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::iterator *)(v5 + 432) = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::end((std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 656));
+                __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig const*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*&gt;(
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *const)(v5 + 464),
+                  (const __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *)(v5 + 432));
+                std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::insert&lt;__gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig const*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;,void&gt;(
+                  (std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 656),
+                  *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::const_iterator *)(v5 + 464),
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt;)M_current,
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt;)__lasta);
+              }
+              std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;&gt;::operator++((std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt; *const)(v5 + 368));
+            }
+            is_upgrade = 1;
+          }
+          else
+          {
+            *(std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::const_iterator *)(v5 + 240) = std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::begin(group_prop_config_map);
+            *(std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::const_iterator *)(v5 + 272) = std::map&lt;unsigned int,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::end(group_prop_config_map);
+            while ( 1 )
+            {
+              v28 = (char *)(v5 + 272);
+              if ( !std::operator!=(
+                      (const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::_Self *)(v5 + 240),
+                      (const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::_Self *)(v5 + 272)) )
+                break;
+              v54 = std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;&gt;::operator*((const std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt; *const)(v5 + 240));
+              group_id = std::get&lt;0ul,unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;(v54);
+              append_prop_config_vec = (std::tuple_element&lt;1,const std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt;::type *)std::get&lt;1ul,unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;(v54);
+              if ( !std::set&lt;unsigned int&gt;::count((const std::set&lt;unsigned int&gt; *const)(v5 + 1104), group_id) )
+              {
+                __last = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::end(append_prop_config_vec)._M_current;
+                v29 = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::begin(append_prop_config_vec)._M_current;
+                *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::iterator *)(v5 + 304) = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::end((std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 656));
+                __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig const*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*&gt;(
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *const)(v5 + 336),
+                  (const __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *)(v5 + 304));
+                std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::insert&lt;__gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig const*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;,void&gt;(
+                  (std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 656),
+                  *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::const_iterator *)(v5 + 336),
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt;)v29,
+                  (__gnu_cxx::__normal_iterator&lt;const data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt;)__last);
+              }
+              std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;&gt;::operator++((std::_Rb_tree_const_iterator&lt;std::pair&lt;unsigned int const,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; &gt; *const)(v5 + 240));
+            }
+          }
+          __for_range_2 = (std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *)(v5 + 656);
+
+          *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::iterator *)(v5 + 496) = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::begin(__for_range_2);
+          *(std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::iterator *)(v5 + 528) = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::end(__for_range_2);
+          while ( __gnu_cxx::operator!=&lt;data::ReliquaryAffixExcelConfig *,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;(
+                    (const __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *)(v5 + 496),
+                    (const __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *)(v5 + 528)) )
+          {
+            append_prop_config = __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig *,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::operator*((const __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *const)(v5 + 496));
+            p_prop_type = &append_prop_config-&gt;prop_type;
+
+            prop_type = append_prop_config-&gt;prop_type;
+ 
+            if ( prop_type != main_prop_config_ptr-&gt;prop_type )
+              std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::emplace_back&lt;data::ReliquaryAffixExcelConfig const&&gt;(
+                (std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 592),
+                append_prop_config,
+                append_prop_config);
+            __gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig *,std::vector&lt;data::ReliquaryAffixExcelConfig&gt;&gt;::operator++((__gnu_cxx::__normal_iterator&lt;data::ReliquaryAffixExcelConfig*,std::vector&lt;data::ReliquaryAffixExcelConfig&gt; &gt; *const)(v5 + 496));
+          }
+          *(_DWORD *)(v5 + 64) = 0;
+          if ( is_upgrade )
+            v33 = 32LL;
+          else
+            v33 = 28LL;
+          if ( common::tools::RandomUtils::weightSelectOne&lt;data::ReliquaryAffixExcelConfig,unsigned int data::ReliquaryAffixExcelConfig::*&gt;(
+                 (const std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *)(v5 + 592),
+                 (uint32_t *)(v5 + 64),
+                 (unsigned int *)v33,
+                 0) )
+....
+
+            v35 = *(unsigned int *)(v5 + 64);
+            if ( v35 &lt; std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::size((const std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 592)) )
+            {
+              v40 = std::vector&lt;data::ReliquaryAffixExcelConfig&gt;::operator[](
+                      (std::vector&lt;data::ReliquaryAffixExcelConfig&gt; *const)(v5 + 592),
+                      *(unsigned int *)(v5 + 64));
+              id = v40-&gt;id;
+            }
+....</code></pre></div>
+
+
+
+<p>Interesting parameter, <em>is_upgrade</em>, hmm.</p>
+
+
+
+<p>Does this function also implements artifact upgrade? Yes. xref shows this function also being called from <em>Reliquary::upgradeLevel</em> !</p>
+
+
+
+<p>Also, do you guys see the familiar <em>weightSelectOne</em>, LOL.</p>
+
+
+
+<p>Apparently, the sub properties generation and upgrade also has some sort of weights.</p>
+
+
+
+<p>And, guess what, the leaker also leaks this configuration, so here&#8217;s the table:</p>
+
+
+
+<p><em>For the sake of simplicity, I&#8217;ll only show the 5 star artifact related data.</em></p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td>Append Property</td><td>Affix</td><td>Group</td><td>Type</td><td>Property Value</td><td>Random weights</td><td>Upgrade weights</td></tr><tr><td>FIGHT_PROP_HP</td><td>501</td><td>2</td><td>2</td><td>209.13</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_HP</td><td>501</td><td>2</td><td>2</td><td>239</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_HP</td><td>501</td><td>2</td><td>2</td><td>268.88</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_HP</td><td>501</td><td>2</td><td>2</td><td>298.75</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_HP_PERCENT</td><td>501</td><td>3</td><td>3</td><td>0.0408</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_HP_PERCENT</td><td>501</td><td>3</td><td>3</td><td>0.0466</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_HP_PERCENT</td><td>501</td><td>3</td><td>3</td><td>0.0525</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_HP_PERCENT</td><td>501</td><td>3</td><td>3</td><td>0.0583</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_ATTACK</td><td>501</td><td>5</td><td>5</td><td>13.62</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_ATTACK</td><td>501</td><td>5</td><td>5</td><td>15.56</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_ATTACK</td><td>501</td><td>5</td><td>5</td><td>17.51</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_ATTACK</td><td>501</td><td>5</td><td>5</td><td>19.45</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_ATTACK_PERCENT</td><td>501</td><td>6</td><td>6</td><td>0.0408</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_ATTACK_PERCENT</td><td>501</td><td>6</td><td>6</td><td>0.0466</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_ATTACK_PERCENT</td><td>501</td><td>6</td><td>6</td><td>0.0525</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_ATTACK_PERCENT</td><td>501</td><td>6</td><td>6</td><td>0.0583</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_DEFENSE</td><td>501</td><td>8</td><td>8</td><td>16.2</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_DEFENSE</td><td>501</td><td>8</td><td>8</td><td>18.52</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_DEFENSE</td><td>501</td><td>8</td><td>8</td><td>20.83</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_DEFENSE</td><td>501</td><td>8</td><td>8</td><td>23.15</td><td>150</td><td>1000</td></tr><tr><td>FIGHT_PROP_DEFENSE_PERCENT</td><td>501</td><td>9</td><td>9</td><td>0.051</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_DEFENSE_PERCENT</td><td>501</td><td>9</td><td>9</td><td>0.0583</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_DEFENSE_PERCENT</td><td>501</td><td>9</td><td>9</td><td>0.0656</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_DEFENSE_PERCENT</td><td>501</td><td>9</td><td>9</td><td>0.0729</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_CHARGE_EFFICIENCY</td><td>501</td><td>23</td><td>23</td><td>0.0453</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_CHARGE_EFFICIENCY</td><td>501</td><td>23</td><td>23</td><td>0.0518</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_CHARGE_EFFICIENCY</td><td>501</td><td>23</td><td>23</td><td>0.0583</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_CHARGE_EFFICIENCY</td><td>501</td><td>23</td><td>23</td><td>0.0648</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_ELEMENT_MASTERY</td><td>501</td><td>24</td><td>28</td><td>16.32</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_ELEMENT_MASTERY</td><td>501</td><td>24</td><td>28</td><td>18.65</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_ELEMENT_MASTERY</td><td>501</td><td>24</td><td>28</td><td>20.98</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_ELEMENT_MASTERY</td><td>501</td><td>24</td><td>28</td><td>23.31</td><td>100</td><td>1000</td></tr><tr><td>FIGHT_PROP_CRITICAL</td><td>501</td><td>20</td><td>20</td><td>0.0272</td><td>75</td><td>1000</td></tr><tr><td>FIGHT_PROP_CRITICAL</td><td>501</td><td>20</td><td>20</td><td>0.0311</td><td>75</td><td>1000</td></tr><tr><td>FIGHT_PROP_CRITICAL</td><td>501</td><td>20</td><td>20</td><td>0.035</td><td>75</td><td>1000</td></tr><tr><td>FIGHT_PROP_CRITICAL</td><td>501</td><td>20</td><td>20</td><td>0.0389</td><td>75</td><td>1000</td></tr><tr><td>FIGHT_PROP_CRITICAL_HURT</td><td>501</td><td>22</td><td>22</td><td>0.0544</td><td>75</td><td>1000</td></tr><tr><td>FIGHT_PROP_CRITICAL_HURT</td><td>501</td><td>22</td><td>22</td><td>0.0622</td><td>75</td><td>1000</td></tr><tr><td>FIGHT_PROP_CRITICAL_HURT</td><td>501</td><td>22</td><td>22</td><td>0.0699</td><td>75</td><td>1000</td></tr><tr><td>FIGHT_PROP_CRITICAL_HURT</td><td>501</td><td>22</td><td>22</td><td>0.0777</td><td>75</td><td>1000</td></tr></tbody></table></figure>
+
+
+
+<p>Yes, as you can see, the critical rate/damage properties has lowest weights as expected, and trash properties(Flat ATK/HP/DEF) has highest weights, twice more than critical rate/damage, bruh&#8230;.</p>
+
+
+
+<p>To my surprise, the upgrade weights are all the same, means once the artifact has 4 sub properties, you have even chance to upgrade any of them!</p>
+
+
+
+<h2>0x5 Final words</h2>
+
+
+
+<p>No wonder you cannot get a perfect artifact, the weights are just unfair.</p>
+
+
+
+<p>I&#8217;ll publish more server side reverse engineering interesting findings, stay tuned!</p>
+
+
+
+<p>Also, feel free to comment if you have any questions!</p>
+
+
+
+<p></p>
+<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

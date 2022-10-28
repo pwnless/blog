@@ -10,7 +10,7 @@
 <channel>
 	<title>writeups Archives - Hopeless blog</title>
 	<atom:link href="https://pwnblog.github.io/category/writeups/feed/" rel="self" type="application/rss+xml" />
-	<link>https://pwnblog.github.io</link>
+	<link>https://pwnblog.github.io/category/writeups/</link>
 	<description>Pwn the life</description>
 	<lastBuildDate>Mon, 28 Feb 2022 03:10:26 +0000</lastBuildDate>
 	<language>en-US</language>
@@ -18,11 +18,10 @@
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=5.9.1</generator>
+	<generator>https://wordpress.org/?v=6.0.3</generator>
 	<item>
 		<title>Codegate CTF 2022 file-v writeup</title>
 		<link>https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/</link>
-					<comments>https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/#respond</comments>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Mon, 28 Feb 2022 03:10:23 +0000</pubDate>
@@ -363,15 +362,12 @@ p.interactive()
 <p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
-					<wfw:commentRss>https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/feed/</wfw:commentRss>
-			<slash:comments>0</slash:comments>
 		
 		
 			</item>
 		<item>
 		<title>0CTF 2021 Quals &#8220;ioa&#8221; writeup</title>
 		<link>https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/</link>
-					<comments>https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/#respond</comments>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Tue, 15 Feb 2022 14:24:11 +0000</pubDate>
@@ -824,8 +820,6 @@ m.interactive()</code></pre></div>
 <p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
-					<wfw:commentRss>https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/feed/</wfw:commentRss>
-			<slash:comments>0</slash:comments>
 		
 		
 			</item>
