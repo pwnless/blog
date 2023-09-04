@@ -9,8 +9,8 @@
 
 <channel>
 	<title>reverse-engineering Archives - Hopeless blog</title>
-	<atom:link href="https://pwnblog.github.io/category/rev/feed/" rel="self" type="application/rss+xml" />
-	<link>https://pwnblog.github.io/category/rev/</link>
+	<atom:link href="https://hope1ess.com/category/rev/feed/" rel="self" type="application/rss+xml" />
+	<link>https://hope1ess.com/category/rev/</link>
 	<description>Pwn the life</description>
 	<lastBuildDate>Fri, 28 Oct 2022 07:08:57 +0000</lastBuildDate>
 	<language>en-US</language>
@@ -21,15 +21,15 @@
 	<generator>https://wordpress.org/?v=6.3.1</generator>
 	<item>
 		<title>Genshin Impact Server Reverse-Engineering Part 1: Artifacts</title>
-		<link>https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/</link>
+		<link>https://hope1ess.com/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/</link>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Fri, 28 Oct 2022 07:08:53 +0000</pubDate>
 				<category><![CDATA[reverse-engineering]]></category>
-		<guid isPermaLink="false">https://pwnblog.github.io/?p=117</guid>
+		<guid isPermaLink="false">https://hope1ess.com/?p=117</guid>
 
 					<description><![CDATA[<p>Did you know why you just cannot get perfect artifacts?</p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
 <h2 class="wp-block-heading">0x1 Genshin Impact Leaks Story</h2>
@@ -657,7 +657,7 @@ LABEL_112:
 
 
 <p></p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
 		

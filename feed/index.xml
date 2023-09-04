@@ -9,8 +9,8 @@
 
 <channel>
 	<title>Hopeless blog</title>
-	<atom:link href="https://pwnblog.github.io/feed/" rel="self" type="application/rss+xml" />
-	<link>https://pwnblog.github.io/</link>
+	<atom:link href="https://hope1ess.com/feed/" rel="self" type="application/rss+xml" />
+	<link>https://hope1ess.com/</link>
 	<description>Pwn the life</description>
 	<lastBuildDate>Mon, 04 Sep 2023 13:09:04 +0000</lastBuildDate>
 	<language>en-US</language>
@@ -21,16 +21,16 @@
 	<generator>https://wordpress.org/?v=6.3.1</generator>
 	<item>
 		<title>WeChat tweaks for iOS rootless jailbreak</title>
-		<link>https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/</link>
-					<comments>https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/#respond</comments>
+		<link>https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/</link>
+					<comments>https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/#respond</comments>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Mon, 04 Sep 2023 13:09:01 +0000</pubDate>
 				<category><![CDATA[tweaks]]></category>
-		<guid isPermaLink="false">https://pwnblog.github.io/?p=146</guid>
+		<guid isPermaLink="false">https://hope1ess.com/?p=146</guid>
 
-					<description><![CDATA[<p>0x1 Why We don&#8217;t have rootless jailbreak support for wechat message recall tweak, and some or should I say all the iOS wechat no message recall tweak is somewhat unusable or problematic. So I make my own tweak and I want to share it. Also I make another tweak that removes annoying wechat ads, links ... <a title="WeChat tweaks for iOS rootless jailbreak" class="read-more" href="https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/" aria-label="More on WeChat tweaks for iOS rootless jailbreak">Read more</a></p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/">WeChat tweaks for iOS rootless jailbreak</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+					<description><![CDATA[<p>0x1 Why We don&#8217;t have rootless jailbreak support for wechat message recall tweak, and some or should I say all the iOS wechat no message recall tweak is somewhat unusable or problematic. So I make my own tweak and I want to share it. Also I make another tweak that removes annoying wechat ads, links ... <a title="WeChat tweaks for iOS rootless jailbreak" class="read-more" href="https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/" aria-label="More on WeChat tweaks for iOS rootless jailbreak">Read more</a></p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/">WeChat tweaks for iOS rootless jailbreak</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
 <h4 class="wp-block-heading"><strong>0x1 Why</strong></h4>
@@ -78,25 +78,25 @@
 
 
 <p></p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/">WeChat tweaks for iOS rootless jailbreak</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/">WeChat tweaks for iOS rootless jailbreak</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
-					<wfw:commentRss>https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/feed/</wfw:commentRss>
+					<wfw:commentRss>https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/feed/</wfw:commentRss>
 			<slash:comments>0</slash:comments>
 		
 		
 			</item>
 		<item>
 		<title>Genshin Impact Server Reverse-Engineering Part 1: Artifacts</title>
-		<link>https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/</link>
+		<link>https://hope1ess.com/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/</link>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Fri, 28 Oct 2022 07:08:53 +0000</pubDate>
 				<category><![CDATA[reverse-engineering]]></category>
-		<guid isPermaLink="false">https://pwnblog.github.io/?p=117</guid>
+		<guid isPermaLink="false">https://hope1ess.com/?p=117</guid>
 
 					<description><![CDATA[<p>Did you know why you just cannot get perfect artifacts?</p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
 <h2 class="wp-block-heading">0x1 Genshin Impact Leaks Story</h2>
@@ -724,7 +724,7 @@ LABEL_112:
 
 
 <p></p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
 		
@@ -732,15 +732,15 @@ LABEL_112:
 			</item>
 		<item>
 		<title>Codegate CTF 2022 file-v writeup</title>
-		<link>https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/</link>
+		<link>https://hope1ess.com/2022/02/28/codegate-ctf-2022-file-v-writeup/</link>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Mon, 28 Feb 2022 03:10:23 +0000</pubDate>
 				<category><![CDATA[writeups]]></category>
-		<guid isPermaLink="false">https://pwnblog.github.io/?p=101</guid>
+		<guid isPermaLink="false">https://hope1ess.com/?p=101</guid>
 
 					<description><![CDATA[<p>codegate ctf 2022 file-v writeup</p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
 <h2 class="wp-block-heading" id="0x1-filesystem">0x1 Filesystem?</h2>
@@ -1070,7 +1070,7 @@ p.interactive()
 
 
 <p></p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
 		
@@ -1078,15 +1078,15 @@ p.interactive()
 			</item>
 		<item>
 		<title>0CTF 2021 Quals &#8220;ioa&#8221; writeup</title>
-		<link>https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/</link>
+		<link>https://hope1ess.com/2022/02/15/0ctf-2021-quals-ioa-writeup/</link>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Tue, 15 Feb 2022 14:24:11 +0000</pubDate>
 				<category><![CDATA[writeups]]></category>
-		<guid isPermaLink="false">https://pwnblog.github.io/?p=80</guid>
+		<guid isPermaLink="false">https://hope1ess.com/?p=80</guid>
 
 					<description><![CDATA[<p>sslvpn ioa writeup for 0ctf 2021 quals.</p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
 <h2 class="wp-block-heading" id="0x1-directory-traversal">0x1 Directory traversal</h2>
@@ -1192,7 +1192,7 @@ unsigned int __fastcall is_vip_inuse(int a1)
 
 
 
-<figure class="wp-block-image size-large"><img decoding="async" fetchpriority="high" width="1024" height="353" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-1024x353.png" alt="" class="wp-image-91" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-1024x353.png 1024w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-300x103.png 300w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-768x265.png 768w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2.png 1059w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+<figure class="wp-block-image size-large"><img decoding="async" fetchpriority="high" width="1024" height="353" src="https://hope1ess.com/wp-content/uploads/2022/02/image-2-1024x353.png" alt="" class="wp-image-91" srcset="https://hope1ess.com/wp-content/uploads/2022/02/image-2-1024x353.png 1024w, https://hope1ess.com/wp-content/uploads/2022/02/image-2-300x103.png 300w, https://hope1ess.com/wp-content/uploads/2022/02/image-2-768x265.png 768w, https://hope1ess.com/wp-content/uploads/2022/02/image-2.png 1059w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
 
 
 
@@ -1528,7 +1528,7 @@ m.interactive()</code></pre></div>
 
 
 <p></p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
 		
@@ -1536,15 +1536,15 @@ m.interactive()</code></pre></div>
 			</item>
 		<item>
 		<title>Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</title>
-		<link>https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/</link>
+		<link>https://hope1ess.com/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/</link>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Wed, 09 Feb 2022 15:27:15 +0000</pubDate>
 				<category><![CDATA[writeups]]></category>
-		<guid isPermaLink="false">https://pwnblog.github.io/?p=30</guid>
+		<guid isPermaLink="false">https://hope1ess.com/?p=30</guid>
 
 					<description><![CDATA[<p>Interesting challenge with CSKY cpu and weird arch mcore in RWCTF 2022</p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
 <h2 class="wp-block-heading" id="0x1-challenge-accepted">0x1 Challenge accepted</h2>
@@ -1595,7 +1595,7 @@ m.interactive()</code></pre></div>
 
 
 
-<figure class="wp-block-image size-full"><img decoding="async" width="670" height="156" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png" alt="" class="wp-image-51" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png 670w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-300x70.png 300w" sizes="(max-width: 670px) 100vw, 670px" /></figure>
+<figure class="wp-block-image size-full"><img decoding="async" width="670" height="156" src="https://hope1ess.com/wp-content/uploads/2022/02/image.png" alt="" class="wp-image-51" srcset="https://hope1ess.com/wp-content/uploads/2022/02/image.png 670w, https://hope1ess.com/wp-content/uploads/2022/02/image-300x70.png 300w" sizes="(max-width: 670px) 100vw, 670px" /></figure>
 
 
 
@@ -1750,7 +1750,7 @@ netstat: /proc/net/unix: bogus data on line 3</code></pre></div>
 
 
 
-<figure class="wp-block-image size-full"><img decoding="async" width="802" height="565" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image-1.png" alt="" class="wp-image-61" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image-1.png 802w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-1-300x211.png 300w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-1-768x541.png 768w" sizes="(max-width: 802px) 100vw, 802px" /></figure>
+<figure class="wp-block-image size-full"><img decoding="async" width="802" height="565" src="https://hope1ess.com/wp-content/uploads/2022/02/image-1.png" alt="" class="wp-image-61" srcset="https://hope1ess.com/wp-content/uploads/2022/02/image-1.png 802w, https://hope1ess.com/wp-content/uploads/2022/02/image-1-300x211.png 300w, https://hope1ess.com/wp-content/uploads/2022/02/image-1-768x541.png 768w" sizes="(max-width: 802px) 100vw, 802px" /></figure>
 
 
 
@@ -2229,7 +2229,7 @@ p.interactive()</code></pre></div>
 
 
 <p></p>
-<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
 		
