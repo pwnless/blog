@@ -18,7 +18,7 @@
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=6.0.3</generator>
+	<generator>https://wordpress.org/?v=6.3.1</generator>
 	<item>
 		<title>Codegate CTF 2022 file-v writeup</title>
 		<link>https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/</link>
@@ -32,7 +32,7 @@
 <p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
-<h2 id="0x1-filesystem">0x1 Filesystem?</h2>
+<h2 class="wp-block-heading" id="0x1-filesystem">0x1 Filesystem?</h2>
 
 
 
@@ -85,7 +85,7 @@
 
 
 
-<h2 id="0x2-bug">0x2 Bug?</h2>
+<h2 class="wp-block-heading" id="0x2-bug">0x2 Bug?</h2>
 
 
 
@@ -153,7 +153,7 @@
 
 
 
-<h2 id="0x3-how-to-leak">0x3 How to leak?</h2>
+<h2 class="wp-block-heading" id="0x3-how-to-leak">0x3 How to leak?</h2>
 
 
 
@@ -178,11 +178,11 @@ RelRO                         : Full</code></pre></div>
 
 
 
-<figure class="wp-block-image"><img src="https://i.pinimg.com/originals/61/35/d0/6135d06c45b9f6cbd1b961d68c873664.jpg" alt="Meme Challenge Accepted wallpaper | Challenge accepted, Book challenge,  Challenges"/></figure>
+<figure class="wp-block-image"><img decoding="async" src="https://i.pinimg.com/originals/61/35/d0/6135d06c45b9f6cbd1b961d68c873664.jpg" alt="Meme Challenge Accepted wallpaper | Challenge accepted, Book challenge,  Challenges"/></figure>
 
 
 
-<h2 id="0x4-save-to-rescue">0x4 Save to rescue</h2>
+<h2 class="wp-block-heading" id="0x4-save-to-rescue">0x4 Save to rescue</h2>
 
 
 
@@ -226,7 +226,7 @@ LABEL_13:
 
 
 
-<h2 id="0x5-exploit">0x5 Exploit</h2>
+<h2 class="wp-block-heading" id="0x5-exploit">0x5 Exploit</h2>
 
 
 
@@ -378,7 +378,7 @@ p.interactive()
 <p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
-<h2 id="0x1-directory-traversal">0x1 Directory traversal</h2>
+<h2 class="wp-block-heading" id="0x1-directory-traversal">0x1 Directory traversal</h2>
 
 
 
@@ -406,7 +406,7 @@ p.interactive()
 
 
 
-<h2 id="0x2-oob-r-w">0x2 OOB R/W</h2>
+<h2 class="wp-block-heading" id="0x2-oob-r-w">0x2 OOB R/W</h2>
 
 
 
@@ -469,7 +469,7 @@ unsigned int __fastcall is_vip_inuse(int a1)
 
 
 
-<h2 id="0x3-leak">0x3 Leak?</h2>
+<h2 class="wp-block-heading" id="0x3-leak">0x3 Leak?</h2>
 
 
 
@@ -481,7 +481,7 @@ unsigned int __fastcall is_vip_inuse(int a1)
 
 
 
-<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="353" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-1024x353.png" alt="" class="wp-image-91" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-1024x353.png 1024w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-300x103.png 300w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-768x265.png 768w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2.png 1059w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+<figure class="wp-block-image size-large"><img decoding="async" fetchpriority="high" width="1024" height="353" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-1024x353.png" alt="" class="wp-image-91" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-1024x353.png 1024w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-300x103.png 300w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2-768x265.png 768w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-2.png 1059w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
 
 
 
@@ -505,7 +505,7 @@ unsigned int __fastcall is_vip_inuse(int a1)
 
 
 
-<h2 id="0x4-stack-overflow-show-time">0x4 Stack overflow show time</h2>
+<h2 class="wp-block-heading" id="0x4-stack-overflow-show-time">0x4 Stack overflow show time</h2>
 
 
 
@@ -544,7 +544,7 @@ unsigned int __fastcall is_vip_inuse(int a1)
 
 
 
-<h2 id="0x5-exploit">0x5 Exploit!</h2>
+<h2 class="wp-block-heading" id="0x5-exploit">0x5 Exploit!</h2>
 
 
 
@@ -836,7 +836,7 @@ m.interactive()</code></pre></div>
 <p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
-<h2 id="0x1-challenge-accepted">0x1 Challenge accepted</h2>
+<h2 class="wp-block-heading" id="0x1-challenge-accepted">0x1 Challenge accepted</h2>
 
 
 
@@ -872,7 +872,7 @@ m.interactive()</code></pre></div>
 
 
 
-<h2 id="0x2-enemy-spotted">0x2 Enemy spotted</h2>
+<h2 class="wp-block-heading" id="0x2-enemy-spotted">0x2 Enemy spotted</h2>
 
 
 
@@ -884,7 +884,7 @@ m.interactive()</code></pre></div>
 
 
 
-<figure class="wp-block-image size-full"><img loading="lazy" width="670" height="156" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png" alt="" class="wp-image-51" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png 670w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-300x70.png 300w" sizes="(max-width: 670px) 100vw, 670px" /></figure>
+<figure class="wp-block-image size-full"><img decoding="async" width="670" height="156" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png" alt="" class="wp-image-51" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image.png 670w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-300x70.png 300w" sizes="(max-width: 670px) 100vw, 670px" /></figure>
 
 
 
@@ -916,7 +916,7 @@ m.interactive()</code></pre></div>
 
 
 
-<h2 id="0x3-testing-server">0x3 Testing server</h2>
+<h2 class="wp-block-heading" id="0x3-testing-server">0x3 Testing server</h2>
 
 
 
@@ -1027,7 +1027,7 @@ netstat: /proc/net/unix: bogus data on line 3</code></pre></div>
 
 
 
-<h2 id="0x4-darkness-of-rtsp">0x4 Darkness of RTSP</h2>
+<h2 class="wp-block-heading" id="0x4-darkness-of-rtsp">0x4 Darkness of RTSP</h2>
 
 
 
@@ -1039,7 +1039,7 @@ netstat: /proc/net/unix: bogus data on line 3</code></pre></div>
 
 
 
-<figure class="wp-block-image size-full"><img loading="lazy" width="802" height="565" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image-1.png" alt="" class="wp-image-61" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image-1.png 802w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-1-300x211.png 300w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-1-768x541.png 768w" sizes="(max-width: 802px) 100vw, 802px" /></figure>
+<figure class="wp-block-image size-full"><img decoding="async" width="802" height="565" src="https://pwnblog.github.io/wp-content/uploads/2022/02/image-1.png" alt="" class="wp-image-61" srcset="https://pwnblog.github.io/wp-content/uploads/2022/02/image-1.png 802w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-1-300x211.png 300w, https://pwnblog.github.io/wp-content/uploads/2022/02/image-1-768x541.png 768w" sizes="(max-width: 802px) 100vw, 802px" /></figure>
 
 
 
@@ -1095,7 +1095,7 @@ file streamer streamImage
 
 
 
-<h2 id="0x5-overflow-the-sky">0x5 Overflow the sky</h2>
+<h2 class="wp-block-heading" id="0x5-overflow-the-sky">0x5 Overflow the sky</h2>
 
 
 
@@ -1262,7 +1262,7 @@ p.interactive()</code></pre></div>
 
 
 
-<h2 id="0x6-debugging-and-shellcoding">0x6 Debugging and shellcoding</h2>
+<h2 class="wp-block-heading" id="0x6-debugging-and-shellcoding">0x6 Debugging and shellcoding</h2>
 
 
 
@@ -1460,7 +1460,7 @@ trap              0</code></pre></div>
 
 
 
-<h2 id="0x7-final-exploit">0x7 Final exploit</h2>
+<h2 class="wp-block-heading" id="0x7-final-exploit">0x7 Final exploit</h2>
 
 
 

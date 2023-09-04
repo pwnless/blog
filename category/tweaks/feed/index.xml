@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>tweaks Archives - Hopeless blog</title>
+	<atom:link href="https://pwnblog.github.io/category/tweaks/feed/" rel="self" type="application/rss+xml" />
+	<link>https://pwnblog.github.io/category/tweaks/</link>
+	<description>Pwn the life</description>
+	<lastBuildDate>Mon, 04 Sep 2023 13:09:04 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.3.1</generator>
+	<item>
+		<title>WeChat tweaks for iOS rootless jailbreak</title>
+		<link>https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/</link>
+					<comments>https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/#respond</comments>
+		
+		<dc:creator><![CDATA[rookie]]></dc:creator>
+		<pubDate>Mon, 04 Sep 2023 13:09:01 +0000</pubDate>
+				<category><![CDATA[tweaks]]></category>
+		<guid isPermaLink="false">https://pwnblog.github.io/?p=146</guid>
+
+					<description><![CDATA[<p>0x1 Why We don&#8217;t have rootless jailbreak support for wechat message recall tweak, and some or should I say all the iOS wechat no message recall tweak is somewhat unusable or problematic. So I make my own tweak and I want to share it. Also I make another tweak that removes annoying wechat ads, links ... <a title="WeChat tweaks for iOS rootless jailbreak" class="read-more" href="https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/" aria-label="More on WeChat tweaks for iOS rootless jailbreak">Read more</a></p>
+<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/">WeChat tweaks for iOS rootless jailbreak</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h4 class="wp-block-heading"><strong>0x1 Why</strong></h4>
+
+
+
+<p>We don&#8217;t have rootless jailbreak support for wechat message recall tweak, and some or should I say all the iOS wechat no message recall tweak is somewhat unusable or problematic.</p>
+
+
+
+<p>So I make my own tweak and I want to share it.</p>
+
+
+
+<p>Also I make another tweak that removes annoying wechat ads, links in below.</p>
+
+
+
+<h4 class="wp-block-heading"><strong>0x2 How</strong></h4>
+
+
+
+<p>There&#8217;re two types of anti message recall method. One is simply remove the DelMsg method in CMessageMgr, I don&#8217;t like this method even it achieve anti recall successfully because you can&#8217;t delete any message if you remove this function.</p>
+
+
+
+<p>The other one is hook onRevokeMsg, this function will be called when you receive a message recall request.</p>
+
+
+
+<p>Well you must rewrite your own revoke message function so it works without removing the real message</p>
+
+
+
+<h4 class="wp-block-heading"><strong>0x3 Code</strong></h4>
+
+
+
+<p>See <a href="https://github.com/pwnblog/WeChatNoRecall" target="_blank" rel="noreferrer noopener">https://github.com/pwnblog/WeChatNoRecall</a></p>
+
+
+
+<p>Remove wechat ads tweak: <a href="https://github.com/pwnblog/WechatTweak" target="_blank" rel="noreferrer noopener">https://github.com/pwnblog/WechatTweak</a></p>
+
+
+
+<p></p>
+<p>The post <a rel="nofollow" href="https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/">WeChat tweaks for iOS rootless jailbreak</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://pwnblog.github.io/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

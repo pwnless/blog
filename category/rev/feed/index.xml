@@ -18,11 +18,10 @@
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=6.0.3</generator>
+	<generator>https://wordpress.org/?v=6.3.1</generator>
 	<item>
 		<title>Genshin Impact Server Reverse-Engineering Part 1: Artifacts</title>
 		<link>https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/</link>
-					<comments>https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/#respond</comments>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Fri, 28 Oct 2022 07:08:53 +0000</pubDate>
@@ -33,7 +32,7 @@
 <p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
-<h2>0x1 Genshin Impact Leaks Story</h2>
+<h2 class="wp-block-heading">0x1 Genshin Impact Leaks Story</h2>
 
 
 
@@ -65,7 +64,7 @@
 
 
 
-<h2>0x2 Artifact Generation Logic</h2>
+<h2 class="wp-block-heading">0x2 Artifact Generation Logic</h2>
 
 
 
@@ -142,7 +141,7 @@
 
 
 
-<h2>0x3 Artifact Main Property Generation</h2>
+<h2 class="wp-block-heading">0x3 Artifact Main Property Generation</h2>
 
 
 
@@ -484,7 +483,7 @@ LABEL_112:
 
 
 
-<h2>0x4 Artifact Sub Properties Generation</h2>
+<h2 class="wp-block-heading">0x4 Artifact Sub Properties Generation</h2>
 
 
 
@@ -641,7 +640,7 @@ LABEL_112:
 
 
 
-<h2>0x5 Final words</h2>
+<h2 class="wp-block-heading">0x5 Final words</h2>
 
 
 
@@ -661,8 +660,6 @@ LABEL_112:
 <p>The post <a rel="nofollow" href="https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/">Genshin Impact Server Reverse-Engineering Part 1: Artifacts</a> appeared first on <a rel="nofollow" href="https://pwnblog.github.io">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
-					<wfw:commentRss>https://pwnblog.github.io/2022/10/28/genshin-impact-server-reverse-engineering-part-1-artifacts/feed/</wfw:commentRss>
-			<slash:comments>0</slash:comments>
 		
 		
 			</item>
