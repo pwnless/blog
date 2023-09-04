@@ -12,7 +12,7 @@
 	<atom:link href="https://hope1ess.com/author/hopeless/feed/" rel="self" type="application/rss+xml" />
 	<link>https://hope1ess.com/author/hopeless/</link>
 	<description>Pwn the life</description>
-	<lastBuildDate>Mon, 04 Sep 2023 13:09:04 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 04 Sep 2023 16:40:28 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -22,14 +22,13 @@
 	<item>
 		<title>WeChat tweaks for iOS rootless jailbreak</title>
 		<link>https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/</link>
-					<comments>https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/#respond</comments>
 		
 		<dc:creator><![CDATA[rookie]]></dc:creator>
 		<pubDate>Mon, 04 Sep 2023 13:09:01 +0000</pubDate>
 				<category><![CDATA[tweaks]]></category>
 		<guid isPermaLink="false">https://hope1ess.com/?p=146</guid>
 
-					<description><![CDATA[<p>0x1 Why We don&#8217;t have rootless jailbreak support for wechat message recall tweak, and some or should I say all the iOS wechat no message recall tweak is somewhat unusable or problematic. So I make my own tweak and I want to share it. Also I make another tweak that removes annoying wechat ads, links ... <a title="WeChat tweaks for iOS rootless jailbreak" class="read-more" href="https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/" aria-label="More on WeChat tweaks for iOS rootless jailbreak">Read more</a></p>
+					<description><![CDATA[<p>Simple iOS rootless jailbreak tweak to anti wechat recall and removing ads.</p>
 <p>The post <a rel="nofollow" href="https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/">WeChat tweaks for iOS rootless jailbreak</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
@@ -69,11 +68,11 @@
 
 
 
-<p>See <a href="https://github.com/pwnblog/WeChatNoRecall" target="_blank" rel="noreferrer noopener">https://github.com/pwnblog/WeChatNoRecall</a></p>
+<p>See<a href="https://github.com/pwnless/WeChatNoRecall"> https://github.com/pwnless/WeChatNoRecall</a></p>
 
 
 
-<p>Remove wechat ads tweak: <a href="https://github.com/pwnblog/WechatTweak" target="_blank" rel="noreferrer noopener">https://github.com/pwnblog/WechatTweak</a></p>
+<p>Remove wechat ads tweak: <a href="https://github.com/pwnless/WechatTweak" target="_blank" rel="noreferrer noopener">https://github.com/pwnless/WechatTweak</a></p>
 
 
 
@@ -81,8 +80,6 @@
 <p>The post <a rel="nofollow" href="https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/">WeChat tweaks for iOS rootless jailbreak</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
-					<wfw:commentRss>https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/feed/</wfw:commentRss>
-			<slash:comments>0</slash:comments>
 		
 		
 			</item>
@@ -784,7 +781,41 @@ LABEL_112:
 
 
 
-<ul><li>Create new file</li><li>Print files</li><li>Select file (perform some operations on specific file)<ul><li>Edit file name</li><li>Edit file color</li><li>Show file content</li><li>Edit file content</li><li>Save file changes</li><li>Remove file</li></ul></li></ul>
+<ul>
+<li>Create new file</li>
+
+
+
+<li>Print files</li>
+
+
+
+<li>Select file (perform some operations on specific file)
+<ul>
+<li>Edit file name</li>
+
+
+
+<li>Edit file color</li>
+
+
+
+<li>Show file content</li>
+
+
+
+<li>Edit file content</li>
+
+
+
+<li>Save file changes</li>
+
+
+
+<li>Remove file</li>
+</ul>
+</li>
+</ul>
 
 
 
@@ -792,7 +823,25 @@ LABEL_112:
 
 
 
-<ul><li>Print files</li><li>Create new file</li><li>Select file ( actually just return a plain file structure)</li><li>Edit file ( actually just store file structure from frontend process)</li><li>Delete file</li></ul>
+<ul>
+<li>Print files</li>
+
+
+
+<li>Create new file</li>
+
+
+
+<li>Select file ( actually just return a plain file structure)</li>
+
+
+
+<li>Edit file ( actually just store file structure from frontend process)</li>
+
+
+
+<li>Delete file</li>
+</ul>
 
 
 
@@ -1981,7 +2030,13 @@ p.interactive()</code></pre></div>
 
 
 
-<ul><li>Eliminate any \x00\r\n in shellcode, directly jump to stack.</li><li>Find something interesting in fixed address and jump</li></ul>
+<ul>
+<li>Eliminate any \x00\r\n in shellcode, directly jump to stack.</li>
+
+
+
+<li>Find something interesting in fixed address and jump</li>
+</ul>
 
 
 

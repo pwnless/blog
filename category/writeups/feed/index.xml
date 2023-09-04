@@ -12,7 +12,7 @@
 	<atom:link href="https://hope1ess.com/category/writeups/feed/" rel="self" type="application/rss+xml" />
 	<link>https://hope1ess.com/category/writeups/</link>
 	<description>Pwn the life</description>
-	<lastBuildDate>Mon, 28 Feb 2022 03:10:26 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 04 Sep 2023 16:40:28 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -73,7 +73,41 @@
 
 
 
-<ul><li>Create new file</li><li>Print files</li><li>Select file (perform some operations on specific file)<ul><li>Edit file name</li><li>Edit file color</li><li>Show file content</li><li>Edit file content</li><li>Save file changes</li><li>Remove file</li></ul></li></ul>
+<ul>
+<li>Create new file</li>
+
+
+
+<li>Print files</li>
+
+
+
+<li>Select file (perform some operations on specific file)
+<ul>
+<li>Edit file name</li>
+
+
+
+<li>Edit file color</li>
+
+
+
+<li>Show file content</li>
+
+
+
+<li>Edit file content</li>
+
+
+
+<li>Save file changes</li>
+
+
+
+<li>Remove file</li>
+</ul>
+</li>
+</ul>
 
 
 
@@ -81,7 +115,25 @@
 
 
 
-<ul><li>Print files</li><li>Create new file</li><li>Select file ( actually just return a plain file structure)</li><li>Edit file ( actually just store file structure from frontend process)</li><li>Delete file</li></ul>
+<ul>
+<li>Print files</li>
+
+
+
+<li>Create new file</li>
+
+
+
+<li>Select file ( actually just return a plain file structure)</li>
+
+
+
+<li>Edit file ( actually just store file structure from frontend process)</li>
+
+
+
+<li>Delete file</li>
+</ul>
 
 
 
@@ -1270,7 +1322,13 @@ p.interactive()</code></pre></div>
 
 
 
-<ul><li>Eliminate any \x00\r\n in shellcode, directly jump to stack.</li><li>Find something interesting in fixed address and jump</li></ul>
+<ul>
+<li>Eliminate any \x00\r\n in shellcode, directly jump to stack.</li>
+
+
+
+<li>Find something interesting in fixed address and jump</li>
+</ul>
 
 
 
