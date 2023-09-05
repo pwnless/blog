@@ -12,7 +12,7 @@
 	<atom:link href="https://hope1ess.com/feed/" rel="self" type="application/rss+xml" />
 	<link>https://hope1ess.com/</link>
 	<description>Pwn the life</description>
-	<lastBuildDate>Mon, 04 Sep 2023 16:40:28 +0000</lastBuildDate>
+	<lastBuildDate>Tue, 05 Sep 2023 04:52:38 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -20,6 +20,252 @@
 	1	</sy:updateFrequency>
 	<generator>https://wordpress.org/?v=6.3.1</generator>
 	<item>
+		<title>How to build a static wordpress site with working search function (Completely free, no paid plugins)</title>
+		<link>https://hope1ess.com/2023/09/05/how-to-build-a-static-wordpress-site-with-working-search-function-completely-free-no-paid-plugins/</link>
+		
+		<dc:creator><![CDATA[rookie]]></dc:creator>
+		<pubDate>Tue, 05 Sep 2023 04:48:15 +0000</pubDate>
+				<category><![CDATA[guides]]></category>
+		<guid isPermaLink="false">https://hope1ess.com/?p=162</guid>
+
+					<description><![CDATA[<p>How to build a static wordpress website like this blog with working search/comment function, completely free, no paid plugins.</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2023/09/05/how-to-build-a-static-wordpress-site-with-working-search-function-completely-free-no-paid-plugins/">How to build a static wordpress site with working search function (Completely free, no paid plugins)</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h2 class="wp-block-heading">0x1 Why</h2>
+
+
+
+<p>Because we love static site, and we also love wordpress writing experience.</p>
+
+
+
+<p>Even though there&#8217;re numerous&nbsp;site generator, I still like to write in wordpress. But I also want the speed and performance of static website, also there&#8217;re many free static site host like github pages/cloudflare pages.</p>
+
+
+
+<h2 class="wp-block-heading">0x2 My wordpress plugin list</h2>
+
+
+
+<h4 class="wp-block-heading"><strong>Disable Comments</strong></h4>
+
+
+
+<p>You don&#8217;t need native comment function, also it is completely broken in static site.</p>
+
+
+
+<h4 class="wp-block-heading"><strong>Fix Another Update In Progress</strong></h4>
+
+
+
+<p>You don&#8217;t actually need this one, but I use this to fix some errors.</p>
+
+
+
+<h4 class="wp-block-heading"><strong>Highlighting Code Block</strong></h4>
+
+
+
+<p>For better experience in code writing.</p>
+
+
+
+<h4 class="wp-block-heading has-text-color" style="color:#f90000"><strong>Simply Static</strong></h4>
+
+
+
+<p>This is core plugin to generate your static site, you don&#8217;t need to buy pro version.</p>
+
+
+
+<h4 class="wp-block-heading has-text-color" style="color:#ff0000"><strong>WP Serverless Search</strong></h4>
+
+
+
+<p>Well this add the search box for our site, but it isn&#8217;t on wordpress plugin library, <a href="https://github.com/pwnless/wp-serverless-search" target="_blank" rel="noreferrer noopener">use my version here.</a></p>
+
+
+
+<h4 class="wp-block-heading has-text-color" style="color:#ff0000"><strong>WPCode Lite</strong></h4>
+
+
+
+<p>This is core plugin to add custom javascript code into our page, see the comment box below?</p>
+
+
+
+<h4 class="wp-block-heading"><strong>Yoast SEO</strong></h4>
+
+
+
+<p>Easier to manage seo and other stuff like sitemap.</p>
+
+
+
+<h2 class="wp-block-heading">0x3 Simply static configuration</h2>
+
+
+
+<p>Add your <strong>absolute path of wp-content/uploads</strong> in additional directories.</p>
+
+
+
+<p>Change the domain replacements, here I replace all url to my blog site.</p>
+
+
+
+<p><em>You cannot use \ in your path if you&#8217;re using windows, all path separator must be /.</em></p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" fetchpriority="high" width="1024" height="811" src="https://hope1ess.com/wp-content/uploads/2023/09/image-1024x811.png" alt="" class="wp-image-167" srcset="https://hope1ess.com/wp-content/uploads/2023/09/image-1024x811.png 1024w, https://hope1ess.com/wp-content/uploads/2023/09/image-300x238.png 300w, https://hope1ess.com/wp-content/uploads/2023/09/image-768x608.png 768w, https://hope1ess.com/wp-content/uploads/2023/09/image.png 1121w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>Change deployment method to local directory, this is optional.</p>
+
+
+
+<p><em>This path must be writable to web server</em></p>
+
+
+
+<figure class="wp-block-image size-full"><img decoding="async" width="951" height="673" src="https://hope1ess.com/wp-content/uploads/2023/09/image-1.png" alt="" class="wp-image-168" srcset="https://hope1ess.com/wp-content/uploads/2023/09/image-1.png 951w, https://hope1ess.com/wp-content/uploads/2023/09/image-1-300x212.png 300w, https://hope1ess.com/wp-content/uploads/2023/09/image-1-768x543.png 768w" sizes="(max-width: 951px) 100vw, 951px" /></figure>
+
+
+
+<p>Enable &#8220;<strong>Force url replacements</strong>&#8220;, this is required for search function.</p>
+
+
+
+<figure class="wp-block-image size-full"><img decoding="async" width="986" height="545" src="https://hope1ess.com/wp-content/uploads/2023/09/image-2.png" alt="" class="wp-image-170" srcset="https://hope1ess.com/wp-content/uploads/2023/09/image-2.png 986w, https://hope1ess.com/wp-content/uploads/2023/09/image-2-300x166.png 300w, https://hope1ess.com/wp-content/uploads/2023/09/image-2-768x425.png 768w" sizes="(max-width: 986px) 100vw, 986px" /></figure>
+
+
+
+<p>And now you&#8217;re good to go, click &#8220;Generate static files&#8221; and check your folder!</p>
+
+
+
+<h2 class="wp-block-heading">0x4 Comment section</h2>
+
+
+
+<p>You&#8217;ll find the search and comment function is completely broken, so here is the work around.</p>
+
+
+
+<p>First disable all comment with &#8220;Disable Comments&#8221; plugin. Native comment is useless now.</p>
+
+
+
+<p>You need other workaround for comment system, normally I suggest disqus, but now it is really heavy-weighted and tons of unwanted ads. Here I use <strong>giscus</strong>.</p>
+
+
+
+<p>Giscus is a open-source comments system powered by&nbsp;<a href="https://docs.github.com/en/discussions">GitHub Discussions</a>. <a href="https://giscus.app/" target="_blank" rel="noreferrer noopener">You can check more in its main page here</a>.</p>
+
+
+
+<p>Follow the guide in giscus main page, it will eventually generate a embbed script section like:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-html" data-lang="HTML"><code>&lt;script src=&quot;https://giscus.app/client.js&quot;
+        data-repo=&quot;[ENTER REPO HERE]&quot;
+        data-repo-id=&quot;[ENTER REPO ID HERE]&quot;
+        data-category=&quot;[ENTER CATEGORY NAME HERE]&quot;
+        data-category-id=&quot;[ENTER CATEGORY ID HERE]&quot;
+        data-mapping=&quot;pathname&quot;
+        data-strict=&quot;0&quot;
+        data-reactions-enabled=&quot;1&quot;
+        data-emit-metadata=&quot;0&quot;
+        data-input-position=&quot;bottom&quot;
+        data-theme=&quot;preferred_color_scheme&quot;
+        data-lang=&quot;en&quot;
+        crossorigin=&quot;anonymous&quot;
+        async&gt;
+&lt;/script&gt;</code></pre></div>
+
+
+
+<p><strong>All 4 parameters(data-repo, data-repo-id, data-category, data-category-id) must be filled !</strong></p>
+
+
+
+<p>Copy the html code and add snippet in WPCode plugin.</p>
+
+
+
+<p>Make sure the code type is &#8220;HTML Snippet&#8221;.</p>
+
+
+
+<p>Change the snippet insertion like this:</p>
+
+
+
+<figure class="wp-block-image size-full"><img decoding="async" loading="lazy" width="977" height="486" src="https://hope1ess.com/wp-content/uploads/2023/09/image-3.png" alt="" class="wp-image-172" srcset="https://hope1ess.com/wp-content/uploads/2023/09/image-3.png 977w, https://hope1ess.com/wp-content/uploads/2023/09/image-3-300x149.png 300w, https://hope1ess.com/wp-content/uploads/2023/09/image-3-768x382.png 768w" sizes="(max-width: 977px) 100vw, 977px" /></figure>
+
+
+
+<p>And I only want comments on post, not other pages, so add a condition logic.</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" loading="lazy" width="1024" height="448" src="https://hope1ess.com/wp-content/uploads/2023/09/image-4-1024x448.png" alt="" class="wp-image-173" srcset="https://hope1ess.com/wp-content/uploads/2023/09/image-4-1024x448.png 1024w, https://hope1ess.com/wp-content/uploads/2023/09/image-4-300x131.png 300w, https://hope1ess.com/wp-content/uploads/2023/09/image-4-768x336.png 768w, https://hope1ess.com/wp-content/uploads/2023/09/image-4.png 1208w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>Save and enable this snippet and you&#8217;re good to go!</p>
+
+
+
+<h2 class="wp-block-heading">0x5 Search box</h2>
+
+
+
+<p>The search box should work out of the box if you installed my version of <a href="https://github.com/pwnless/wp-serverless-search">wp-serverless-search</a>.</p>
+
+
+
+<p>The default configuration of this plugin works in most theme, it requires two parameters as you can check in settings -&gt; WP Serverless Search.</p>
+
+
+
+<p>Change the css selector for your search box and you&#8217;re good to go!</p>
+
+
+
+<p><em>I knew lunr.js is better but idk how to make it work in wordpress, sad.</em></p>
+
+
+
+<h2 class="wp-block-heading">0x6 Publish</h2>
+
+
+
+<p>Register an account in cloudflare or github, check their pages guide.</p>
+
+
+
+<p>For cloudflare pages, you can upload a folder containing your website and it will be deployed, I prefer cloudflare pages.</p>
+
+
+
+<p>For github pages you must add a repo named &lt;github_username&gt;.github.io and add your website there. then you can access your website in &lt;github_username&gt;.github.io.</p>
+
+
+
+<p>That&#8217;s all!</p>
+<p>The post <a rel="nofollow" href="https://hope1ess.com/2023/09/05/how-to-build-a-static-wordpress-site-with-working-search-function-completely-free-no-paid-plugins/">How to build a static wordpress site with working search function (Completely free, no paid plugins)</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
 		<title>WeChat tweaks for iOS rootless jailbreak</title>
 		<link>https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/</link>
 		
@@ -32,7 +278,7 @@
 <p>The post <a rel="nofollow" href="https://hope1ess.com/2023/09/04/wechat-tweaks-for-ios-rootless-jailbreak/">WeChat tweaks for iOS rootless jailbreak</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
-<h4 class="wp-block-heading"><strong>0x1 Why</strong></h4>
+<h2 class="wp-block-heading">0x1 Why</h2>
 
 
 
@@ -48,7 +294,7 @@
 
 
 
-<h4 class="wp-block-heading"><strong>0x2 How</strong></h4>
+<h2 class="wp-block-heading">0x2 How</h2>
 
 
 
@@ -64,7 +310,7 @@
 
 
 
-<h4 class="wp-block-heading"><strong>0x3 Code</strong></h4>
+<h2 class="wp-block-heading">0x3 Code</h2>
 
 
 
@@ -1241,7 +1487,7 @@ unsigned int __fastcall is_vip_inuse(int a1)
 
 
 
-<figure class="wp-block-image size-large"><img decoding="async" fetchpriority="high" width="1024" height="353" src="https://hope1ess.com/wp-content/uploads/2022/02/image-2-1024x353.png" alt="" class="wp-image-91" srcset="https://hope1ess.com/wp-content/uploads/2022/02/image-2-1024x353.png 1024w, https://hope1ess.com/wp-content/uploads/2022/02/image-2-300x103.png 300w, https://hope1ess.com/wp-content/uploads/2022/02/image-2-768x265.png 768w, https://hope1ess.com/wp-content/uploads/2022/02/image-2.png 1059w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+<figure class="wp-block-image size-large"><img decoding="async" loading="lazy" width="1024" height="353" src="https://hope1ess.com/wp-content/uploads/2022/02/image-2-1024x353.png" alt="" class="wp-image-91" srcset="https://hope1ess.com/wp-content/uploads/2022/02/image-2-1024x353.png 1024w, https://hope1ess.com/wp-content/uploads/2022/02/image-2-300x103.png 300w, https://hope1ess.com/wp-content/uploads/2022/02/image-2-768x265.png 768w, https://hope1ess.com/wp-content/uploads/2022/02/image-2.png 1059w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
 
 
 
@@ -1644,7 +1890,7 @@ m.interactive()</code></pre></div>
 
 
 
-<figure class="wp-block-image size-full"><img decoding="async" width="670" height="156" src="https://hope1ess.com/wp-content/uploads/2022/02/image.png" alt="" class="wp-image-51" srcset="https://hope1ess.com/wp-content/uploads/2022/02/image.png 670w, https://hope1ess.com/wp-content/uploads/2022/02/image-300x70.png 300w" sizes="(max-width: 670px) 100vw, 670px" /></figure>
+<figure class="wp-block-image size-full"><img decoding="async" loading="lazy" width="670" height="156" src="https://hope1ess.com/wp-content/uploads/2022/02/image.png" alt="" class="wp-image-51" srcset="https://hope1ess.com/wp-content/uploads/2022/02/image.png 670w, https://hope1ess.com/wp-content/uploads/2022/02/image-300x70.png 300w" sizes="(max-width: 670px) 100vw, 670px" /></figure>
 
 
 
@@ -1799,7 +2045,7 @@ netstat: /proc/net/unix: bogus data on line 3</code></pre></div>
 
 
 
-<figure class="wp-block-image size-full"><img decoding="async" width="802" height="565" src="https://hope1ess.com/wp-content/uploads/2022/02/image-1.png" alt="" class="wp-image-61" srcset="https://hope1ess.com/wp-content/uploads/2022/02/image-1.png 802w, https://hope1ess.com/wp-content/uploads/2022/02/image-1-300x211.png 300w, https://hope1ess.com/wp-content/uploads/2022/02/image-1-768x541.png 768w" sizes="(max-width: 802px) 100vw, 802px" /></figure>
+<figure class="wp-block-image size-full"><img decoding="async" loading="lazy" width="802" height="565" src="https://hope1ess.com/wp-content/uploads/2022/02/image-1.png" alt="" class="wp-image-61" srcset="https://hope1ess.com/wp-content/uploads/2022/02/image-1.png 802w, https://hope1ess.com/wp-content/uploads/2022/02/image-1-300x211.png 300w, https://hope1ess.com/wp-content/uploads/2022/02/image-1-768x541.png 768w" sizes="(max-width: 802px) 100vw, 802px" /></figure>
 
 
 
