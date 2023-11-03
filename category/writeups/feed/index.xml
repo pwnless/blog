@@ -12,13 +12,13 @@
 	<atom:link href="https://hope1ess.com/category/writeups/feed/" rel="self" type="application/rss+xml" />
 	<link>https://hope1ess.com/category/writeups/</link>
 	<description>Pwn the life</description>
-	<lastBuildDate>Mon, 04 Sep 2023 16:40:28 +0000</lastBuildDate>
+	<lastBuildDate>Fri, 03 Nov 2023 02:43:25 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=6.3.1</generator>
+	<generator>https://wordpress.org/?v=6.3.2</generator>
 	<item>
 		<title>Codegate CTF 2022 file-v writeup</title>
 		<link>https://hope1ess.com/2022/02/28/codegate-ctf-2022-file-v-writeup/</link>
@@ -29,7 +29,7 @@
 		<guid isPermaLink="false">https://hope1ess.com/?p=101</guid>
 
 					<description><![CDATA[<p>codegate ctf 2022 file-v writeup</p>
-<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
+<p>The post <a href="https://hope1ess.com/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
 <h2 class="wp-block-heading" id="0x1-filesystem">0x1 Filesystem?</h2>
@@ -411,7 +411,7 @@ p.interactive()
 
 
 <p></p>
-<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
+<p>The post <a href="https://hope1ess.com/2022/02/28/codegate-ctf-2022-file-v-writeup/">Codegate CTF 2022 file-v writeup</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
 		
@@ -427,7 +427,7 @@ p.interactive()
 		<guid isPermaLink="false">https://hope1ess.com/?p=80</guid>
 
 					<description><![CDATA[<p>sslvpn ioa writeup for 0ctf 2021 quals.</p>
-<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
+<p>The post <a href="https://hope1ess.com/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
 <h2 class="wp-block-heading" id="0x1-directory-traversal">0x1 Directory traversal</h2>
@@ -869,7 +869,7 @@ m.interactive()</code></pre></div>
 
 
 <p></p>
-<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
+<p>The post <a href="https://hope1ess.com/2022/02/15/0ctf-2021-quals-ioa-writeup/">0CTF 2021 Quals &#8220;ioa&#8221; writeup</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
 		
@@ -885,7 +885,7 @@ m.interactive()</code></pre></div>
 		<guid isPermaLink="false">https://hope1ess.com/?p=30</guid>
 
 					<description><![CDATA[<p>Interesting challenge with CSKY cpu and weird arch mcore in RWCTF 2022</p>
-<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
+<p>The post <a href="https://hope1ess.com/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></description>
 										<content:encoded><![CDATA[
 <h2 class="wp-block-heading" id="0x1-challenge-accepted">0x1 Challenge accepted</h2>
@@ -1576,7 +1576,7 @@ p.interactive()</code></pre></div>
 
 
 <p></p>
-<p>The post <a rel="nofollow" href="https://hope1ess.com/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a rel="nofollow" href="https://hope1ess.com">Hopeless blog</a>.</p>
+<p>The post <a href="https://hope1ess.com/2022/02/09/realworld-ctf-the-rise-of-sky-writeup/">Realworld CTF 2022 &#8220;The rise of sky&#8221; writeup</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
 ]]></content:encoded>
 					
 		
