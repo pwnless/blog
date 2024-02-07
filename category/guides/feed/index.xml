@@ -12,14 +12,260 @@
 	<atom:link href="https://hope1ess.com/category/guides/feed/" rel="self" type="application/rss+xml" />
 	<link>https://hope1ess.com/category/guides/</link>
 	<description>Pwn the life</description>
-	<lastBuildDate>Fri, 03 Nov 2023 02:37:02 +0000</lastBuildDate>
+	<lastBuildDate>Wed, 07 Feb 2024 08:23:03 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=6.3.2</generator>
+	<generator>https://wordpress.org/?v=6.4.3</generator>
 	<item>
+		<title>How to install debian on arbitrary Qemu architecture</title>
+		<link>https://hope1ess.com/2024/02/07/how-to-install-debian-on-arbitrary-qemu-architecture/</link>
+		
+		<dc:creator><![CDATA[rookie]]></dc:creator>
+		<pubDate>Wed, 07 Feb 2024 08:22:59 +0000</pubDate>
+				<category><![CDATA[guides]]></category>
+		<category><![CDATA[aarch64]]></category>
+		<category><![CDATA[debian]]></category>
+		<category><![CDATA[qemu]]></category>
+		<guid isPermaLink="false">https://hope1ess.com/?p=189</guid>
+
+					<description><![CDATA[<p>Simple steps to install a working debian on arbitrary qemu arch!</p>
+<p>The post <a href="https://hope1ess.com/2024/02/07/how-to-install-debian-on-arbitrary-qemu-architecture/">How to install debian on arbitrary Qemu architecture</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h2 class="wp-block-heading">0x1 Preparation</h2>
+
+
+
+<p>So in order to install a working debian system on arbitrary qemu arch, you first need to install qemu ofc, I won&#8217;t talk about how to install qemu here, I assume you already have qemu-system-* installed.</p>
+
+
+
+<p>Here I&#8217;ll show an example to install aarch64 debian</p>
+
+
+
+<p>So you need 3 other files besides qemu-system-aarch64, which is debian image, vmlinuz and initrd.gz</p>
+
+
+
+<p>You first check the following url to get your debian image: <a href="https://cdimage.debian.org/debian-cd/current/" target="_blank" rel="noreferrer noopener">https://cdimage.debian.org/debian-cd/current/</a></p>
+
+
+
+<p><strong>NOTE: Download the dvd version!</strong></p>
+
+
+
+<p>In my case the download url is : <a href="https://cdimage.debian.org/debian-cd/current/arm64/iso-dvd/debian-12.4.0-arm64-DVD-1.iso" target="_blank" rel="noreferrer noopener">https://cdimage.debian.org/debian-cd/current/arm64/iso-dvd/debian-12.4.0-arm64-DVD-1.iso</a></p>
+
+
+
+<p>The vmlinuz and initrd.gz is essential to boot your system, luckily you can get them easily from here: <a href="http://ftp.us.debian.org/debian/dists/stable/main/" target="_blank" rel="noreferrer noopener">http://ftp.us.debian.org/debian/dists/stable/main/</a></p>
+
+
+
+<p>Again, choose what arch you want to use, in my case my full url would be: <a href="http://ftp.us.debian.org/debian/dists/stable/main/installer-arm64/current/images/cdrom/" target="_blank" rel="noreferrer noopener">http://ftp.us.debian.org/debian/dists/stable/main/installer-arm64/current/images/cdrom/</a></p>
+
+
+
+<p><strong>NOTE: Download from the cdrom folder!</strong></p>
+
+
+
+<p>See that initrd.gz and vmlinuz from above url? Download it and save it with image downloaded before in same folder.</p>
+
+
+
+<h2 class="wp-block-heading">0x2 Installation</h2>
+
+
+
+<p>Create a hard disk to use first, here&#8217;s an example command:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-bash" data-lang="Bash"><code>qemu-img create -f qcow2 hda.qcow 100G</code></pre></div>
+
+
+
+<p>The 100G is probably overkill, you can adjust the value yourself.</p>
+
+
+
+<p>I feel like the most frustration part is constructing qemu command line arguments, so here&#8217;s what I use, <strong>please replace the actual filename with yours.</strong></p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-bash" data-lang="Bash" data-line="4,6,7,9,12"><code>qemu-system-aarch64 \
+  -m 4G \
+  -machine type=virt \
+  -cpu max \
+  -smp 4 \
+  -initrd &quot;./initrd.gz&quot; \
+  -kernel &quot;./vmlinuz&quot; \
+  -append &quot;console=ttyAMA0&quot; \
+  -drive file=&quot;./debian-12.4.0-arm64-DVD-1.iso&quot;,id=cdrom,if=none,media=cdrom \
+    -device virtio-scsi-device \
+    -device scsi-cd,drive=cdrom \
+  -drive file=&quot;./hda.qcow&quot;,id=hd,if=none,media=disk \
+	-device virtio-scsi-device \
+	-device scsi-hd,drive=hd \
+	-netdev user,id=net0 \
+	-device virtio-net-device,netdev=net0 \
+  -monitor null \
+  -nographic</code></pre></div>
+
+
+
+<p>The first parameter -m indicates the memory guest has, you can adjust it as you wish.</p>
+
+
+
+<p>The second and third parameter is quite essential too, they are the machine type and cpu type, so how do you get these values? Boom, qemu documentation!</p>
+
+
+
+<p>You can view the documentation from here <a href="https://www.qemu.org/docs/master/system/targets.html" target="_blank" rel="noreferrer noopener">https://www.qemu.org/docs/master/system/targets.html</a></p>
+
+
+
+<p>You first choose the documentation page matches your arch type, aarch64 is arm64 which is at same page as arm, <a href="https://www.qemu.org/docs/master/system/target-arm.html" target="_blank" rel="noreferrer noopener">https://www.qemu.org/docs/master/system/target-arm.html</a></p>
+
+
+
+<p>Now choose your machine type, here I choose virt, so the detail pages is: <a href="https://www.qemu.org/docs/master/system/arm/virt.html" target="_blank" rel="noreferrer noopener">https://www.qemu.org/docs/master/system/arm/virt.html</a></p>
+
+
+
+<p>And here you go, you can see the max is listed as a cpu type, so here is how we construct the parameters.</p>
+
+
+
+<p>After you successfully boot the system, install it as usual.</p>
+
+
+
+<p>However you may encounter following screen, please remember the <strong>root=/dev/sda2</strong> part. Hit continue.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism off-numbers lang-plain"><code>                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+   ┌─────────────────┤ [!] Continue without boot loader ├──────────────────┐    
+   │                                                                       │    
+   │                       No boot loader installed                        │    
+   │ No boot loader has been installed, either because you chose not to or │    
+   │ because your specific architecture doesn&#39;t support a boot loader yet. │    
+   │                                                                       │    
+   │ You will need to boot manually with the /vmlinuz kernel on partition  │    
+   │ /dev/sda1 and root=/dev/sda2 passed as a kernel argument.             │    
+   │                                                                       │    
+   │                              &lt;Continue&gt;                               │    
+   │                                                                       │    
+   └───────────────────────────────────────────────────────────────────────┘    
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+&lt;Tab&gt; moves; &lt;Space&gt; selects; &lt;Enter&gt; activates buttons                         </code></pre></div>
+
+
+
+<h2 class="wp-block-heading">0x3 Boot</h2>
+
+
+
+<p>To boot the installed system normally, you would need to extract the vmlinuz and initrd from the the installed  hard drive.</p>
+
+
+
+<p>First power off the vm, or just kill the qemu.</p>
+
+
+
+<p>Now how do we extract the files from qcow2 hard disk file?</p>
+
+
+
+<p>Here is the full command list I used, from mounting to unmounting.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-bash" data-lang="Bash"><code>sudo apt-get install qemu-utils
+sudo modprobe nbd max_part=8
+sudo qemu-nbd --connect=/dev/nbd0 hda.qcow 
+sudo mount /dev/nbd0p1 /mnt
+cp /mnt/boot/initrd.img-* .
+cp /mnt/boot/vmlinuz-* .
+sudo umount /mnt
+sudo qemu-nbd --disconnect /dev/nbd0</code></pre></div>
+
+
+
+<p><em>NOTE: the initrd img and vmlinuz files probably not in /mnt/boot, maybe they&#8217;re in /mnt, check /mnt as well!</em></p>
+
+
+
+<p>Basically this script mounts the hda.qcow file to /mnt, and copy the boot files out, and then unmount it.</p>
+
+
+
+<p>And now we have everything ready to boot the newly installed system!</p>
+
+
+
+<p>Note: use the same version of initrd-img and vmlinuz!</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-bash" data-lang="Bash"><code>qemu-system-aarch64 \
+  -m 4G \
+  -machine type=virt \
+  -cpu max \
+  -smp 4 \
+  -initrd &quot;./initrd.img-6.1.0-17-arm64&quot; \
+  -kernel &quot;./vmlinuz-6.1.0-17-arm64&quot; \
+  -append &quot;console=ttyAMA0, root=/dev/sda2&quot; \
+  -drive file=&quot;./hda.qcow&quot;,id=hd,if=none,media=disk \
+	-device virtio-scsi-device \
+	-device scsi-hd,drive=hd \
+	-nic user,model=virtio-net-pci,hostfwd=tcp::2222-:22 \
+  -monitor null \
+  -nographic</code></pre></div>
+
+
+
+<p>You may noticed the <strong>root=/dev/sda2</strong>, that&#8217;s from part 2, <strong>remember the parameter when it shows the warning!</strong></p>
+
+
+
+<p>Also here I forward the ssh port from guest to host port 2222.</p>
+
+
+
+<p><strong>PS: Comment out the first line of /etc/apt/sources.list!</strong></p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>#deb cdrom:[Debian GNU/Linux ....</code></pre></div>
+
+
+
+<p>Congratulations! Now you have your first working qemu system!</p>
+<p>The post <a href="https://hope1ess.com/2024/02/07/how-to-install-debian-on-arbitrary-qemu-architecture/">How to install debian on arbitrary Qemu architecture</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
 		<title>How to &#8220;Upgrade&#8221; iPhone 7p from 13.3 to 14.8 in 2023</title>
 		<link>https://hope1ess.com/2023/11/03/how-to-upgrade-iphone-7p-from-13-3-to-14-8-in-2023/</link>
 		
@@ -450,7 +696,7 @@
 
 
 
-<figure class="wp-block-image size-large"><img decoding="async" fetchpriority="high" width="1024" height="811" src="https://hope1ess.com/wp-content/uploads/2023/09/image-1024x811.png" alt="" class="wp-image-167" srcset="https://hope1ess.com/wp-content/uploads/2023/09/image-1024x811.png 1024w, https://hope1ess.com/wp-content/uploads/2023/09/image-300x238.png 300w, https://hope1ess.com/wp-content/uploads/2023/09/image-768x608.png 768w, https://hope1ess.com/wp-content/uploads/2023/09/image.png 1121w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+<figure class="wp-block-image size-large"><img fetchpriority="high" decoding="async" width="1024" height="811" src="https://hope1ess.com/wp-content/uploads/2023/09/image-1024x811.png" alt="" class="wp-image-167" srcset="https://hope1ess.com/wp-content/uploads/2023/09/image-1024x811.png 1024w, https://hope1ess.com/wp-content/uploads/2023/09/image-300x238.png 300w, https://hope1ess.com/wp-content/uploads/2023/09/image-768x608.png 768w, https://hope1ess.com/wp-content/uploads/2023/09/image.png 1121w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
 
 
 
@@ -536,7 +782,7 @@
 
 
 
-<figure class="wp-block-image size-full"><img decoding="async" loading="lazy" width="977" height="486" src="https://hope1ess.com/wp-content/uploads/2023/09/image-3.png" alt="" class="wp-image-172" srcset="https://hope1ess.com/wp-content/uploads/2023/09/image-3.png 977w, https://hope1ess.com/wp-content/uploads/2023/09/image-3-300x149.png 300w, https://hope1ess.com/wp-content/uploads/2023/09/image-3-768x382.png 768w" sizes="(max-width: 977px) 100vw, 977px" /></figure>
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="977" height="486" src="https://hope1ess.com/wp-content/uploads/2023/09/image-3.png" alt="" class="wp-image-172" srcset="https://hope1ess.com/wp-content/uploads/2023/09/image-3.png 977w, https://hope1ess.com/wp-content/uploads/2023/09/image-3-300x149.png 300w, https://hope1ess.com/wp-content/uploads/2023/09/image-3-768x382.png 768w" sizes="(max-width: 977px) 100vw, 977px" /></figure>
 
 
 
@@ -544,7 +790,7 @@
 
 
 
-<figure class="wp-block-image size-large"><img decoding="async" loading="lazy" width="1024" height="448" src="https://hope1ess.com/wp-content/uploads/2023/09/image-4-1024x448.png" alt="" class="wp-image-173" srcset="https://hope1ess.com/wp-content/uploads/2023/09/image-4-1024x448.png 1024w, https://hope1ess.com/wp-content/uploads/2023/09/image-4-300x131.png 300w, https://hope1ess.com/wp-content/uploads/2023/09/image-4-768x336.png 768w, https://hope1ess.com/wp-content/uploads/2023/09/image-4.png 1208w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="448" src="https://hope1ess.com/wp-content/uploads/2023/09/image-4-1024x448.png" alt="" class="wp-image-173" srcset="https://hope1ess.com/wp-content/uploads/2023/09/image-4-1024x448.png 1024w, https://hope1ess.com/wp-content/uploads/2023/09/image-4-300x131.png 300w, https://hope1ess.com/wp-content/uploads/2023/09/image-4-768x336.png 768w, https://hope1ess.com/wp-content/uploads/2023/09/image-4.png 1208w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
 
 
 

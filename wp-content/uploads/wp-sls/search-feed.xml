@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-	<!-- generator="WordPress/6.3.2" created="2023-11-03 02:43" -->
+	<!-- generator="WordPress/6.4.3" created="2024-02-07 08:23" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>Hopeless blog</title>
 	<link>https://hope1ess.com</link>
 	<description>Pwn the life</description>
-	<pubDate>Fri, 03 Nov 2023 02:43:30 +0000</pubDate>
+	<pubDate>Wed, 07 Feb 2024 08:23:08 +0000</pubDate>
 	<language>en-US</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
 	<wp:base_site_url>https://hope1ess.com</wp:base_site_url>
@@ -38,7 +38,7 @@
 		<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[hopeless]]></wp:author_login><wp:author_email><![CDATA[root@example.org]]></wp:author_email><wp:author_display_name><![CDATA[rookie]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
 
 				
-	<generator>https://wordpress.org/?v=6.3.2</generator>
+	<generator>https://wordpress.org/?v=6.4.3</generator>
 
 		<item>
 		<title><![CDATA[Realworld CTF 2022 "The rise of sky" writeup]]></title>
@@ -1252,7 +1252,7 @@ m.interactive()</code></pre></div>
 										<category domain="category" nicename="writeups"><![CDATA[writeups]]></category>
 						<wp:postmeta>
 		<wp:meta_key><![CDATA[_yoast_wpseo_estimated-reading-time-minutes]]></wp:meta_key>
-		<wp:meta_value><![CDATA[6]]></wp:meta_value>
+		<wp:meta_value><![CDATA[3]]></wp:meta_value>
 		</wp:postmeta>
 							<wp:postmeta>
 		<wp:meta_key><![CDATA[_yoast_wpseo_content_score]]></wp:meta_key>
@@ -1269,6 +1269,22 @@ m.interactive()</code></pre></div>
 							<wp:postmeta>
 		<wp:meta_key><![CDATA[_encloseme]]></wp:meta_key>
 		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_yoast_wpseo_primary_category]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_yoast_wpseo_focuskw]]></wp:meta_key>
+		<wp:meta_value><![CDATA[0CTF 2021 ioa writeup]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_yoast_wpseo_linkdex]]></wp:meta_key>
+		<wp:meta_value><![CDATA[60]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_yoast_wpseo_wordproof_timestamp]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
 		</wp:postmeta>
 							</item>
 					<item>
@@ -3150,6 +3166,283 @@ LABEL_112:
 							<wp:postmeta>
 		<wp:meta_key><![CDATA[_yoast_wpseo_metadesc]]></wp:meta_key>
 		<wp:meta_value><![CDATA[Futurestore your beloved IPhone to unsigned iOS version with blob and trouble shoot!]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[How to install debian on arbitrary Qemu architecture]]></title>
+		<link>https://hope1ess.com/2024/02/07/how-to-install-debian-on-arbitrary-qemu-architecture/</link>
+		<pubDate>Wed, 07 Feb 2024 08:22:59 +0000</pubDate>
+		<dc:creator><![CDATA[hopeless]]></dc:creator>
+		<guid isPermaLink="false">https://hope1ess.com/?p=189</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:heading -->
+<h2 class="wp-block-heading">0x1 Preparation</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>So in order to install a working debian system on arbitrary qemu arch, you first need to install qemu ofc, I won't talk about how to install qemu here, I assume you already have qemu-system-* installed.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Here I'll show an example to install aarch64 debian</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>So you need 3 other files besides qemu-system-aarch64, which is debian image, vmlinuz and initrd.gz</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>You first check the following url to get your debian image: <a href="https://cdimage.debian.org/debian-cd/current/" target="_blank" rel="noreferrer noopener">https://cdimage.debian.org/debian-cd/current/</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>NOTE: Download the dvd version!</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>In my case the download url is : <a href="https://cdimage.debian.org/debian-cd/current/arm64/iso-dvd/debian-12.4.0-arm64-DVD-1.iso" target="_blank" rel="noreferrer noopener">https://cdimage.debian.org/debian-cd/current/arm64/iso-dvd/debian-12.4.0-arm64-DVD-1.iso</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The vmlinuz and initrd.gz is essential to boot your system, luckily you can get them easily from here: <a href="http://ftp.us.debian.org/debian/dists/stable/main/" target="_blank" rel="noreferrer noopener">http://ftp.us.debian.org/debian/dists/stable/main/</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Again, choose what arch you want to use, in my case my full url would be: <a href="http://ftp.us.debian.org/debian/dists/stable/main/installer-arm64/current/images/cdrom/" target="_blank" rel="noreferrer noopener">http://ftp.us.debian.org/debian/dists/stable/main/installer-arm64/current/images/cdrom/</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>NOTE: Download from the cdrom folder!</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>See that initrd.gz and vmlinuz from above url? Download it and save it with image downloaded before in same folder.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">0x2 Installation</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Create a hard disk to use first, here's an example command:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:loos-hcb/code-block {"langType":"bash","langName":"Bash"} -->
+<div class="hcb_wrap"><pre class="prism undefined-numbers lang-bash" data-lang="Bash"><code>qemu-img create -f qcow2 hda.qcow 100G</code></pre></div>
+<!-- /wp:loos-hcb/code-block -->
+
+<!-- wp:paragraph -->
+<p>The 100G is probably overkill, you can adjust the value yourself.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>I feel like the most frustration part is constructing qemu command line arguments, so here's what I use, <strong>please replace the actual filename with yours.</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:loos-hcb/code-block {"langType":"bash","langName":"Bash","dataLineNum":"4,6,7,9,12","isLineShow":"on"} -->
+<div class="hcb_wrap"><pre class="prism on-numbers lang-bash" data-lang="Bash" data-line="4,6,7,9,12"><code>qemu-system-aarch64 \
+  -m 4G \
+  -machine type=virt \
+  -cpu max \
+  -smp 4 \
+  -initrd &quot;./initrd.gz&quot; \
+  -kernel &quot;./vmlinuz&quot; \
+  -append &quot;console=ttyAMA0&quot; \
+  -drive file=&quot;./debian-12.4.0-arm64-DVD-1.iso&quot;,id=cdrom,if=none,media=cdrom \
+    -device virtio-scsi-device \
+    -device scsi-cd,drive=cdrom \
+  -drive file=&quot;./hda.qcow&quot;,id=hd,if=none,media=disk \
+	-device virtio-scsi-device \
+	-device scsi-hd,drive=hd \
+	-netdev user,id=net0 \
+	-device virtio-net-device,netdev=net0 \
+  -monitor null \
+  -nographic</code></pre></div>
+<!-- /wp:loos-hcb/code-block -->
+
+<!-- wp:paragraph -->
+<p>The first parameter -m indicates the memory guest has, you can adjust it as you wish.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The second and third parameter is quite essential too, they are the machine type and cpu type, so how do you get these values? Boom, qemu documentation!</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>You can view the documentation from here <a href="https://www.qemu.org/docs/master/system/targets.html" target="_blank" rel="noreferrer noopener">https://www.qemu.org/docs/master/system/targets.html</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>You first choose the documentation page matches your arch type, aarch64 is arm64 which is at same page as arm, <a href="https://www.qemu.org/docs/master/system/target-arm.html" target="_blank" rel="noreferrer noopener">https://www.qemu.org/docs/master/system/target-arm.html</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Now choose your machine type, here I choose virt, so the detail pages is: <a href="https://www.qemu.org/docs/master/system/arm/virt.html" target="_blank" rel="noreferrer noopener">https://www.qemu.org/docs/master/system/arm/virt.html</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>And here you go, you can see the max is listed as a cpu type, so here is how we construct the parameters.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>After you successfully boot the system, install it as usual.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>However you may encounter following screen, please remember the <strong>root=/dev/sda2</strong> part. Hit continue.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:loos-hcb/code-block {"isLineShow":"off"} -->
+<div class="hcb_wrap"><pre class="prism off-numbers lang-plain"><code>                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+   ┌─────────────────┤ [!] Continue without boot loader ├──────────────────┐    
+   │                                                                       │    
+   │                       No boot loader installed                        │    
+   │ No boot loader has been installed, either because you chose not to or │    
+   │ because your specific architecture doesn&#39;t support a boot loader yet. │    
+   │                                                                       │    
+   │ You will need to boot manually with the /vmlinuz kernel on partition  │    
+   │ /dev/sda1 and root=/dev/sda2 passed as a kernel argument.             │    
+   │                                                                       │    
+   │                              &lt;Continue&gt;                               │    
+   │                                                                       │    
+   └───────────────────────────────────────────────────────────────────────┘    
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+&lt;Tab&gt; moves; &lt;Space&gt; selects; &lt;Enter&gt; activates buttons                         </code></pre></div>
+<!-- /wp:loos-hcb/code-block -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">0x3 Boot</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>To boot the installed system normally, you would need to extract the vmlinuz and initrd from the the installed  hard drive.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>First power off the vm, or just kill the qemu.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Now how do we extract the files from qcow2 hard disk file?</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Here is the full command list I used, from mounting to unmounting.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:loos-hcb/code-block {"langType":"bash","langName":"Bash"} -->
+<div class="hcb_wrap"><pre class="prism undefined-numbers lang-bash" data-lang="Bash"><code>sudo apt-get install qemu-utils
+sudo modprobe nbd max_part=8
+sudo qemu-nbd --connect=/dev/nbd0 hda.qcow 
+sudo mount /dev/nbd0p1 /mnt
+cp /mnt/boot/initrd.img-* .
+cp /mnt/boot/vmlinuz-* .
+sudo umount /mnt
+sudo qemu-nbd --disconnect /dev/nbd0</code></pre></div>
+<!-- /wp:loos-hcb/code-block -->
+
+<!-- wp:paragraph -->
+<p><em>NOTE: the initrd img and vmlinuz files probably not in /mnt/boot, maybe they're in /mnt, check /mnt as well!</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Basically this script mounts the hda.qcow file to /mnt, and copy the boot files out, and then unmount it.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>And now we have everything ready to boot the newly installed system!</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Note: use the same version of initrd-img and vmlinuz!</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:loos-hcb/code-block {"langType":"bash","langName":"Bash"} -->
+<div class="hcb_wrap"><pre class="prism undefined-numbers lang-bash" data-lang="Bash"><code>qemu-system-aarch64 \
+  -m 4G \
+  -machine type=virt \
+  -cpu max \
+  -smp 4 \
+  -initrd &quot;./initrd.img-6.1.0-17-arm64&quot; \
+  -kernel &quot;./vmlinuz-6.1.0-17-arm64&quot; \
+  -append &quot;console=ttyAMA0, root=/dev/sda2&quot; \
+  -drive file=&quot;./hda.qcow&quot;,id=hd,if=none,media=disk \
+	-device virtio-scsi-device \
+	-device scsi-hd,drive=hd \
+	-nic user,model=virtio-net-pci,hostfwd=tcp::2222-:22 \
+  -monitor null \
+  -nographic</code></pre></div>
+<!-- /wp:loos-hcb/code-block -->
+
+<!-- wp:paragraph -->
+<p>You may noticed the <strong>root=/dev/sda2</strong>, that's from part 2, <strong>remember the parameter when it shows the warning!</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Also here I forward the ssh port from guest to host port 2222.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>PS: Comment out the first line of /etc/apt/sources.list!</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:loos-hcb/code-block -->
+<div class="hcb_wrap"><pre class="prism undefined-numbers lang-plain"><code>#deb cdrom:[Debian GNU/Linux ....</code></pre></div>
+<!-- /wp:loos-hcb/code-block -->
+
+<!-- wp:paragraph -->
+<p>Congratulations! Now you have your first working qemu system!</p>
+<!-- /wp:paragraph -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[Simple steps to install a working debian on arbitrary qemu arch!]]></excerpt:encoded>
+		<wp:post_id>189</wp:post_id>
+		<wp:post_date><![CDATA[2024-02-07 08:22:59]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2024-02-07 08:22:59]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2024-02-07 08:23:03]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2024-02-07 08:23:03]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[how-to-install-debian-on-arbitrary-qemu-architecture]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[post]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+										<category domain="post_tag" nicename="aarch64"><![CDATA[aarch64]]></category>
+		<category domain="post_tag" nicename="debian"><![CDATA[debian]]></category>
+		<category domain="category" nicename="guides"><![CDATA[guides]]></category>
+		<category domain="post_tag" nicename="qemu"><![CDATA[qemu]]></category>
+						<wp:postmeta>
+		<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_yoast_wpseo_primary_category]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_yoast_wpseo_content_score]]></wp:meta_key>
+		<wp:meta_value><![CDATA[90]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_yoast_wpseo_estimated-reading-time-minutes]]></wp:meta_key>
+		<wp:meta_value><![CDATA[2]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_yoast_wpseo_wordproof_timestamp]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_encloseme]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
 		</wp:postmeta>
 							</item>
 				</channel>
