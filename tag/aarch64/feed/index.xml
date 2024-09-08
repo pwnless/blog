@@ -18,7 +18,7 @@
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=6.4.3</generator>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
 	<item>
 		<title>How to install debian on arbitrary Qemu architecture</title>
 		<link>https://hope1ess.com/2024/02/07/how-to-install-debian-on-arbitrary-qemu-architecture/</link>

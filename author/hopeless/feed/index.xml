@@ -12,14 +12,90 @@
 	<atom:link href="https://hope1ess.com/author/hopeless/feed/" rel="self" type="application/rss+xml" />
 	<link>https://hope1ess.com/author/hopeless/</link>
 	<description>Pwn the life</description>
-	<lastBuildDate>Wed, 07 Feb 2024 08:23:03 +0000</lastBuildDate>
+	<lastBuildDate>Sun, 08 Sep 2024 02:33:53 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=6.4.3</generator>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
 	<item>
+		<title>How to solve mysterious registry ghost problem</title>
+		<link>https://hope1ess.com/2024/09/08/how-to-solve-mysterious-registry-ghost-problem/</link>
+		
+		<dc:creator><![CDATA[rookie]]></dc:creator>
+		<pubDate>Sun, 08 Sep 2024 02:28:17 +0000</pubDate>
+				<category><![CDATA[guides]]></category>
+		<guid isPermaLink="false">https://hope1ess.com/?p=196</guid>
+
+					<description><![CDATA[<p>I recently encountered a puzzling registry issue where the key was visible in regedit but inaccessible via code, returning error code 2. After some investigation, I discovered the problem stemmed from using a 32-bit Python on a 64-bit system, which redirected the registry path. The solution? Adding the KEY_WOW64_64KEY flag to access 64-bit keys. Problem solved!</p>
+<p>The post <a href="https://hope1ess.com/2024/09/08/how-to-solve-mysterious-registry-ghost-problem/">How to solve mysterious registry ghost problem</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Have you ever encountered a situation where you can clearly see and edit a registry key using Windows’ regedit.exe, but when trying to access the same key via code, it fails with error code 2 (File not found)? This frustrating “registry ghost” issue can appear when working with Windows API, particularly when dealing with 32-bit and 64-bit applications.</p>
+
+
+
+<h2 class="wp-block-heading">0x1 The issue</h2>
+
+
+
+<p>Let&#8217;s say you wanna access registry HKEY_LOCAL_MACHINE\SOFTWARE\xxx, and you can see it clearly with your beloved regedit.exe, it is right there. But when you try following code, something happened.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-python" data-lang="Python"><code>with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r&#39;SOFTWARE\xxx&#39;,0, winreg.KEY_READ) as key:
+    # Query the value of the specified key
+    val, regtype = winreg.QueryValueEx(key, &#39;aaa&#39;)</code></pre></div>
+
+
+
+<p>Your code won&#8217;t work! It returns <strong>error code 2 (File not found)</strong>!</p>
+
+
+
+<p>How is it possible? The registry folder is right there!</p>
+
+
+
+<h2 class="wp-block-heading">0x2 The root cause</h2>
+
+
+
+<p>Upon closer inspection using a monitoring tool like <code>procmon.exe</code>, you might realize that your code is actually trying to access <code><strong>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\xxx</strong></code> instead of the intended 64-bit path. This happens because the code was running in a 32-bit environment on a 64-bit machine. When using a 32-bit Python interpreter, the system automatically redirects registry calls to <code>Wow6432Node</code>, which mirrors the 32-bit view of the registry.</p>
+
+
+
+<p>WTF?</p>
+
+
+
+<p>So I forgot that I used an old 32bit python, lmao</p>
+
+
+
+<h2 class="wp-block-heading">0x3 The fix</h2>
+
+
+
+<p>Add a flag (<strong>KEY_WOW64_64KEY</strong>) to allow registry access 64bit keys in 32 bit program.</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r&#39;SOFTWARE\xxx&#39;, 0, winreg.KEY_READ | winreg.KEY_WOW64_64KEY) as key:
+    # Query the value of the specified key
+    value, regtype = winreg.QueryValueEx(key, &#39;aaa&#39;)</code></pre></div>
+
+
+
+<p>Problem solved! </p>
+<p>The post <a href="https://hope1ess.com/2024/09/08/how-to-solve-mysterious-registry-ghost-problem/">How to solve mysterious registry ghost problem</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
 		<title>How to install debian on arbitrary Qemu architecture</title>
 		<link>https://hope1ess.com/2024/02/07/how-to-install-debian-on-arbitrary-qemu-architecture/</link>
 		
@@ -290,7 +366,7 @@ sudo qemu-nbd --disconnect /dev/nbd0</code></pre></div>
 
 
 
-<ol>
+<ol class="wp-block-list">
 <li>shsh file for corresponding iOS version</li>
 
 
@@ -320,7 +396,7 @@ sudo qemu-nbd --disconnect /dev/nbd0</code></pre></div>
 
 
 
-<ol>
+<ol class="wp-block-list">
 <li>Open your package manager on your jailbroken iDevice</li>
 
 
@@ -388,7 +464,7 @@ sudo qemu-nbd --disconnect /dev/nbd0</code></pre></div>
 
 
 
-<ul>
+<ul class="wp-block-list">
 <li><a href="https://cdn.cryptiiiic.com/bin/Windows/x86_64/futurerestore/futurerestore-Windows-x86_64-v2.0.0-test-Build_304-RELEASE.exe">Download futurestore from here</a></li>
 
 
@@ -402,7 +478,7 @@ sudo qemu-nbd --disconnect /dev/nbd0</code></pre></div>
 
 
 
-<ul>
+<ul class="wp-block-list">
 <li><a href="https://nightly.link/futurerestore/futurerestore/workflows/ci/main/futurerestore-Linux-x86_64-RELEASE.zip" target="_blank" rel="noreferrer noopener">Download futurestore from here</a></li>
 
 
@@ -416,7 +492,7 @@ sudo qemu-nbd --disconnect /dev/nbd0</code></pre></div>
 
 
 
-<ul>
+<ul class="wp-block-list">
 <li><a href="https://nightly.link/futurerestore/futurerestore/workflows/ci/main/futurerestore-Linux-x86_64-RELEASE.zip" target="_blank" rel="noreferrer noopener">Download futurestore fro</a><a href="https://nightly.link/futurerestore/futurerestore/workflows/ci/main/futurerestore-macOS-RELEASE.zip" target="_blank" rel="noreferrer noopener">m here</a></li>
 
 
@@ -438,7 +514,7 @@ sudo qemu-nbd --disconnect /dev/nbd0</code></pre></div>
 
 
 
-<ol>
+<ol class="wp-block-list">
 <li>Click the&nbsp;<code>Select Blob File...</code>&nbsp;button and select your blob .shsh2 file</li>
 
 
@@ -540,7 +616,7 @@ sudo qemu-nbd --disconnect /dev/nbd0</code></pre></div>
 
 
 
-<ul>
+<ul class="wp-block-list">
 <li>Install the ubuntu or other linux directly in your machine, so you&#8217;ll have large enough disk space to decompress the ipsw</li>
 
 
@@ -562,7 +638,7 @@ sudo qemu-nbd --disconnect /dev/nbd0</code></pre></div>
 
 
 
-<ul>
+<ul class="wp-block-list">
 <li>Ubuntu virtual machine</li>
 
 
@@ -1603,7 +1679,7 @@ LABEL_112:
 
 
 
-<ul>
+<ul class="wp-block-list">
 <li>Create new file</li>
 
 
@@ -1613,7 +1689,7 @@ LABEL_112:
 
 
 <li>Select file (perform some operations on specific file)
-<ul>
+<ul class="wp-block-list">
 <li>Edit file name</li>
 
 
@@ -1645,7 +1721,7 @@ LABEL_112:
 
 
 
-<ul>
+<ul class="wp-block-list">
 <li>Print files</li>
 
 
@@ -2852,7 +2928,7 @@ p.interactive()</code></pre></div>
 
 
 
-<ul>
+<ul class="wp-block-list">
 <li>Eliminate any \x00\r\n in shellcode, directly jump to stack.</li>
 
 

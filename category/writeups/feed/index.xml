@@ -18,7 +18,7 @@
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=6.4.3</generator>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
 	<item>
 		<title>Codegate CTF 2022 file-v writeup</title>
 		<link>https://hope1ess.com/2022/02/28/codegate-ctf-2022-file-v-writeup/</link>
@@ -73,7 +73,7 @@
 
 
 
-<ul>
+<ul class="wp-block-list">
 <li>Create new file</li>
 
 
@@ -83,7 +83,7 @@
 
 
 <li>Select file (perform some operations on specific file)
-<ul>
+<ul class="wp-block-list">
 <li>Edit file name</li>
 
 
@@ -115,7 +115,7 @@
 
 
 
-<ul>
+<ul class="wp-block-list">
 <li>Print files</li>
 
 
@@ -1322,7 +1322,7 @@ p.interactive()</code></pre></div>
 
 
 
-<ul>
+<ul class="wp-block-list">
 <li>Eliminate any \x00\r\n in shellcode, directly jump to stack.</li>
 
 
