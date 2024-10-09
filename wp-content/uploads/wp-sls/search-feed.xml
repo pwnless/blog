@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-	<!-- generator="WordPress/6.6.1" created="2024-09-08 02:33" -->
+	<!-- generator="WordPress/6.6.2" created="2024-10-09 12:18" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>Hopeless blog</title>
 	<link>https://hope1ess.com</link>
 	<description>Pwn the life</description>
-	<pubDate>Sun, 08 Sep 2024 02:33:53 +0000</pubDate>
+	<pubDate>Wed, 09 Oct 2024 12:18:59 +0000</pubDate>
 	<language>en-US</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
 	<wp:base_site_url>https://hope1ess.com</wp:base_site_url>
@@ -38,7 +38,7 @@
 		<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[hopeless]]></wp:author_login><wp:author_email><![CDATA[root@example.org]]></wp:author_email><wp:author_display_name><![CDATA[rookie]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
 
 				
-	<generator>https://wordpress.org/?v=6.6.1</generator>
+	<generator>https://wordpress.org/?v=6.6.2</generator>
 
 		<item>
 		<title><![CDATA[Realworld CTF 2022 "The rise of sky" writeup]]></title>
@@ -3917,7 +3917,159 @@ I recently encountered a puzzling registry issue where the key was visible in re
 		<wp:meta_value><![CDATA[1]]></wp:meta_value>
 		</wp:postmeta>
 							<wp:postmeta>
+		<wp:meta_key><![CDATA[_yoast_wpseo_focuskw]]></wp:meta_key>
+		<wp:meta_value><![CDATA[Registry fix,64-bit access,Error code 2]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_yoast_wpseo_linkdex]]></wp:meta_key>
+		<wp:meta_value><![CDATA[41]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Enhancing iOS Debugging: Creating a Custom FLEX Loader to any 3rd party iOS application]]></title>
+		<link>https://hope1ess.com/2024/10/09/enhancing-ios-debugging-creating-a-custom-flex-loader-to-any-3rd-party-ios-application/</link>
+		<pubDate>Wed, 09 Oct 2024 12:18:56 +0000</pubDate>
+		<dc:creator><![CDATA[hopeless]]></dc:creator>
+		<guid isPermaLink="false">https://hope1ess.com/?p=202</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:heading -->
+<h2 class="wp-block-heading">0x0 What is FLEX debugger?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The FLEX Debugger is an impressive tool for debugging iOS applications, and it can be activated directly on your iOS device. You can find more details about it here: <a href="https://github.com/FLEXTool/FLEX">FLEX GitHub Repository</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>This tool is especially useful for developing app tweaks. However, the official website doesn't provide instructions for debugging third-party applications.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">0x1 FLEXing or FLEXList?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Both of these tools are great and can load the FLEX Debugger into any iOS app. However, I found two major drawbacks:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>They use an older version of the FLEX Debugger (version 4.7.0, as far as I know).</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>They become unusable if you can't jailbreak your device.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>That's why I decided to create my own FLEX loader, which can be activated and injected into any iOS application.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">0x2 Compiling FLEX</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>First, I cloned the FLEX repository and compiled it using Xcode without any issues. It generated a <code>FLEX.framework</code> folder, which can be linked in a tweak's makefile like this:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:loos-hcb/code-block -->
+<div class="hcb_wrap"><pre class="prism undefined-numbers lang-plain"><code>autoflex_LDFLAGS += -framework FLEX -F../build</code></pre></div>
+<!-- /wp:loos-hcb/code-block -->
+
+<!-- wp:paragraph -->
+<p>This works, but both the <code>.deb</code> file and the <code>FLEX.framework</code> folder need to be injected into the <code>.ipa</code> file, which isn't ideal.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>So, can we directly compile FLEX into our <code>.deb</code> file?</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">0x3 FLEX into deb</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>FLEX stores its source code in the <code>Classes</code> folder. To compile it, you'll need to copy all the files and run the compilation. Here are a few issues you might encounter:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Use <code>clang++</code> instead of <code>clang</code>, as FLEX is written in C++.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>You need to compile all <code>.m</code>, <code>.mm</code>, and <code>.c</code> files.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>FLEX relies on multiple frameworks (UIKit, CoreGraphics, QuartzCore, ImageIO, WebKit, Security, SceneKit, AVFoundation, UserNotifications), and you need to link all of them.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Several compiler flags (<code>-Wno-deprecated-declarations</code>, <code>-Wno-strict-prototypes</code>, <code>-Wno-unsupported-availability-guard</code>) need to be turned off for a successful compilation.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p><strong>FLEXSwiftInternal.mm Issues</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>I was puzzled when <code>FLEXSwiftInternal.mm</code> gave me two errors, even though it compiled successfully in Xcode. The issue was caused by two lines involving atomic types. To fix this, I removed the atomic qualifiers in the file:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:loos-hcb/code-block -->
+<div class="hcb_wrap"><pre class="prism undefined-numbers lang-plain"><code>FILE=&quot;src/FLEXSwiftInternal.mm&quot;
+# Replace &quot;std::atomic&lt;mask_t&gt; _maybeMask;&quot; with &quot;mask_t _maybeMask;&quot; on line 59
+sed -i &#39;&#39; &#39;59s/std::atomic&lt;mask_t&gt; _maybeMask;/mask_t _maybeMask;/&#39; &quot;$FILE&quot;
+
+# Replace &quot;std::atomic&lt;preopt_cache_t *&gt; _originalPreoptCache;&quot; with &quot;preopt_cache_t * _originalPreoptCache;&quot; on line 65
+sed -i &#39;&#39; &#39;65s/std::atomic&lt;preopt_cache_t \*&gt; _originalPreoptCache;/preopt_cache_t \* _originalPreoptCache;/&#39; &quot;$FILE&quot;</code></pre></div>
+<!-- /wp:loos-hcb/code-block -->
+
+<!-- wp:paragraph -->
+<p>After this fix, your <code>.deb</code> file will be ready!</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">0x4 AutoFLEX</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>I created a <a href="https://github.com/pwnless/AutoFLEX">GitHub repository </a>to automate this process. With proper GitHub actions, you'll have the latest version of FLEX compiled whenever you need it!</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>To use this <code>.deb</code> file, you'll need to use Sideloadly or another <code>.ipa</code> editing tool to inject the <code>.deb</code> into your <code>.ipa</code> and install it on your device. This <code>.deb</code> file cannot be installed directly!</p>
+<!-- /wp:paragraph -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[The FLEX Debugger is a powerful tool for iOS app debugging, but it lacks support for third-party apps. I created a custom FLEX loader to inject it into any app without jailbreaking.]]></excerpt:encoded>
+		<wp:post_id>202</wp:post_id>
+		<wp:post_date><![CDATA[2024-10-09 12:18:56]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2024-10-09 12:18:56]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2024-10-09 12:18:59]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2024-10-09 12:18:59]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[enhancing-ios-debugging-creating-a-custom-flex-loader-to-any-3rd-party-ios-application]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[post]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+										<category domain="category" nicename="guides"><![CDATA[guides]]></category>
+						<wp:postmeta>
+		<wp:meta_key><![CDATA[_oembed_5cf5732971535f950bb1dbb3c43241e4]]></wp:meta_key>
+		<wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
 		<wp:meta_key><![CDATA[_encloseme]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
 		<wp:meta_value><![CDATA[1]]></wp:meta_value>
 		</wp:postmeta>
 							</item>

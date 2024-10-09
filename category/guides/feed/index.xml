@@ -12,14 +12,143 @@
 	<atom:link href="https://hope1ess.com/category/guides/feed/" rel="self" type="application/rss+xml" />
 	<link>https://hope1ess.com/category/guides/</link>
 	<description>Pwn the life</description>
-	<lastBuildDate>Sun, 08 Sep 2024 02:33:53 +0000</lastBuildDate>
+	<lastBuildDate>Wed, 09 Oct 2024 12:18:59 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=6.6.1</generator>
+	<generator>https://wordpress.org/?v=6.6.2</generator>
 	<item>
+		<title>Enhancing iOS Debugging: Creating a Custom FLEX Loader to any 3rd party iOS application</title>
+		<link>https://hope1ess.com/2024/10/09/enhancing-ios-debugging-creating-a-custom-flex-loader-to-any-3rd-party-ios-application/</link>
+		
+		<dc:creator><![CDATA[rookie]]></dc:creator>
+		<pubDate>Wed, 09 Oct 2024 12:18:56 +0000</pubDate>
+				<category><![CDATA[guides]]></category>
+		<guid isPermaLink="false">https://hope1ess.com/?p=202</guid>
+
+					<description><![CDATA[<p>The FLEX Debugger is a powerful tool for iOS app debugging, but it lacks support for third-party apps. I created a custom FLEX loader to inject it into any app without jailbreaking.</p>
+<p>The post <a href="https://hope1ess.com/2024/10/09/enhancing-ios-debugging-creating-a-custom-flex-loader-to-any-3rd-party-ios-application/">Enhancing iOS Debugging: Creating a Custom FLEX Loader to any 3rd party iOS application</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h2 class="wp-block-heading">0x0 What is FLEX debugger?</h2>
+
+
+
+<p>The FLEX Debugger is an impressive tool for debugging iOS applications, and it can be activated directly on your iOS device. You can find more details about it here: <a href="https://github.com/FLEXTool/FLEX">FLEX GitHub Repository</a>.</p>
+
+
+
+<p>This tool is especially useful for developing app tweaks. However, the official website doesn&#8217;t provide instructions for debugging third-party applications.</p>
+
+
+
+<h2 class="wp-block-heading">0x1 FLEXing or FLEXList?</h2>
+
+
+
+<p>Both of these tools are great and can load the FLEX Debugger into any iOS app. However, I found two major drawbacks:</p>
+
+
+
+<ul class="wp-block-list">
+<li>They use an older version of the FLEX Debugger (version 4.7.0, as far as I know).</li>
+
+
+
+<li>They become unusable if you can&#8217;t jailbreak your device.</li>
+</ul>
+
+
+
+<p>That&#8217;s why I decided to create my own FLEX loader, which can be activated and injected into any iOS application.</p>
+
+
+
+<h2 class="wp-block-heading">0x2 Compiling FLEX</h2>
+
+
+
+<p>First, I cloned the FLEX repository and compiled it using Xcode without any issues. It generated a <code>FLEX.framework</code> folder, which can be linked in a tweak&#8217;s makefile like this:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>autoflex_LDFLAGS += -framework FLEX -F../build</code></pre></div>
+
+
+
+<p>This works, but both the <code>.deb</code> file and the <code>FLEX.framework</code> folder need to be injected into the <code>.ipa</code> file, which isn&#8217;t ideal.</p>
+
+
+
+<p>So, can we directly compile FLEX into our <code>.deb</code> file?</p>
+
+
+
+<h2 class="wp-block-heading">0x3 FLEX into deb</h2>
+
+
+
+<p>FLEX stores its source code in the <code>Classes</code> folder. To compile it, you&#8217;ll need to copy all the files and run the compilation. Here are a few issues you might encounter:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Use <code>clang++</code> instead of <code>clang</code>, as FLEX is written in C++.</li>
+
+
+
+<li>You need to compile all <code>.m</code>, <code>.mm</code>, and <code>.c</code> files.</li>
+
+
+
+<li>FLEX relies on multiple frameworks (UIKit, CoreGraphics, QuartzCore, ImageIO, WebKit, Security, SceneKit, AVFoundation, UserNotifications), and you need to link all of them.</li>
+
+
+
+<li>Several compiler flags (<code>-Wno-deprecated-declarations</code>, <code>-Wno-strict-prototypes</code>, <code>-Wno-unsupported-availability-guard</code>) need to be turned off for a successful compilation.</li>
+</ul>
+
+
+
+<p><strong>FLEXSwiftInternal.mm Issues</strong></p>
+
+
+
+<p>I was puzzled when <code>FLEXSwiftInternal.mm</code> gave me two errors, even though it compiled successfully in Xcode. The issue was caused by two lines involving atomic types. To fix this, I removed the atomic qualifiers in the file:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>FILE=&quot;src/FLEXSwiftInternal.mm&quot;
+# Replace &quot;std::atomic&lt;mask_t&gt; _maybeMask;&quot; with &quot;mask_t _maybeMask;&quot; on line 59
+sed -i &#39;&#39; &#39;59s/std::atomic&lt;mask_t&gt; _maybeMask;/mask_t _maybeMask;/&#39; &quot;$FILE&quot;
+
+# Replace &quot;std::atomic&lt;preopt_cache_t *&gt; _originalPreoptCache;&quot; with &quot;preopt_cache_t * _originalPreoptCache;&quot; on line 65
+sed -i &#39;&#39; &#39;65s/std::atomic&lt;preopt_cache_t \*&gt; _originalPreoptCache;/preopt_cache_t \* _originalPreoptCache;/&#39; &quot;$FILE&quot;</code></pre></div>
+
+
+
+<p>After this fix, your <code>.deb</code> file will be ready!</p>
+
+
+
+<h2 class="wp-block-heading">0x4 AutoFLEX</h2>
+
+
+
+<p>I created a <a href="https://github.com/pwnless/AutoFLEX">GitHub repository </a>to automate this process. With proper GitHub actions, you&#8217;ll have the latest version of FLEX compiled whenever you need it!</p>
+
+
+
+<p>To use this <code>.deb</code> file, you&#8217;ll need to use Sideloadly or another <code>.ipa</code> editing tool to inject the <code>.deb</code> into your <code>.ipa</code> and install it on your device. This <code>.deb</code> file cannot be installed directly!</p>
+<p>The post <a href="https://hope1ess.com/2024/10/09/enhancing-ios-debugging-creating-a-custom-flex-loader-to-any-3rd-party-ios-application/">Enhancing iOS Debugging: Creating a Custom FLEX Loader to any 3rd party iOS application</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
 		<title>How to solve mysterious registry ghost problem</title>
 		<link>https://hope1ess.com/2024/09/08/how-to-solve-mysterious-registry-ghost-problem/</link>
 		
