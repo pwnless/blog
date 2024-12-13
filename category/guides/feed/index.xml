@@ -12,7 +12,7 @@
 	<atom:link href="https://hope1ess.com/category/guides/feed/" rel="self" type="application/rss+xml" />
 	<link>https://hope1ess.com/category/guides/</link>
 	<description>Pwn the life</description>
-	<lastBuildDate>Wed, 09 Oct 2024 12:18:59 +0000</lastBuildDate>
+	<lastBuildDate>Fri, 13 Dec 2024 13:51:21 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -20,6 +20,237 @@
 	1	</sy:updateFrequency>
 	<generator>https://wordpress.org/?v=6.6.2</generator>
 	<item>
+		<title>Converting Oracle Data Pump (.dmp) Files to CSV: A Practical Guide</title>
+		<link>https://hope1ess.com/2024/12/13/converting-oracle-data-pump-dmp-files-to-csv-a-practical-guide/</link>
+		
+		<dc:creator><![CDATA[rookie]]></dc:creator>
+		<pubDate>Fri, 13 Dec 2024 13:51:17 +0000</pubDate>
+				<category><![CDATA[guides]]></category>
+		<guid isPermaLink="false">https://hope1ess.com/?p=204</guid>
+
+					<description><![CDATA[<p>Recently, I needed to convert an Oracle Data Pump (.dmp) file to a CSV format. As an Oracle novice, it wasn't as straightforward as I'd hoped. So, I'm documenting my process, along with common errors I encountered, to hopefully help anyone else facing a similar challenge. Let's get started!</p>
+<p>The post <a href="https://hope1ess.com/2024/12/13/converting-oracle-data-pump-dmp-files-to-csv-a-practical-guide/">Converting Oracle Data Pump (.dmp) Files to CSV: A Practical Guide</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Recently, I needed to convert an Oracle Data Pump (<code>.dmp</code>) file to a CSV format. As an Oracle novice, it wasn&#8217;t as straightforward as I&#8217;d hoped. So, I&#8217;m documenting my process, along with common errors I encountered, to hopefully help anyone else facing a similar challenge. Let&#8217;s get started!</p>
+
+
+
+<h2 class="wp-block-heading">0x1 Setting up Oracle in Docker</h2>
+
+
+
+<p>First, I needed an Oracle database instance. Docker made this incredibly easy:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>docker run --rm -d -p 1521:1521 -e ORACLE_PASSWORD=admin123 -v /tmp/oracle:/data gvenzl/oracle-free</code></pre></div>
+
+
+
+<ul class="wp-block-list">
+<li><code>docker run</code>: Starts a new container.</li>
+
+
+
+<li><code>--rm</code>: Automatically removes the container when it stops.</li>
+
+
+
+<li><code>-d</code>: Runs the container in detached mode (in the background).</li>
+
+
+
+<li><code>-p 1521:1521</code>: Maps port 1521 on your host machine to port 1521 inside the container (Oracle&#8217;s default port).</li>
+
+
+
+<li><code>-e ORACLE_PASSWORD=admin123</code>: Sets the password for the Oracle <code>SYSTEM</code> user.</li>
+
+
+
+<li><code>-v /tmp/oracle:/data</code>: Mounts the <code>/tmp/oracle</code> directory on your host to the <code>/data</code> directory inside the container. This is crucial for data persistence and where we&#8217;ll store our import files.</li>
+
+
+
+<li><code>gvenzl/oracle-free</code>: Specifies the Oracle Docker image to use (a free developer version).</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading">0x2 Accessing the Container Shell</h2>
+
+
+
+<p>After running the Docker command, you&#8217;ll need to get inside the container:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>docker exec -it &lt;your_container_name&gt; bash</code></pre></div>
+
+
+
+<p>Replace <code>&lt;your_container_name&gt;</code> with the actual name of your container (you can find this using <code>docker ps</code>). This command opens a bash shell inside the container.</p>
+
+
+
+<h2 class="wp-block-heading">0x3. Importing the Dump File (impdp)</h2>
+
+
+
+<p>Now that we&#8217;re inside the Docker container, let&#8217;s import the <code>.dmp</code> file. Before doing so, we need to create a directory inside Oracle to store the <code>.dmp</code> file and logs. Note that your <code>.dmp</code> file should be located within the <code>/tmp/oracle</code> directory on your host machine, which is mapped to <code>/data</code> in the Docker container.</p>
+
+
+
+<p>Within the SQL environment, we start by creating a directory object:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-sql" data-lang="SQL"><code>CREATE OR REPLACE DIRECTORY dp_dir AS &#39;/data&#39;;</code></pre></div>
+
+
+
+<p>Now, we can initiate the import process:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-plain"><code>impdp system/admin123 DIRECTORY=dp_dir DUMPFILE=www.dmp LOGFILE=import_www.log</code></pre></div>
+
+
+
+<ul class="wp-block-list">
+<li><code>impdp</code>: The Oracle Data Pump import utility.</li>
+
+
+
+<li><code>system/admin123</code>: The Oracle user and password we are using to connect.</li>
+
+
+
+<li><code>DIRECTORY=dp_dir</code>: Specifies the directory object created in the previous step.</li>
+
+
+
+<li><code>DUMPFILE=www.dmp</code>: The name of the <code>.dmp</code> file to import.</li>
+
+
+
+<li><code>LOGFILE=import_www.log</code>: The name of the log file to be created during the import.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading">0x4. Handling Common Import Errors</h2>
+
+
+
+<p>During the import, I encountered some typical errors, and here&#8217;s how I resolved them:</p>
+
+
+
+<p><strong>a) Tablespace Does Not Exist:</strong></p>
+
+
+
+<pre class="wp-block-code"><code>ORA-39083: Object type TABLE:"LOL"."WTF" failed to create with error:
+ORA-00959: tablespace 'LOL' does not exist</code></pre>
+
+
+
+<p>This indicates that the tablespace defined in the dump file (<code>LOL</code> in this instance) doesn&#8217;t exist in our new database. To fix this, you&#8217;ll need to create it:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-sql" data-lang="SQL"><code>CREATE TABLESPACE LOL DATAFILE &#39;/data/tb01.dbf&#39; SIZE 100M AUTOEXTEND ON;</code></pre></div>
+
+
+
+<p><strong>b) User Does Not Exist:</strong></p>
+
+
+
+<pre class="wp-block-code"><code>ORA-39083: Object type TABLE:"LOL"."WTF" failed to create with error:
+ORA-01918: user 'LOL' does not exist</code></pre>
+
+
+
+<p>In this case, the schema owner (the user associated with objects in the dump) doesn&#8217;t exist. We need to create the user and grant them the necessary privileges:</p>
+
+
+
+<div class="hcb_wrap"><pre class="prism line-numbers lang-sql" data-lang="SQL"><code>CREATE USER LOL IDENTIFIED BY password DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp;
+GRANT READ, WRITE ON DIRECTORY dp_dir TO LOL;
+GRANT ALL PRIVILEGES TO LOL;</code></pre></div>
+
+
+
+<p><em>Remember to replace <code>password</code> with an actual password</em></p>
+
+
+
+<p><strong>c) User or role xxx does not exist:</strong></p>
+
+
+
+<p>You might encounter several errors like this:</p>
+
+
+
+<pre class="wp-block-code"><code>ORA-39083: Object type OBJECT_GRANT failed to create with error:
+ORA-01917: user or role 'BLAH' does not exist...</code></pre>
+
+
+
+<p>Technically, these errors do not need to be addressed as they do not prevent your data from being imported.</p>
+
+
+
+<h2 class="wp-block-heading">0x5. Using DBeaver to Export the Imported Data to CSV</h2>
+
+
+
+<p>After the successful import, I used <a href="https://dbeaver.io/">DBeaver</a>, a free database management tool, to examine and export the data:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Connection Details:</strong>
+<ul class="wp-block-list">
+<li><strong>Service Name:</strong> <code>FREE</code> (the name of the default service in the Docker image).</li>
+
+
+
+<li><strong>User:</strong> <code>LOL</code></li>
+
+
+
+<li><strong>Role:</strong> <code>normal</code></li>
+</ul>
+</li>
+
+
+
+<li><strong>Verifying data</strong>:<br><code>sql SELECT * FROM LOL.WTF;</code></li>
+
+
+
+<li><strong>Export data</strong>: DBeaver has an easy-to-use data export feature. Right-click on the table&#8217;s data and select &#8220;Export Data&#8221; to save the information in CSV format.</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><strong>Conclusion</strong></h2>
+
+
+
+<p>Importing Oracle <code>.dmp</code> files can be challenging, particularly with database users, roles, and tablespaces to consider. Hope you can convert your dmp to csv table successfully after reading this post.</p>
+<p>The post <a href="https://hope1ess.com/2024/12/13/converting-oracle-data-pump-dmp-files-to-csv-a-practical-guide/">Converting Oracle Data Pump (.dmp) Files to CSV: A Practical Guide</a> appeared first on <a href="https://hope1ess.com">Hopeless blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
 		<title>Enhancing iOS Debugging: Creating a Custom FLEX Loader to any 3rd party iOS application</title>
 		<link>https://hope1ess.com/2024/10/09/enhancing-ios-debugging-creating-a-custom-flex-loader-to-any-3rd-party-ios-application/</link>
 		
